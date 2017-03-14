@@ -12,11 +12,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    private TextView textName, textEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,10 +33,17 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
+        drawer.addDrawerListener(toggle);
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        textName = (TextView) headerView.findViewById(R.id.text_name);
+        textEmail = (TextView) headerView.findViewById(R.id.text_email);
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        textName.setText(user.getDisplayName());
+        textEmail.setText(user.getEmail());
+
         navigationView.setNavigationItemSelectedListener(this);
     }
 
