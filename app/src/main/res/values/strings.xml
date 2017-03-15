@@ -13,4 +13,5 @@
         <item name="Sample3">Sample Organization3</item>
         <item name="Sample4">Sample Organization4</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
 </resources>

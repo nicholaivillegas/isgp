@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_basket) {
             switchFragment(new BasketFragment());
         } else if (id == R.id.nav_map) {
-            //Todo: insert maps
+            startActivity(new Intent(MainActivity.this, MapsActivity.class));
         } else if (id == R.id.nav_feedback) {
             switchFragment(new FeedbackFragment());
         } else if (id == R.id.nav_logout) {
