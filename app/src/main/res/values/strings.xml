@@ -6,4 +6,11 @@
 
     <string name="action_settings">Settings</string>
     <string name="action_notification">Notification</string>
+
+    <string-array name="array_orginization">
+        <item name="Sample1">Sample Organization1</item>
+        <item name="Sample2">Sample Organization2</item>
+        <item name="Sample3">Sample Organization3</item>
+        <item name="Sample4">Sample Organization4</item>
+    </string-array>
 </resources>

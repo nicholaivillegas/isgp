@@ -27,6 +27,12 @@ public class FeedbackFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_feedback, container, false);
+        return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         tabLayout = (TabLayout) view.findViewById(R.id.tab_layout_feedback);
         viewPager = (ViewPager) view.findViewById(R.id.viewpager_feedback);
@@ -35,12 +41,11 @@ public class FeedbackFragment extends Fragment {
         requestFragment = new RequestFragment();
         notRequestFragment = new NotRequestFragment();
 
-        viewPagerAdapter = new ViewPagerAdapter(getFragmentManager(), viewPager, tabLayout);
+        viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), viewPager, tabLayout);
         viewPagerAdapter.addFragment(requestFragment, "REQUESTED", null);
         viewPagerAdapter.addFragment(notRequestFragment, "NOT REQUESTED", null);
         viewPagerAdapter.notifyDataSetChanged();
         viewPager.setAdapter(viewPagerAdapter);
-        viewPager.setOffscreenPageLimit(2);
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -57,7 +62,5 @@ public class FeedbackFragment extends Fragment {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
-        return view;
     }
-
 }
