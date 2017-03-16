@@ -15,20 +15,36 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.androidapp.isagip.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private TextView textName, textEmail;
+    private DatabaseReference mDatabase;
+    private DatabaseReference myRef;
+    private ChildEventListener ref;
+    private List<User> mUser;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        //Todo: insert checking
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -44,7 +60,38 @@ public class MainActivity extends AppCompatActivity
         textName.setText(user.getDisplayName());
         textEmail.setText(user.getEmail());
 
+
         navigationView.setNavigationItemSelectedListener(this);
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("users");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+
+        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot snapshot) {
+                int ctr = 0;
+                for (DataSnapshot datas : snapshot.child("users").getChildren()) {
+                    ctr++;
+                    User u = datas.getValue(User.class);
+                    if (u.getId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                        break;
+                    } else {
+                        if (ctr == snapshot.child("users").getChildrenCount()) {
+                            RegisterDialog registerDialog = new RegisterDialog();
+                            registerDialog.show(getFragmentManager(), "Register Dialog");
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     @Override
