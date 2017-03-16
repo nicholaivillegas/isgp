@@ -1,9 +1,5 @@
 package com.androidapp.isagip.model;
 
-/**
- * Created by Nico on 3/15/2017.
- */
-
 public class User {
 
     public String id;

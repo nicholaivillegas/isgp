@@ -7,10 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * Created by Nico on 3/14/2017.
- */
-
 public class RequestFragment extends Fragment {
     @Nullable
     @Override

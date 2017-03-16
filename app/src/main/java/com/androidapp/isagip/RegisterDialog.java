@@ -16,10 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-/**
- * Created by Nico on 3/15/2017.
- */
-
 public class RegisterDialog extends DialogFragment implements View.OnClickListener {
 
     private DatabaseReference mDatabase;

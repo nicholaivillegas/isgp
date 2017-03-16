@@ -11,10 +11,6 @@ import android.view.ViewGroup;
 
 import com.androidapp.isagip.adapter.ViewPagerAdapter;
 
-/**
- * Created by Nico on 3/14/2017.
- */
-
 public class FeedbackFragment extends Fragment {
 
     TabLayout tabLayout;

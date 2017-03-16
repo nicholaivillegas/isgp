@@ -15,10 +15,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
-/**
- * Created by Nico on 3/14/2017.
- */
-
 public class LostPasswordActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText editEmail;

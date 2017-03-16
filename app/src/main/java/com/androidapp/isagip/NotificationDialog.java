@@ -10,10 +10,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-/**
- * Created by Nico on 3/14/2017.
- */
-
 public class NotificationDialog extends DialogFragment{
     @Nullable
     @Override
