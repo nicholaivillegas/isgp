@@ -21,7 +21,7 @@ public class RegisterDialog extends DialogFragment implements View.OnClickListen
     private DatabaseReference mDatabase;
     private DatabaseReference myRef;
     FirebaseDatabase database;
-    EditText editTextNumber;
+    EditText editTextName, editTextNumber, editTextOrg, editTextPosition;
     DatePicker datePicker;
     Button buttonSubmit;
 
@@ -29,7 +29,10 @@ public class RegisterDialog extends DialogFragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dialog_register, container, false);
+        editTextName = (EditText) view.findViewById(R.id.edit_name);
         editTextNumber = (EditText) view.findViewById(R.id.edit_contact_number);
+        editTextOrg = (EditText) view.findViewById(R.id.edit_org);
+        editTextPosition = (EditText) view.findViewById(R.id.edit_position);
         datePicker = (DatePicker) view.findViewById(R.id.datepicker);
         buttonSubmit = (Button) view.findViewById(R.id.button_submit);
         buttonSubmit.setOnClickListener(this);
@@ -52,9 +55,16 @@ public class RegisterDialog extends DialogFragment implements View.OnClickListen
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_submit:
+//                String id, String name, String email, String number, String birthdate, String org, String position, String type, String status
                 User user = new User(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                        editTextName.getText().toString(),
                         FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                        editTextNumber.getText().toString(), makeDate(), "user");
+                        editTextNumber.getText().toString(),
+                        makeDate(),
+                        editTextOrg.getText().toString(),
+                        editTextPosition.getText().toString(),
+                        "user",
+                        "active");
                 mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
                 dismiss();
                 break;

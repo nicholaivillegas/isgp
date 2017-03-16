@@ -16,12 +16,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText inputName, inputEmail, inputPassword;
+    private EditText inputEmail, inputPassword;
     private Button btnSignIn, btnRegister;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
@@ -35,7 +33,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         btnSignIn = (Button) findViewById(R.id.button_signin);
         btnRegister = (Button) findViewById(R.id.button_register);
-        inputName = (EditText) findViewById(R.id.edit_full_name);
         inputEmail = (EditText) findViewById(R.id.edit_email);
         inputPassword = (EditText) findViewById(R.id.edit_password);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -52,14 +49,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
             case R.id.button_register:
-                final String fullName = inputName.getText().toString().trim();
                 String email = inputEmail.getText().toString().trim();
                 String password = inputPassword.getText().toString().trim();
-
-                if (TextUtils.isEmpty(fullName)) {
-                    Toast.makeText(getApplicationContext(), "Enter Name!", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
@@ -87,22 +78,8 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                     Toast.makeText(RegisterActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                                    UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                                            .setDisplayName(fullName)
-                                            .build();
-
-                                    user.updateProfile(profileUpdates)
-                                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                    }
-                                                }
-                                            });
                                     finish();
                                     startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
-
                                 }
                             }
                         });
