@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class ReliefFragment extends Fragment {
+public class ReliefFragment extends Fragment implements View.OnClickListener {
 
     @Nullable
     @Override
@@ -16,4 +16,8 @@ public class ReliefFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onClick(View v) {
+
+    }
 }

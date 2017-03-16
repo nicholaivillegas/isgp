@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:max="10"
-                android:progress="3" />
+                android:progress="9" />
 
             <CheckBox
                 android:layout_width="match_parent"
@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:max="10"
-                android:progress="3" />
+                android:progress="7" />
 
             <CheckBox
                 android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:max="10"
-                android:progress="3" />
+                android:progress="6" />
 
             <CheckBox
                 android:layout_width="match_parent"
@@ -77,11 +77,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:max="10"
-                android:progress="3" />
+                android:progress="0" />
 
             <Button
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
+                android:layout_margin="5dp"
                 android:background="@color/colorPrimary"
                 android:text="Add more"
                 android:textColor="@color/colorLight" />
@@ -95,14 +96,20 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="SHARE" />
+                    android:background="@drawable/button_selector"
+                    android:text="SHARE"
+                    android:textColor="@color/colorLight" />
 
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
                     android:layout_weight="1"
-                    android:text="SEND" />
+                    android:background="@drawable/button_selector"
+                    android:text="SEND"
+                    android:textColor="@color/colorLight" />
 
             </LinearLayout>
         </LinearLayout>
