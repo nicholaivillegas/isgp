@@ -88,16 +88,6 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/button_reset_password"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dip"
-            android:background="@drawable/button_selector"
-            android:text="FORGOT PASSWORD"
-            android:textAllCaps="false"
-            android:textColor="@color/colorLight" />
-
-        <Button
             android:id="@+id/button_signin"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

@@ -72,15 +72,21 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onDataChange(DataSnapshot snapshot) {
                 int ctr = 0;
-                for (DataSnapshot datas : snapshot.child("users").getChildren()) {
-                    ctr++;
-                    User u = datas.getValue(User.class);
-                    if (u.getId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-                        break;
-                    } else {
-                        if (ctr == snapshot.child("users").getChildrenCount()) {
-                            RegisterDialog registerDialog = new RegisterDialog();
-                            registerDialog.show(getFragmentManager(), "Register Dialog");
+                if (snapshot.child("users").getChildrenCount() == 0) {
+                    RegisterDialog registerDialog = new RegisterDialog();
+                    registerDialog.show(getFragmentManager(), "Register Dialog");
+                } else {
+                    for (DataSnapshot datas : snapshot.child("users").getChildren()) {
+                        ctr++;
+
+                        User u = datas.getValue(User.class);
+                        if (u.getId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
+                            break;
+                        } else {
+                            if (ctr == snapshot.child("users").getChildrenCount()) {
+                                RegisterDialog registerDialog = new RegisterDialog();
+                                registerDialog.show(getFragmentManager(), "Register Dialog");
+                            }
                         }
                     }
                 }

@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
             android:hint="Contact Number"
-            android:inputType="textEmailAddress"
+            android:inputType="number"
             android:textColor="@color/colorPrimaryDark"
             android:textColorHint="@color/colorAccent" />
     </android.support.design.widget.TextInputLayout>

@@ -22,7 +22,7 @@ import com.google.firebase.auth.UserProfileChangeRequest;
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener {
 
     private EditText inputName, inputEmail, inputPassword;
-    private Button btnSignIn, btnRegister, btnResetPassword;
+    private Button btnSignIn, btnRegister;
     private ProgressBar progressBar;
     private FirebaseAuth auth;
 
@@ -35,7 +35,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         btnSignIn = (Button) findViewById(R.id.button_signin);
         btnRegister = (Button) findViewById(R.id.button_register);
-        btnResetPassword = (Button) findViewById(R.id.button_reset_password);
         inputName = (EditText) findViewById(R.id.edit_full_name);
         inputEmail = (EditText) findViewById(R.id.edit_email);
         inputPassword = (EditText) findViewById(R.id.edit_password);
@@ -43,7 +42,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
         btnSignIn.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
-        btnResetPassword.setOnClickListener(this);
 
     }
 
@@ -52,9 +50,6 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         switch (v.getId()) {
             case R.id.button_signin:
                 finish();
-                break;
-            case R.id.button_reset_password:
-                startActivity(new Intent(this, LostPasswordActivity.class));
                 break;
             case R.id.button_register:
                 final String fullName = inputName.getText().toString().trim();
