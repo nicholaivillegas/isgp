@@ -7,6 +7,7 @@ package com.androidapp.isagip.model;
 public class Request {
 
     public String email;
+    public String date;
     public String barangay;
     public String city;
     public String food;
@@ -18,8 +19,9 @@ public class Request {
 
     }
 
-    public Request(String email, String barangay, String city, String food, String water, String medicine, String others) {
+    public Request(String email,String date, String barangay, String city, String food, String water, String medicine, String others) {
         this.email = email;
+        this.date = date;
         this.barangay = barangay;
         this.city = city;
         this.food = food;
@@ -34,6 +36,14 @@ public class Request {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public String getBarangay() {

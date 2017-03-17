@@ -18,6 +18,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.DateFormat;
+import java.util.Date;
+
 public class ReliefFragment extends Fragment implements View.OnClickListener {
 
     EditText editBarangay, editCity, editOthers;
@@ -137,7 +140,8 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                 if (city.equals("")) {
                     Toast.makeText(getContext(), "Please indicate the city", Toast.LENGTH_SHORT).show();
                 } else {
-                    Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getEmail(), barangay, city, foodRate, waterRate, medicineRate, others + ": " + othersRate);
+                    String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+                    Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getEmail(), currentDateTimeString, barangay, city, foodRate, waterRate, medicineRate, others + ": " + othersRate);
                     mDatabase.child("request").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(request);
                 }
                 break;
@@ -146,4 +150,6 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
+
 }
