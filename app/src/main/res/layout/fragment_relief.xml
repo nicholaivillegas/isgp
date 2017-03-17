@@ -14,78 +14,100 @@
             android:orientation="vertical"
             android:padding="10dp">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <EditText
+                    android:id="@+id/edit_barangay"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:hint="Barangay" />
+
+                <EditText
+                    android:id="@+id/edit_city"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:hint="City" />
+
+            </LinearLayout>
+
             <CheckBox
+                android:id="@+id/check_food"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Food"
                 android:textSize="24sp" />
 
             <SeekBar
-                android:id="@+id/seekBar"
+                android:id="@+id/seekbar_food"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:max="10"
-                android:progress="9" />
+                android:progress="2" />
 
             <CheckBox
+                android:id="@+id/check_water"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Water"
                 android:textSize="24sp" />
 
             <SeekBar
-                android:id="@+id/seekBar1"
+                android:id="@+id/seekbar_water"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:max="10"
-                android:progress="7" />
+                android:progress="2" />
 
             <CheckBox
+                android:id="@+id/check_medicine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Medicine"
                 android:textSize="24sp" />
 
             <SeekBar
-                android:id="@+id/seekBar2"
+                android:id="@+id/seekbar_medicine"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:max="10"
-                android:progress="6" />
+                android:progress="2" />
 
             <CheckBox
+                android:id="@+id/check_others"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Others"
                 android:textSize="24sp" />
 
             <EditText
+                android:id="@+id/edit_others"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp" />
 
             <SeekBar
-                android:id="@+id/seekBar3"
+                android:id="@+id/seekbar_others"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
                 android:max="10"
-                android:progress="0" />
+                android:progress="2" />
 
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_margin="5dp"
-                android:background="@color/colorPrimary"
-                android:text="Add more"
-                android:textColor="@color/colorLight" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -94,6 +116,7 @@
                 android:gravity="bottom">
 
                 <Button
+                    android:id="@+id/button_share"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
@@ -103,6 +126,7 @@
                     android:textColor="@color/colorLight" />
 
                 <Button
+                    android:id="@+id/button_send"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
