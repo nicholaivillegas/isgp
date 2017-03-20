@@ -15,18 +15,13 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.androidapp.isagip.model.User;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -116,40 +111,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         switch (v.getId()) {
             case R.id.btn_login:
                 progress.setVisibility(View.VISIBLE);
-                mDatabase = FirebaseDatabase.getInstance().getReference();
-
-                mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot snapshot) {
-                        int ctr = 0;
-                        if (snapshot.child("users").getChildrenCount() == 0) {
-                            Toast.makeText(LoginActivity.this, "Sign Up now", Toast.LENGTH_SHORT).show();
-                        } else {
-                            for (DataSnapshot datas : snapshot.child("users").getChildren()) {
-                                ctr++;
-
-                                User u = datas.getValue(User.class);
-                                if (u.getType().equals("user") && u.getEmail().equals(edittEmail.getText().toString())) {
-                                    logIn(edittEmail.getText().toString(), edittPassword.getText().toString());
-                                    break;
-                                } else if (!u.getType().equals("user") && u.getEmail().equals(edittEmail.getText().toString())) {
-                                    Toast.makeText(LoginActivity.this, "This user is an administrator", Toast.LENGTH_SHORT).show();
-                                    break;
-                                } else {
-                                    if (ctr == snapshot.child("users").getChildrenCount()) {
-                                        Toast.makeText(LoginActivity.this, "Please Sign Up to use ISagip", Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-
-                    }
-                });
+                logIn(edittEmail.getText().toString(), edittPassword.getText().toString());
                 break;
             case R.id.btn_signup:
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
@@ -199,7 +161,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                         }
                     }
                 });
-
     }
 
     public static boolean isEmail(String target) {
