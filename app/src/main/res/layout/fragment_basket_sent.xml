@@ -21,7 +21,13 @@
                 android:text="Water Received from sample organization"
                 android:textSize="24sp" />
 
-
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:text="03/14/17 3:14PM"
+                android:textSize="14sp"
+                android:textStyle="italic" />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>
