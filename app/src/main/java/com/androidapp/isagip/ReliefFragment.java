@@ -11,7 +11,6 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.androidapp.isagip.model.Request;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,8 +35,6 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_relief, container, false);
 
-        editBarangay = (EditText) view.findViewById(R.id.edit_barangay);
-        editCity = (EditText) view.findViewById(R.id.edit_city);
         editOthers = (EditText) view.findViewById(R.id.edit_others);
         seekFood = (SeekBar) view.findViewById(R.id.seekbar_food);
         seekWater = (SeekBar) view.findViewById(R.id.seekbar_water);
@@ -114,8 +111,6 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.button_send:
 
-                String barangay = editBarangay.getText().toString();
-                String city = editCity.getText().toString();
                 boolean isFood = checkFood.isChecked();
                 String foodRate = String.valueOf(seekFood.getProgress());
                 boolean isWater = checkWater.isChecked();
@@ -136,12 +131,9 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                 }
                 if (!isOthers) {
                     othersRate = "not requested";
-                }
-                if (city.equals("")) {
-                    Toast.makeText(getContext(), "Please indicate the city", Toast.LENGTH_SHORT).show();
                 } else {
                     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-                    Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getEmail(), currentDateTimeString, barangay, city, foodRate, waterRate, medicineRate, others + ": " + othersRate);
+                    Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getEmail(), currentDateTimeString, "n/a", "n/a", foodRate, waterRate, medicineRate, others + ": " + othersRate);
                     mDatabase.child("request").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(request);
                 }
                 break;

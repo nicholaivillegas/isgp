@@ -21,7 +21,7 @@ public class RegisterDialog extends DialogFragment implements View.OnClickListen
     private DatabaseReference mDatabase;
     private DatabaseReference myRef;
     FirebaseDatabase database;
-    EditText editTextName, editTextNumber, editTextOrg, editTextPosition;
+    EditText editTextName, editTextNumber;
     DatePicker datePicker;
     Button buttonSubmit;
 
@@ -31,8 +31,6 @@ public class RegisterDialog extends DialogFragment implements View.OnClickListen
         View view = inflater.inflate(R.layout.dialog_register, container, false);
         editTextName = (EditText) view.findViewById(R.id.edit_name);
         editTextNumber = (EditText) view.findViewById(R.id.edit_contact_number);
-        editTextOrg = (EditText) view.findViewById(R.id.edit_org);
-        editTextPosition = (EditText) view.findViewById(R.id.edit_position);
         datePicker = (DatePicker) view.findViewById(R.id.datepicker);
         buttonSubmit = (Button) view.findViewById(R.id.button_submit);
         buttonSubmit.setOnClickListener(this);
@@ -61,8 +59,8 @@ public class RegisterDialog extends DialogFragment implements View.OnClickListen
                         FirebaseAuth.getInstance().getCurrentUser().getEmail(),
                         editTextNumber.getText().toString(),
                         makeDate(),
-                        editTextOrg.getText().toString(),
-                        editTextPosition.getText().toString(),
+                        "n/a",
+                        "n/a",
                         "user",
                         "active");
                 mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);

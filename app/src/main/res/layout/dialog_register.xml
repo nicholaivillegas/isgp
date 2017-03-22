@@ -58,40 +58,6 @@
             android:calendarViewShown="false"
             android:datePickerMode="spinner" />
 
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_org"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/colorAccent">
-
-            <EditText
-                android:id="@+id/edit_org"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="Organization"
-                android:inputType="textCapSentences"
-                android:textColor="@color/colorPrimaryDark"
-                android:textColorHint="@color/colorAccent" />
-        </android.support.design.widget.TextInputLayout>
-
-        <android.support.design.widget.TextInputLayout
-            android:id="@+id/til_position"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColorHint="@color/colorAccent">
-
-            <EditText
-                android:id="@+id/edit_position"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="Postion"
-                android:inputType="textCapSentences"
-                android:textColor="@color/colorPrimaryDark"
-                android:textColorHint="@color/colorAccent" />
-        </android.support.design.widget.TextInputLayout>
-
 
         <Button
             android:id="@+id/button_submit"
