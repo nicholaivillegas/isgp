@@ -11,7 +11,7 @@ public class Request {
     public String barangay;
     public String city;
     public String food;
-    public String water;
+    public String clothes;
     public String medicine;
     public String others;
 
@@ -19,13 +19,13 @@ public class Request {
 
     }
 
-    public Request(String email,String date, String barangay, String city, String food, String water, String medicine, String others) {
+    public Request(String email,String date, String barangay, String city, String food, String clothes, String medicine, String others) {
         this.email = email;
         this.date = date;
         this.barangay = barangay;
         this.city = city;
         this.food = food;
-        this.water = water;
+        this.clothes = clothes;
         this.medicine = medicine;
         this.others = others;
     }
@@ -70,12 +70,12 @@ public class Request {
         this.food = food;
     }
 
-    public String getWater() {
-        return water;
+    public String getClothes() {
+        return clothes;
     }
 
-    public void setWater(String water) {
-        this.water = water;
+    public void setClothes(String clothes) {
+        this.clothes = clothes;
     }
 
     public String getMedicine() {

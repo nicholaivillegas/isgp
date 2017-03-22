@@ -22,13 +22,12 @@ import java.util.Date;
 
 public class ReliefFragment extends Fragment implements View.OnClickListener {
 
-    EditText editBarangay, editCity, editOthers;
-    SeekBar seekFood, seekWater, seekMedicine, seekOthers;
-    CheckBox checkFood, checkWater, checkMedicine, checkOthers;
+    EditText editOthers;
+    SeekBar seekFood, seekClothes, seekMedicine, seekOthers;
+    CheckBox checkFood, checkClothes, checkMedicine, checkOthers;
     Button buttonSend, buttonShare;
     private DatabaseReference mDatabase;
     private DatabaseReference myRef;
-    FirebaseDatabase database;
 
     @Nullable
     @Override
@@ -37,18 +36,18 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
 
         editOthers = (EditText) view.findViewById(R.id.edit_others);
         seekFood = (SeekBar) view.findViewById(R.id.seekbar_food);
-        seekWater = (SeekBar) view.findViewById(R.id.seekbar_water);
+        seekClothes = (SeekBar) view.findViewById(R.id.seekbar_clothes);
         seekMedicine = (SeekBar) view.findViewById(R.id.seekbar_medicine);
         seekOthers = (SeekBar) view.findViewById(R.id.seekbar_others);
         checkFood = (CheckBox) view.findViewById(R.id.check_food);
-        checkWater = (CheckBox) view.findViewById(R.id.check_water);
+        checkClothes = (CheckBox) view.findViewById(R.id.check_clothes);
         checkMedicine = (CheckBox) view.findViewById(R.id.check_medicine);
         checkOthers = (CheckBox) view.findViewById(R.id.check_others);
         buttonSend = (Button) view.findViewById(R.id.button_send);
         buttonShare = (Button) view.findViewById(R.id.button_share);
 
         seekFood.setEnabled(false);
-        seekWater.setEnabled(false);
+        seekClothes.setEnabled(false);
         seekMedicine.setEnabled(false);
         seekOthers.setEnabled(false);
         editOthers.setEnabled(false);
@@ -70,13 +69,13 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                 }
             }
         });
-        checkWater.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        checkClothes.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
-                    seekWater.setEnabled(false);
+                    seekClothes.setEnabled(false);
                 } else {
-                    seekWater.setEnabled(true);
+                    seekClothes.setEnabled(true);
                 }
             }
         });
@@ -113,8 +112,8 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
 
                 boolean isFood = checkFood.isChecked();
                 String foodRate = String.valueOf(seekFood.getProgress());
-                boolean isWater = checkWater.isChecked();
-                String waterRate = String.valueOf(seekWater.getProgress());
+                boolean isClothes = checkClothes.isChecked();
+                String waterRate = String.valueOf(seekClothes.getProgress());
                 boolean isMedicine = checkMedicine.isChecked();
                 String medicineRate = String.valueOf(seekMedicine.getProgress());
                 boolean isOthers = checkOthers.isChecked();
@@ -123,7 +122,7 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                 if (!isFood) {
                     foodRate = "not requested";
                 }
-                if (!isWater) {
+                if (!isClothes) {
                     waterRate = "not requested";
                 }
                 if (!isMedicine) {
