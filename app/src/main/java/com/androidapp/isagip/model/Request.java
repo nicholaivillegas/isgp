@@ -8,8 +8,7 @@ public class Request {
 
     public String email;
     public String date;
-    public String barangay;
-    public String city;
+    public String location;
     public String food;
     public String clothes;
     public String medicine;
@@ -19,11 +18,10 @@ public class Request {
 
     }
 
-    public Request(String email,String date, String barangay, String city, String food, String clothes, String medicine, String others) {
+    public Request(String email, String date, String location, String food, String clothes, String medicine, String others) {
         this.email = email;
         this.date = date;
-        this.barangay = barangay;
-        this.city = city;
+        this.location = location;
         this.food = food;
         this.clothes = clothes;
         this.medicine = medicine;
@@ -46,20 +44,12 @@ public class Request {
         this.date = date;
     }
 
-    public String getBarangay() {
-        return barangay;
+    public String getLocation() {
+        return location;
     }
 
-    public void setBarangay(String barangay) {
-        this.barangay = barangay;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public String getFood() {

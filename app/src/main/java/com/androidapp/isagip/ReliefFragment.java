@@ -1,5 +1,7 @@
 package com.androidapp.isagip;
 
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -17,8 +19,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class ReliefFragment extends Fragment implements View.OnClickListener {
 
@@ -28,6 +33,10 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
     Button buttonSend, buttonShare;
     private DatabaseReference mDatabase;
     private DatabaseReference myRef;
+    double latitude;
+    double longitude;
+    List<Address> addresses;
+
 
     @Nullable
     @Override
@@ -102,7 +111,16 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
             }
         });
 
+
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        latitude = this.getArguments().getDouble("lat");
+        longitude = this.getArguments().getDouble("long");
+        getLocation();
     }
 
     @Override
@@ -132,7 +150,7 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                     othersRate = "not requested";
                 } else {
                     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-                    Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getEmail(), currentDateTimeString, "n/a", "n/a", foodRate, waterRate, medicineRate, others + ": " + othersRate);
+                    Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getEmail(), currentDateTimeString, addresses.get(0).getAddressLine(0), foodRate, waterRate, medicineRate, others + ": " + othersRate);
                     mDatabase.child("request").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(request);
                 }
                 break;
@@ -141,6 +159,24 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+    public void getLocation() {
+        Geocoder geocoder;
+
+        geocoder = new Geocoder(this.getContext(), Locale.getDefault());
 
 
+        try {
+            addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
+            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
+            String city = addresses.get(0).getLocality();
+            String state = addresses.get(0).getAdminArea();
+            String country = addresses.get(0).getCountryName();
+            String postalCode = addresses.get(0).getPostalCode();
+            String knownName = addresses.get(0).getFeatureName();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+    }
 }
