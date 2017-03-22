@@ -1,10 +1,13 @@
 package com.androidapp.isagip;
 
+import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,7 +45,8 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_relief, container, false);
-
+        requestFineLocation();
+        requestCoarseLocation();
         editOthers = (EditText) view.findViewById(R.id.edit_others);
         seekFood = (SeekBar) view.findViewById(R.id.seekbar_food);
         seekClothes = (SeekBar) view.findViewById(R.id.seekbar_clothes);
@@ -149,6 +153,7 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                 if (!isOthers) {
                     othersRate = "not requested";
                 } else {
+
                     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                     Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getEmail(), currentDateTimeString, addresses.get(0).getAddressLine(0), foodRate, waterRate, medicineRate, others + ": " + othersRate);
                     mDatabase.child("request").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(request);
@@ -159,6 +164,7 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                 break;
         }
     }
+
     public void getLocation() {
         Geocoder geocoder;
 
@@ -178,5 +184,27 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
         }
 
 
+    }
+
+    public void requestFineLocation() {
+        if (ContextCompat.checkSelfPermission(this.getActivity(),
+                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this.getActivity(),
+                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    1);
+        }
+    }
+
+    public void requestCoarseLocation() {
+        if (ContextCompat.checkSelfPermission(this.getActivity(),
+                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            ActivityCompat.requestPermissions(this.getActivity(),
+                    new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    1);
+        }
     }
 }
