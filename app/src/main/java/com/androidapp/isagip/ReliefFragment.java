@@ -45,8 +45,7 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_relief, container, false);
-        requestFineLocation();
-        requestCoarseLocation();
+
         editOthers = (EditText) view.findViewById(R.id.edit_others);
         seekFood = (SeekBar) view.findViewById(R.id.seekbar_food);
         seekClothes = (SeekBar) view.findViewById(R.id.seekbar_clothes);
@@ -115,13 +114,14 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
             }
         });
 
-
         return view;
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        requestFineLocation();
+        requestCoarseLocation();
         latitude = this.getArguments().getDouble("lat");
         longitude = this.getArguments().getDouble("long");
         getLocation();
@@ -149,13 +149,10 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                 }
                 if (!isMedicine) {
                     medicineRate = "not requested";
-                }
-                if (!isOthers) {
-                    othersRate = "not requested";
                 } else {
 
                     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-                    Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getEmail(), currentDateTimeString, addresses.get(0).getAddressLine(0), foodRate, waterRate, medicineRate, others + ": " + othersRate);
+                    Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getEmail(), currentDateTimeString, addresses.get(0).getCountryName() + ", " + addresses.get(0).getAddressLine(0) + "  " + addresses.get(0).getLocality(), foodRate, waterRate, medicineRate, others + ": " + othersRate);
                     mDatabase.child("request").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(request);
                 }
                 break;
@@ -167,18 +164,9 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
 
     public void getLocation() {
         Geocoder geocoder;
-
         geocoder = new Geocoder(this.getContext(), Locale.getDefault());
-
-
         try {
             addresses = geocoder.getFromLocation(latitude, longitude, 1); // Here 1 represent max location result to returned, by documents it recommended 1 to 5
-            String address = addresses.get(0).getAddressLine(0); // If any additional address line present than only, check with max available address lines by getMaxAddressLineIndex()
-            String city = addresses.get(0).getLocality();
-            String state = addresses.get(0).getAdminArea();
-            String country = addresses.get(0).getCountryName();
-            String postalCode = addresses.get(0).getPostalCode();
-            String knownName = addresses.get(0).getFeatureName();
         } catch (IOException e) {
             e.printStackTrace();
         }
