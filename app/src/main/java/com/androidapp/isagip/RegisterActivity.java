@@ -1,6 +1,7 @@
 package com.androidapp.isagip;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -135,15 +137,20 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         });
                 break;
             case R.id.imgbutton_add_member:
-                binder.linearlayoutRegisterContainer.clearFocus();
+
                 dialog.show();
+                binder.linearlayoutRegisterContainer.clearFocus();
                 break;
         }
     }
 
     @Override
     public void onItemChange() {
-
+        View view = this.getCurrentFocus();
+        if (view != null) {
+            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        }
         if (adapter.getItemCount() > 0){
             binder.tvLabel.setText("Members : ".concat(String.valueOf(adapter.getItemCount())));
             binder.textviewEmptyList.setVisibility(View.GONE);
