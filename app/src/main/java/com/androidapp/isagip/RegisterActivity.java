@@ -13,6 +13,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
@@ -22,12 +23,18 @@ import android.widget.Toast;
 import com.androidapp.isagip.adapter.MemberListAdapter;
 import com.androidapp.isagip.databinding.ActivityRegisterBinding;
 import com.androidapp.isagip.databinding.DialogAddMemberBinding;
+import com.androidapp.isagip.databinding.DialogDatePickerBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class RegisterActivity extends AppCompatActivity implements View.OnClickListener, MemberListAdapter.iMemberList {
 
@@ -37,6 +44,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
     private FirebaseAuth auth;
     private ActivityRegisterBinding binder;
     private Dialog dialog;
+    private Dialog dialog2;
     private MemberListAdapter adapter;
 
     @Override
@@ -54,15 +62,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         binder.imgbuttonAddMember.setOnClickListener(this);
+        binder.editBirthday.setOnClickListener(this);
         btnSignIn.setOnClickListener(this);
         btnRegister.setOnClickListener(this);
 
         initDialogAdd();
+        initDialogDate();
 
         adapter = new MemberListAdapter(this);
         binder.recyclerviewMemberList.setAdapter(adapter);
         binder.recyclerviewMemberList.setLayoutManager(new LinearLayoutManager(this));
-
+        getWindow().setSoftInputMode(
+                WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+        );
     }
 
     public void initDialogAdd() {
@@ -94,6 +106,42 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
         dialog.setTitle("Add Member");
     }
 
+    public void initDialogDate() {
+        final SimpleDateFormat format = new SimpleDateFormat("MM/dd/yyyy", Locale.getDefault());
+        final Calendar bdate = Calendar.getInstance();
+        if (binder.editBirthday.getText().length() > 0){
+            try {
+                bdate.setTime(format.parse(binder.editBirthday.getText().toString()));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        dialog2 = new Dialog(this);
+        final DialogDatePickerBinding dialogBinding = DataBindingUtil.inflate(
+                LayoutInflater.from(this),
+                R.layout.dialog_date_picker,
+                (ViewGroup) binder.getRoot(),
+                false
+        );
+        dialog2.setContentView(dialogBinding.getRoot());
+        dialog2.setTitle("Date picker");
+        dialogBinding.datepickerBirthday.updateDate(
+                bdate.get(Calendar.YEAR),
+                bdate.get(Calendar.MONTH),
+                bdate.get(Calendar.DAY_OF_MONTH)
+        );
+        dialogBinding.buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                bdate.set(Calendar.YEAR,dialogBinding.datepickerBirthday.getYear());
+                bdate.set(Calendar.MONTH,dialogBinding.datepickerBirthday.getMonth());
+                bdate.set(Calendar.DAY_OF_MONTH,dialogBinding.datepickerBirthday.getDayOfMonth());
+                binder.editBirthday.setText(format.format(bdate.getTime()));
+                dialog2.hide();
+            }
+        });
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -106,17 +154,17 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
 
                 if (TextUtils.isEmpty(email)) {
                     Toast.makeText(getApplicationContext(), "Enter email address!", Toast.LENGTH_SHORT).show();
-                    return;
+                    break;
                 }
 
                 if (TextUtils.isEmpty(password)) {
                     Toast.makeText(getApplicationContext(), "Enter password!", Toast.LENGTH_SHORT).show();
-                    return;
+                    break;
                 }
 
                 if (password.length() < 6) {
                     Toast.makeText(getApplicationContext(), "Password too short, enter minimum 6 characters!", Toast.LENGTH_SHORT).show();
-                    return;
+                    break;
                 }
 
                 progressBar.setVisibility(View.VISIBLE);
@@ -127,7 +175,7 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                                 Toast.makeText(RegisterActivity.this, "createUserWithEmail:onComplete:" + task.isSuccessful(), Toast.LENGTH_SHORT).show();
                                 progressBar.setVisibility(View.GONE);
                                 if (!task.isSuccessful()) {
-                                    Toast.makeText(RegisterActivity.this, "Authentication failed." + task.getException(),
+                                    Toast.makeText(RegisterActivity.this, "Authentication failed. " + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
                                     finish();
@@ -137,20 +185,19 @@ public class RegisterActivity extends AppCompatActivity implements View.OnClickL
                         });
                 break;
             case R.id.imgbutton_add_member:
-
-                dialog.show();
                 binder.linearlayoutRegisterContainer.clearFocus();
+                dialog.show();
+
+                break;
+            case R.id.edit_birthday:
+                binder.linearlayoutRegisterContainer.clearFocus();
+                dialog2.show();
                 break;
         }
     }
 
     @Override
     public void onItemChange() {
-        View view = this.getCurrentFocus();
-        if (view != null) {
-            InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-            imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
-        }
         if (adapter.getItemCount() > 0){
             binder.tvLabel.setText("Members : ".concat(String.valueOf(adapter.getItemCount())));
             binder.textviewEmptyList.setVisibility(View.GONE);
