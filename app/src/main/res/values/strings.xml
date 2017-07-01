@@ -16,4 +16,5 @@
     <string name="title_activity_maps">Map</string>
 
     <string name="facebook_app_id">627306530798817</string>
+    <string name="firebaseui_status_fmt">Firebase User: %s</string>
 </resources>
