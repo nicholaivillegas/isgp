@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.androidapp.isagip.model.User;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -23,6 +26,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DatabaseReference;
 
 import java.util.concurrent.TimeUnit;
 
@@ -54,20 +58,30 @@ public class LoginActivity extends AppCompatActivity implements
 
     private TextView mStatusText;
     private TextView mDetailText;
+    private TextView mBirthdayLabel;
 
     private EditText mPhoneNumberField;
     private EditText mVerificationField;
+    private EditText mFirstName;
+    private EditText mLastName;
+    private EditText mEmail;
 
     private Button mStartButton;
     private Button mVerifyButton;
     private Button mResendButton;
     private Button mSignOutButton;
+    private Button mSubmit;
+
+    private DatePicker mDatepicker;
+
+    private DatabaseReference mDatabase;
+
+    private PhoneAuthCredential mCredential;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
         // Restore instance state
         if (savedInstanceState != null) {
             onRestoreInstanceState(savedInstanceState);
@@ -79,20 +93,30 @@ public class LoginActivity extends AppCompatActivity implements
 
         mStatusText = (TextView) findViewById(R.id.status);
         mDetailText = (TextView) findViewById(R.id.detail);
+        mBirthdayLabel = (TextView) findViewById(R.id.text_birthday_label);
 
         mPhoneNumberField = (EditText) findViewById(R.id.edit_phone_number);
         mVerificationField = (EditText) findViewById(R.id.edit_verification_code);
+        mFirstName = (EditText) findViewById(R.id.edit_first_name);
+        mLastName = (EditText) findViewById(R.id.edit_last_name);
+        mEmail = (EditText) findViewById(R.id.edit_email);
 
         mStartButton = (Button) findViewById(R.id.button_start_verification);
         mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
         mResendButton = (Button) findViewById(R.id.button_resend);
         mSignOutButton = (Button) findViewById(R.id.sign_out_button);
+        mSubmit = (Button) findViewById(R.id.buttom_submit);
+
+        mDatepicker = (DatePicker) findViewById(R.id.datepicker);
 
         // Assign click listeners
         mStartButton.setOnClickListener(this);
         mVerifyButton.setOnClickListener(this);
         mResendButton.setOnClickListener(this);
         mSignOutButton.setOnClickListener(this);
+        mSubmit.setOnClickListener(this);
+
+        showPhoneRegistrationFields();
 
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
@@ -110,6 +134,7 @@ public class LoginActivity extends AppCompatActivity implements
                 // 2 - Auto-retrieval. On some devices Google Play services can automatically
                 //     detect the incoming verification SMS and perform verificaiton without
                 //     user action.
+                mCredential = credential;
                 Log.d(TAG, "onVerificationCompleted:" + credential);
                 // [START_EXCLUDE silent]
                 mVerificationInProgress = false;
@@ -118,8 +143,9 @@ public class LoginActivity extends AppCompatActivity implements
                 // [START_EXCLUDE silent]
                 // Update the UI and attempt sign in with the phone credential
                 updateUI(STATE_VERIFY_SUCCESS, credential);
-                // [END_EXCLUDE]
-                signInWithPhoneAuthCredential(credential);
+                //saveProfile()
+                Toast.makeText(LoginActivity.this, "PHONE NUMBER VERIFIED", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
@@ -169,6 +195,57 @@ public class LoginActivity extends AppCompatActivity implements
             }
         };
         // [END phone_auth_callbacks]
+    }
+
+    private void hidePhoneRegistrationFields() {
+        mPhoneNumberField.setVisibility(View.GONE);
+        mStartButton.setVisibility(View.GONE);
+        mResendButton.setVisibility(View.GONE);
+        mVerifyButton.setVisibility(View.GONE);
+        mSignOutButton.setVisibility(View.GONE);
+        mVerificationField.setVisibility(View.GONE);
+
+        mFirstName.setVisibility(View.VISIBLE);
+        mLastName.setVisibility(View.VISIBLE);
+        mEmail.setVisibility(View.VISIBLE);
+        mBirthdayLabel.setVisibility(View.VISIBLE);
+        mDatepicker.setVisibility(View.VISIBLE);
+        mSubmit.setVisibility(View.VISIBLE);
+    }
+
+    private void showPhoneRegistrationFields() {
+        mPhoneNumberField.setVisibility(View.VISIBLE);
+        mStartButton.setVisibility(View.VISIBLE);
+        mResendButton.setVisibility(View.VISIBLE);
+        mVerifyButton.setVisibility(View.VISIBLE);
+        mSignOutButton.setVisibility(View.VISIBLE);
+        mVerificationField.setVisibility(View.VISIBLE);
+
+        mFirstName.setVisibility(View.GONE);
+        mLastName.setVisibility(View.GONE);
+        mEmail.setVisibility(View.GONE);
+        mBirthdayLabel.setVisibility(View.GONE);
+        mDatepicker.setVisibility(View.GONE);
+        mSubmit.setVisibility(View.GONE);
+    }
+
+    //save profile to database
+    private void saveProfile() {
+        String mName = mFirstName.getText().toString() + " " + mLastName.getText().toString();
+        User user = new User(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(),
+                mName,
+                mEmail.getText().toString(),
+                FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(),
+                makeDate(),
+                "n/a",
+                "n/a",
+                "user",
+                "active");
+        mDatabase.child("users").child("TEST").setValue(user);
+    }
+
+    public String makeDate() {
+        return String.valueOf(mDatepicker.getMonth()) + "-" + String.valueOf(mDatepicker.getDayOfMonth()) + "-" + String.valueOf(mDatepicker.getYear());
     }
 
     // [START on_start_check_user]
@@ -246,9 +323,12 @@ public class LoginActivity extends AppCompatActivity implements
                             FirebaseUser user = task.getResult().getUser();
                             // [START_EXCLUDE]
                             updateUI(STATE_SIGNIN_SUCCESS, user);
-                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                            startActivity(i);
+                            //saveProfile()
+                            Toast.makeText(LoginActivity.this, "PHONE NUMBER VERIFIED", Toast.LENGTH_SHORT).show();
+                            hidePhoneRegistrationFields();
+//                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+//                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                            startActivity(i);
                             // [END_EXCLUDE]
                         } else {
                             // Sign in failed, display a message and update the UI
@@ -350,8 +430,8 @@ public class LoginActivity extends AppCompatActivity implements
             mStatusText.setText("Signed Out");
         } else {
             // Signed in
-            mPhoneNumberViews.setVisibility(View.GONE);
-            mSignedInViews.setVisibility(View.VISIBLE);
+//            mPhoneNumberViews.setVisibility(View.GONE);
+//            mSignedInViews.setVisibility(View.VISIBLE);
 
             enableViews(mPhoneNumberField, mVerificationField);
             mPhoneNumberField.setText(null);
@@ -405,6 +485,12 @@ public class LoginActivity extends AppCompatActivity implements
                 break;
             case R.id.button_resend:
                 resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);
+                break;
+            case R.id.buttom_submit:
+//                saveProfile();
+                Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(i);
                 break;
             case R.id.sign_out_button:
                 signOut();
