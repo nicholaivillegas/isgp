@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.text.AlteredCharSequence;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -27,7 +28,14 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 public class LoginActivity extends AppCompatActivity implements
@@ -78,6 +86,8 @@ public class LoginActivity extends AppCompatActivity implements
 
     private PhoneAuthCredential mCredential;
 
+    private String mMobileNumber;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,7 +118,7 @@ public class LoginActivity extends AppCompatActivity implements
         mSubmit = (Button) findViewById(R.id.buttom_submit);
 
         mDatepicker = (DatePicker) findViewById(R.id.datepicker);
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         // Assign click listeners
         mStartButton.setOnClickListener(this);
         mVerifyButton.setOnClickListener(this);
@@ -144,8 +154,9 @@ public class LoginActivity extends AppCompatActivity implements
                 // Update the UI and attempt sign in with the phone credential
                 updateUI(STATE_VERIFY_SUCCESS, credential);
                 //saveProfile()
-                Toast.makeText(LoginActivity.this, "PHONE NUMBER VERIFIED", Toast.LENGTH_SHORT).show();
-
+                signInWithPhoneAuthCredential(mCredential);
+                Toast.makeText(LoginActivity.this, "PHONE NUMBER VERIFIED!", Toast.LENGTH_SHORT).show();
+                hidePhoneRegistrationFields();
             }
 
             @Override
@@ -197,7 +208,9 @@ public class LoginActivity extends AppCompatActivity implements
         // [END phone_auth_callbacks]
     }
 
+
     private void hidePhoneRegistrationFields() {
+        mMobileNumber = mPhoneNumberField.getText().toString();
         mPhoneNumberField.setVisibility(View.GONE);
         mStartButton.setVisibility(View.GONE);
         mResendButton.setVisibility(View.GONE);
@@ -211,6 +224,8 @@ public class LoginActivity extends AppCompatActivity implements
         mBirthdayLabel.setVisibility(View.VISIBLE);
         mDatepicker.setVisibility(View.VISIBLE);
         mSubmit.setVisibility(View.VISIBLE);
+
+
     }
 
     private void showPhoneRegistrationFields() {
@@ -232,20 +247,29 @@ public class LoginActivity extends AppCompatActivity implements
     //save profile to database
     private void saveProfile() {
         String mName = mFirstName.getText().toString() + " " + mLastName.getText().toString();
-        User user = new User(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(),
+        User user = new User(mMobileNumber,
                 mName,
                 mEmail.getText().toString(),
-                FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(),
+                mMobileNumber,
                 makeDate(),
                 "n/a",
                 "n/a",
                 "user",
                 "active");
-        mDatabase.child("users").child("TEST").setValue(user);
+        mDatabase.child("users").child(mMobileNumber).setValue(user);
     }
 
     public String makeDate() {
         return String.valueOf(mDatepicker.getMonth()) + "-" + String.valueOf(mDatepicker.getDayOfMonth()) + "-" + String.valueOf(mDatepicker.getYear());
+    }
+
+    private boolean isValidAge() {
+        Date currentDate = new Date();
+        Calendar calendar = new GregorianCalendar();
+        calendar.setTime(currentDate);
+
+        int age = calendar.get(Calendar.YEAR) - mDatepicker.getYear();
+        return age > 17;
     }
 
     // [START on_start_check_user]
@@ -324,8 +348,7 @@ public class LoginActivity extends AppCompatActivity implements
                             // [START_EXCLUDE]
                             updateUI(STATE_SIGNIN_SUCCESS, user);
                             //saveProfile()
-                            Toast.makeText(LoginActivity.this, "PHONE NUMBER VERIFIED", Toast.LENGTH_SHORT).show();
-                            hidePhoneRegistrationFields();
+                            Toast.makeText(LoginActivity.this, "PHONE NUMBER IS VERIFIED", Toast.LENGTH_SHORT).show();
 //                            Intent i = new Intent(LoginActivity.this, MainActivity.class);
 //                            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //                            startActivity(i);
@@ -411,7 +434,7 @@ public class LoginActivity extends AppCompatActivity implements
                         mVerificationField.setText("Instant Validation");
                     }
                 }
-
+                hidePhoneRegistrationFields();
                 break;
             case STATE_SIGNIN_FAILED:
                 // No-op, handled by sign-in check
@@ -419,6 +442,7 @@ public class LoginActivity extends AppCompatActivity implements
                 break;
             case STATE_SIGNIN_SUCCESS:
                 // Np-op, handled by sign-in check
+                hidePhoneRegistrationFields();
                 break;
         }
 
@@ -480,17 +504,19 @@ public class LoginActivity extends AppCompatActivity implements
                     mVerificationField.setError("Cannot be empty.");
                     return;
                 }
-
                 verifyPhoneNumberWithCode(mVerificationId, code);
                 break;
             case R.id.button_resend:
                 resendVerificationCode(mPhoneNumberField.getText().toString(), mResendToken);
                 break;
             case R.id.buttom_submit:
-//                saveProfile();
-                Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivity(i);
+                if (isValidAge()) {
+                    Toast.makeText(this, "VALID AGE", Toast.LENGTH_SHORT).show();
+                    saveProfile();
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(i);
+                } else Toast.makeText(this, "INVALID AGE", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.sign_out_button:
                 signOut();
