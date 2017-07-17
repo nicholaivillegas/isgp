@@ -37,6 +37,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class LoginActivity extends AppCompatActivity implements
         View.OnClickListener {
@@ -511,16 +513,28 @@ public class LoginActivity extends AppCompatActivity implements
                 break;
             case R.id.buttom_submit:
                 if (isValidAge()) {
-                    Toast.makeText(this, "VALID AGE", Toast.LENGTH_SHORT).show();
-                    saveProfile();
-                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                    i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                    startActivity(i);
+                    if(emailValidator(mEmail.getText().toString()))
+                    {
+                        saveProfile();
+                        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(i);
+                    }
+                    else Toast.makeText(this, "INVALID EMAIL", Toast.LENGTH_SHORT).show();
                 } else Toast.makeText(this, "INVALID AGE", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.sign_out_button:
                 signOut();
                 break;
         }
+    }
+    public boolean emailValidator(String email)
+    {
+        Pattern pattern;
+        Matcher matcher;
+        final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+        pattern = Pattern.compile(EMAIL_PATTERN);
+        matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 }

@@ -194,6 +194,8 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:text="SUBMIT" />
+        android:background="@drawable/button_accent_selector"
+        android:text="SUBMIT"
+        android:textColor="@color/colorLight" />
 
 </RelativeLayout>
