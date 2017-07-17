@@ -1,10 +1,15 @@
 package com.androidapp.isagip;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.telephony.TelephonyManager;
 import android.text.AlteredCharSequence;
 import android.text.TextUtils;
 import android.util.Log;
@@ -53,6 +58,7 @@ public class LoginActivity extends AppCompatActivity implements
     private static final int STATE_VERIFY_SUCCESS = 4;
     private static final int STATE_SIGNIN_FAILED = 5;
     private static final int STATE_SIGNIN_SUCCESS = 6;
+    private static final int MY_PERMISSIONS_REQUEST_READ_PHONE_STATE = 100;
 
     // [START declare_auth]
     private FirebaseAuth mAuth;
@@ -129,6 +135,21 @@ public class LoginActivity extends AppCompatActivity implements
         mSubmit.setOnClickListener(this);
 
         showPhoneRegistrationFields();
+
+        //add permission checking
+        if(checkWriteExternalPermission())
+        {
+            TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+            String mPhoneNumber = tMgr.getLine1Number();
+            mPhoneNumberField.setText(mPhoneNumber);
+        }
+        else
+        {
+            Toast.makeText(this, "Enable Permissions", Toast.LENGTH_SHORT).show();
+            ActivityCompat.requestPermissions(this,
+                    new String[]{android.Manifest.permission.READ_PHONE_STATE},
+                    MY_PERMISSIONS_REQUEST_READ_PHONE_STATE);
+        }
 
         // [START initialize_auth]
         mAuth = FirebaseAuth.getInstance();
@@ -210,6 +231,14 @@ public class LoginActivity extends AppCompatActivity implements
         // [END phone_auth_callbacks]
     }
 
+
+    private boolean checkWriteExternalPermission()
+    {
+
+        String permission = "android.permission.READ_PHONE_STATE";
+        int res = checkCallingOrSelfPermission(permission);
+        return (res == PackageManager.PERMISSION_GRANTED);
+    }
 
     private void hidePhoneRegistrationFields() {
         mMobileNumber = mPhoneNumberField.getText().toString();
@@ -513,14 +542,12 @@ public class LoginActivity extends AppCompatActivity implements
                 break;
             case R.id.buttom_submit:
                 if (isValidAge()) {
-                    if(emailValidator(mEmail.getText().toString()))
-                    {
+                    if (emailValidator(mEmail.getText().toString())) {
                         saveProfile();
                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(i);
-                    }
-                    else Toast.makeText(this, "INVALID EMAIL", Toast.LENGTH_SHORT).show();
+                    } else Toast.makeText(this, "INVALID EMAIL", Toast.LENGTH_SHORT).show();
                 } else Toast.makeText(this, "INVALID AGE", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.sign_out_button:
@@ -528,8 +555,8 @@ public class LoginActivity extends AppCompatActivity implements
                 break;
         }
     }
-    public boolean emailValidator(String email)
-    {
+
+    public boolean emailValidator(String email) {
         Pattern pattern;
         Matcher matcher;
         final String EMAIL_PATTERN = "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
