@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -137,14 +138,11 @@ public class LoginActivity extends AppCompatActivity implements
         showPhoneRegistrationFields();
 
         //add permission checking
-        if(checkWriteExternalPermission())
-        {
+        if (checkWriteExternalPermission()) {
             TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             String mPhoneNumber = tMgr.getLine1Number();
             mPhoneNumberField.setText(mPhoneNumber);
-        }
-        else
-        {
+        } else {
             Toast.makeText(this, "Enable Permissions", Toast.LENGTH_SHORT).show();
             ActivityCompat.requestPermissions(this,
                     new String[]{android.Manifest.permission.READ_PHONE_STATE},
@@ -232,8 +230,7 @@ public class LoginActivity extends AppCompatActivity implements
     }
 
 
-    private boolean checkWriteExternalPermission()
-    {
+    private boolean checkWriteExternalPermission() {
 
         String permission = "android.permission.READ_PHONE_STATE";
         int res = checkCallingOrSelfPermission(permission);
@@ -287,7 +284,23 @@ public class LoginActivity extends AppCompatActivity implements
                 "n/a",
                 "user",
                 "active");
-        mDatabase.child("users").child(mMobileNumber).setValue(user);
+        mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
+
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(mEmail.getText().toString())
+                .build();
+
+        firebaseUser.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User profile updated.");
+                        }
+                    }
+                });
     }
 
     public String makeDate() {

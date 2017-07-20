@@ -274,7 +274,7 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                 } else {
                     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                     Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(),
-                            "",
+                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
                             currentDateTimeString,
                             addresses.get(0).getCountryName() + ", " + addresses.get(0).getAddressLine(0) + "  " + addresses.get(0).getLocality(),
                             foodCannedGoodsRate,
