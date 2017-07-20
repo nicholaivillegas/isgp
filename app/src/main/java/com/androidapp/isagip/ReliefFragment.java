@@ -15,7 +15,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.androidapp.isagip.model.Request;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,7 +33,9 @@ import java.util.Locale;
 public class ReliefFragment extends Fragment implements View.OnClickListener {
 
     EditText editOthers;
-    SeekBar seekFood, seekClothes, seekMedicine, seekOthers;
+    LinearLayout linearFoodCannedGoods, linearFoodRice, linearFoodNoodles, linearClothesInfant, linearClothesYoung, linearClothesAdult, linearMedicineFever, linearMedicineColds, linearMedicineCough;
+    TextView txtFoodCannedGoods, txtFoodRice, txtFoodNoodles, txtClothesInfant, txtClothesYoung, txtClothesAdult, txtMedicineFever, txtMedicineColds, txtMedicineCough;
+    SeekBar seekFoodCannedGoods, seekFoodRice, seekFoodNoodles, seekClothesInfant, seekClothesYoung, seekClothesAdult, seekMedicineFever, seekMedicineColds, seekMedicineCough, seekOthers;
     CheckBox checkFood, checkClothes, checkMedicine, checkOthers;
     Button buttonSend, buttonShare;
     private DatabaseReference mDatabase;
@@ -47,9 +51,34 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_relief, container, false);
 
         editOthers = (EditText) view.findViewById(R.id.edit_others);
-        seekFood = (SeekBar) view.findViewById(R.id.seekbar_food);
-        seekClothes = (SeekBar) view.findViewById(R.id.seekbar_clothes);
-        seekMedicine = (SeekBar) view.findViewById(R.id.seekbar_medicine);
+
+        linearFoodCannedGoods = (LinearLayout) view.findViewById(R.id.linear_canned_goods);
+        linearFoodRice = (LinearLayout) view.findViewById(R.id.linear_rice);
+        linearFoodNoodles = (LinearLayout) view.findViewById(R.id.linear_noodles);
+        txtFoodCannedGoods = (TextView) view.findViewById(R.id.text_canned_goods);
+        txtFoodNoodles = (TextView) view.findViewById(R.id.text_noodles);
+        txtFoodRice = (TextView) view.findViewById(R.id.text_rice);
+        linearMedicineFever = (LinearLayout) view.findViewById(R.id.linear_fever);
+        linearMedicineColds = (LinearLayout) view.findViewById(R.id.linear_colds);
+        linearMedicineCough = (LinearLayout) view.findViewById(R.id.linear_cough);
+        txtMedicineFever = (TextView) view.findViewById(R.id.text_fever);
+        txtMedicineColds = (TextView) view.findViewById(R.id.text_colds);
+        txtMedicineCough = (TextView) view.findViewById(R.id.text_cough);
+        linearClothesInfant = (LinearLayout) view.findViewById(R.id.linear_infant);
+        linearClothesYoung = (LinearLayout) view.findViewById(R.id.linear_young);
+        linearClothesAdult = (LinearLayout) view.findViewById(R.id.linear_adult);
+        txtClothesInfant = (TextView) view.findViewById(R.id.text_infant);
+        txtClothesYoung = (TextView) view.findViewById(R.id.text_young);
+        txtClothesAdult = (TextView) view.findViewById(R.id.text_adult);
+        seekFoodCannedGoods = (SeekBar) view.findViewById(R.id.seekbar_canned_goods);
+        seekFoodRice = (SeekBar) view.findViewById(R.id.seekbar_rice);
+        seekFoodNoodles = (SeekBar) view.findViewById(R.id.seekbar_noodles);
+        seekClothesInfant = (SeekBar) view.findViewById(R.id.seekbar_infant_clothes);
+        seekClothesYoung = (SeekBar) view.findViewById(R.id.seekbar_young_clothes);
+        seekClothesAdult = (SeekBar) view.findViewById(R.id.seekbar_adult_clothes);
+        seekMedicineColds = (SeekBar) view.findViewById(R.id.seekbar_colds_medicine);
+        seekMedicineFever = (SeekBar) view.findViewById(R.id.seekbar_fever_medicine);
+        seekMedicineCough = (SeekBar) view.findViewById(R.id.seekbar_cough_medicine);
         seekOthers = (SeekBar) view.findViewById(R.id.seekbar_others);
         checkFood = (CheckBox) view.findViewById(R.id.check_food);
         checkClothes = (CheckBox) view.findViewById(R.id.check_clothes);
@@ -58,9 +87,15 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
         buttonSend = (Button) view.findViewById(R.id.button_send);
         buttonShare = (Button) view.findViewById(R.id.button_share);
 
-        seekFood.setEnabled(false);
-        seekClothes.setEnabled(false);
-        seekMedicine.setEnabled(false);
+        seekFoodCannedGoods.setEnabled(false);
+        seekFoodNoodles.setEnabled(false);
+        seekFoodRice.setEnabled(false);
+        seekClothesInfant.setEnabled(false);
+        seekClothesYoung.setEnabled(false);
+        seekClothesAdult.setEnabled(false);
+        seekMedicineFever.setEnabled(false);
+        seekMedicineColds.setEnabled(false);
+        seekMedicineCough.setEnabled(false);
         seekOthers.setEnabled(false);
         editOthers.setEnabled(false);
 
@@ -75,9 +110,33 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
-                    seekFood.setEnabled(false);
+                    seekFoodCannedGoods.setEnabled(false);
+                    seekFoodNoodles.setEnabled(false);
+                    seekFoodRice.setEnabled(false);
+
+//                    seekFoodCannedGoods.setVisibility(View.GONE);
+//                    seekFoodNoodles.setVisibility(View.GONE);
+//                    seekFoodRice.setVisibility(View.GONE);
+//                    linearFoodCannedGoods.setVisibility(View.GONE);
+//                    linearFoodRice.setVisibility(View.GONE);
+//                    linearFoodNoodles.setVisibility(View.GONE);
+//                    txtFoodCannedGoods.setVisibility(View.GONE);
+//                    txtFoodNoodles.setVisibility(View.GONE);
+//                    txtFoodRice.setVisibility(View.GONE);
                 } else {
-                    seekFood.setEnabled(true);
+                    seekFoodCannedGoods.setEnabled(true);
+                    seekFoodNoodles.setEnabled(true);
+                    seekFoodRice.setEnabled(true);
+
+//                    seekFoodCannedGoods.setVisibility(View.VISIBLE);
+//                    seekFoodNoodles.setVisibility(View.VISIBLE);
+//                    seekFoodRice.setVisibility(View.VISIBLE);
+//                    linearFoodCannedGoods.setVisibility(View.VISIBLE);
+//                    linearFoodRice.setVisibility(View.VISIBLE);
+//                    linearFoodNoodles.setVisibility(View.VISIBLE);
+//                    txtFoodCannedGoods.setVisibility(View.VISIBLE);
+//                    txtFoodNoodles.setVisibility(View.VISIBLE);
+//                    txtFoodRice.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -85,9 +144,33 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
-                    seekClothes.setEnabled(false);
+                    seekClothesInfant.setEnabled(false);
+                    seekClothesYoung.setEnabled(false);
+                    seekClothesAdult.setEnabled(false);
+
+//                    seekClothesInfant.setVisibility(View.GONE);
+//                    seekClothesYoung.setVisibility(View.GONE);
+//                    seekClothesAdult.setVisibility(View.GONE);
+//                    linearClothesInfant.setVisibility(View.GONE);
+//                    linearClothesYoung.setVisibility(View.GONE);
+//                    linearClothesAdult.setVisibility(View.GONE);
+//                    txtClothesInfant.setVisibility(View.GONE);
+//                    txtClothesYoung.setVisibility(View.GONE);
+//                    txtClothesAdult.setVisibility(View.GONE);
                 } else {
-                    seekClothes.setEnabled(true);
+                    seekClothesInfant.setEnabled(true);
+                    seekClothesYoung.setEnabled(true);
+                    seekClothesAdult.setEnabled(true);
+
+//                    seekClothesInfant.setVisibility(View.VISIBLE);
+//                    seekClothesYoung.setVisibility(View.VISIBLE);
+//                    seekClothesAdult.setVisibility(View.VISIBLE);
+//                    linearClothesInfant.setVisibility(View.VISIBLE);
+//                    linearClothesYoung.setVisibility(View.VISIBLE);
+//                    linearClothesAdult.setVisibility(View.VISIBLE);
+//                    txtClothesInfant.setVisibility(View.VISIBLE);
+//                    txtClothesYoung.setVisibility(View.VISIBLE);
+//                    txtClothesAdult.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -95,9 +178,33 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (!isChecked) {
-                    seekMedicine.setEnabled(false);
+                    seekMedicineFever.setEnabled(false);
+                    seekMedicineCough.setEnabled(false);
+                    seekMedicineColds.setEnabled(false);
+
+//                    seekMedicineFever.setVisibility(View.GONE);
+//                    seekMedicineCough.setVisibility(View.GONE);
+//                    seekMedicineColds.setVisibility(View.GONE);
+//                    linearMedicineFever.setVisibility(View.GONE);
+//                    linearMedicineColds.setVisibility(View.GONE);
+//                    linearMedicineCough.setVisibility(View.GONE);
+//                    txtMedicineFever.setVisibility(View.GONE);
+//                    txtMedicineColds.setVisibility(View.GONE);
+//                    txtMedicineCough.setVisibility(View.GONE);
                 } else {
-                    seekMedicine.setEnabled(true);
+                    seekMedicineFever.setEnabled(true);
+                    seekMedicineCough.setEnabled(true);
+                    seekMedicineColds.setEnabled(true);
+
+//                    seekMedicineFever.setVisibility(View.VISIBLE);
+//                    seekMedicineCough.setVisibility(View.VISIBLE);
+//                    seekMedicineColds.setVisibility(View.VISIBLE);
+//                    linearMedicineFever.setVisibility(View.VISIBLE);
+//                    linearMedicineColds.setVisibility(View.VISIBLE);
+//                    linearMedicineCough.setVisibility(View.VISIBLE);
+//                    txtMedicineFever.setVisibility(View.VISIBLE);
+//                    txtMedicineColds.setVisibility(View.VISIBLE);
+//                    txtMedicineCough.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -133,26 +240,53 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
             case R.id.button_send:
 
                 boolean isFood = checkFood.isChecked();
-                String foodRate = String.valueOf(seekFood.getProgress());
+                String foodCannedGoodsRate = String.valueOf(seekFoodCannedGoods.getProgress());
+                String foodRiceRate = String.valueOf(seekFoodRice.getProgress());
+                String foodNoodlesRate = String.valueOf(seekFoodNoodles.getProgress());
                 boolean isClothes = checkClothes.isChecked();
-                String waterRate = String.valueOf(seekClothes.getProgress());
+                String clothesInfantRate = String.valueOf(seekClothesInfant.getProgress());
+                String clothesYoungRate = String.valueOf(seekClothesYoung.getProgress());
+                String clothesAdultRate = String.valueOf(seekClothesAdult.getProgress());
                 boolean isMedicine = checkMedicine.isChecked();
-                String medicineRate = String.valueOf(seekMedicine.getProgress());
+                String medicineFeverRate = String.valueOf(seekMedicineFever.getProgress());
+                String medicineColdsRate = String.valueOf(seekMedicineColds.getProgress());
+                String medicineCoughRate = String.valueOf(seekMedicineCough.getProgress());
                 boolean isOthers = checkOthers.isChecked();
                 String others = editOthers.getText().toString();
                 String othersRate = String.valueOf(seekOthers.getProgress());
                 if (!isFood) {
-                    foodRate = "not requested";
+                    foodCannedGoodsRate = "not requested";
+                    foodRiceRate = "not requested";
+                    foodNoodlesRate = "not requested";
                 }
                 if (!isClothes) {
-                    waterRate = "not requested";
+                    clothesInfantRate = "not requested";
+                    clothesYoungRate = "not requested";
+                    clothesAdultRate = "not requested";
                 }
                 if (!isMedicine) {
-                    medicineRate = "not requested";
+                    medicineFeverRate = "not requested";
+                    medicineColdsRate = "not requested";
+                    medicineCoughRate = "not requested";
+                }
+                if (!isOthers) {
+                    othersRate = "not requested";
                 } else {
-
                     String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-                    Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getEmail(), currentDateTimeString, addresses.get(0).getCountryName() + ", " + addresses.get(0).getAddressLine(0) + "  " + addresses.get(0).getLocality(), foodRate, waterRate, medicineRate, others + ": " + othersRate);
+                    Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(),
+                            "",
+                            currentDateTimeString,
+                            addresses.get(0).getCountryName() + ", " + addresses.get(0).getAddressLine(0) + "  " + addresses.get(0).getLocality(),
+                            foodCannedGoodsRate,
+                            foodRiceRate,
+                            foodNoodlesRate,
+                            clothesInfantRate,
+                            clothesYoungRate,
+                            clothesAdultRate,
+                            medicineFeverRate,
+                            medicineColdsRate,
+                            medicineCoughRate,
+                            others + ": " + othersRate);
                     mDatabase.child("request").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(request);
                 }
                 break;

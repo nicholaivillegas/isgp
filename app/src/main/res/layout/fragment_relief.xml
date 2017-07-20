@@ -21,7 +21,27 @@
                 android:text="Food"
                 android:textSize="24sp" />
 
+
+            <TextView
+                android:id="@+id/text_canned_goods"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Canned Goods"
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:id="@+id/seekbar_canned_goods"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:max="4"
+                android:progress="2" />
+
             <LinearLayout
+                android:id="@+id/linear_canned_goods"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="15dp"
@@ -58,14 +78,118 @@
 
             </LinearLayout>
 
+            <TextView
+                android:id="@+id/text_rice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Rice"
+                android:textSize="18sp" />
+
             <SeekBar
-                android:id="@+id/seekbar_food"
+                android:id="@+id/seekbar_rice"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:max="4"
                 android:progress="2" />
+
+            <LinearLayout
+                android:id="@+id/linear_rice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="LOW"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="MEDIUM"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="HIGH"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_noodles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Instant Noodles"
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:id="@+id/seekbar_noodles"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:max="4"
+                android:progress="2" />
+
+            <LinearLayout
+                android:id="@+id/linear_noodles"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="LOW"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="MEDIUM"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="HIGH"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
 
             <CheckBox
                 android:id="@+id/check_clothes"
@@ -74,14 +198,173 @@
                 android:text="Clothes"
                 android:textSize="24sp" />
 
+            <TextView
+                android:id="@+id/text_infant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Infant"
+                android:textSize="18sp" />
+
             <SeekBar
-                android:id="@+id/seekbar_clothes"
+                android:id="@+id/seekbar_infant_clothes"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:max="4"
                 android:progress="2" />
+
+            <LinearLayout
+                android:id="@+id/linear_infant"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="LOW"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="MEDIUM"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="HIGH"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_young"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Young"
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:id="@+id/seekbar_young_clothes"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:max="4"
+                android:progress="2" />
+
+            <LinearLayout
+                android:id="@+id/linear_young"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="LOW"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="MEDIUM"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="HIGH"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_adult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Adult"
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:id="@+id/seekbar_adult_clothes"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:max="4"
+                android:progress="2" />
+
+            <LinearLayout
+                android:id="@+id/linear_adult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="LOW"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="MEDIUM"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="HIGH"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
             <CheckBox
                 android:id="@+id/check_medicine"
@@ -90,14 +373,173 @@
                 android:text="Medicine"
                 android:textSize="24sp" />
 
+            <TextView
+                android:id="@+id/text_fever"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Fever"
+                android:textSize="18sp" />
+
             <SeekBar
-                android:id="@+id/seekbar_medicine"
+                android:id="@+id/seekbar_fever_medicine"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:max="4"
                 android:progress="2" />
+
+            <LinearLayout
+                android:id="@+id/linear_fever"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="LOW"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="MEDIUM"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="HIGH"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_colds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Colds"
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:id="@+id/seekbar_colds_medicine"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:max="4"
+                android:progress="2" />
+
+            <LinearLayout
+                android:id="@+id/linear_colds"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="LOW"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="MEDIUM"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="HIGH"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/text_cough"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:text="Cough"
+                android:textSize="18sp" />
+
+            <SeekBar
+                android:id="@+id/seekbar_cough_medicine"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:max="4"
+                android:progress="2" />
+
+            <LinearLayout
+                android:id="@+id/linear_cough"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="15dp"
+                android:layout_marginStart="15dp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:text="LOW"
+                    android:textColor="@android:color/holo_orange_light"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="MEDIUM"
+                    android:textColor="@android:color/holo_orange_dark"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:text="HIGH"
+                    android:textColor="@android:color/holo_red_light"
+                    android:textSize="12sp" />
+
+            </LinearLayout>
 
             <CheckBox
                 android:id="@+id/check_others"
@@ -120,14 +562,6 @@
                 android:layout_marginBottom="5dp"
                 android:max="4"
                 android:progress="2" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:background="@color/colorPrimary"
-                android:text="ADD MORE"
-                android:textColor="@color/colorLight" />
 
 
             <LinearLayout

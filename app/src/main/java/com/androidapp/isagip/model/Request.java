@@ -5,27 +5,49 @@ package com.androidapp.isagip.model;
  */
 
 public class Request {
-
+//o	food list down - can goods, rice, instant noodles. medicine - fever, colds, cough clothes- infant, young, adult
+    public String mobileNumber;
     public String email;
     public String date;
     public String location;
-    public String food;
-    public String clothes;
-    public String medicine;
+    public String foodCannedGoods;
+    public String foodRice;
+    public String foodNoodles;
+    public String clothesInfant;
+    public String clothesYoung;
+    public String clothesAdult;
+    public String medicineFever;
+    public String medicineColds;
+    public String medicineCough;
     public String others;
 
     public Request() {
 
     }
 
-    public Request(String email, String date, String location, String food, String clothes, String medicine, String others) {
+    public Request(String mobileNumber, String email, String date, String location, String foodCannedGoods, String foodRice, String foodNoodles, String clothesInfant, String clothesYoung, String clothesAdult, String medicineFever, String medicineColds, String medicineCough, String others) {
+        this.mobileNumber = mobileNumber;
         this.email = email;
         this.date = date;
         this.location = location;
-        this.food = food;
-        this.clothes = clothes;
-        this.medicine = medicine;
+        this.foodCannedGoods = foodCannedGoods;
+        this.foodRice = foodRice;
+        this.foodNoodles = foodNoodles;
+        this.clothesInfant = clothesInfant;
+        this.clothesYoung = clothesYoung;
+        this.clothesAdult = clothesAdult;
+        this.medicineFever = medicineFever;
+        this.medicineColds = medicineColds;
+        this.medicineCough = medicineCough;
         this.others = others;
+    }
+
+    public String getMobileNumber() {
+        return mobileNumber;
+    }
+
+    public void setMobileNumber(String mobileNumber) {
+        this.mobileNumber = mobileNumber;
     }
 
     public String getEmail() {
@@ -52,28 +74,76 @@ public class Request {
         this.location = location;
     }
 
-    public String getFood() {
-        return food;
+    public String getFoodCannedGoods() {
+        return foodCannedGoods;
     }
 
-    public void setFood(String food) {
-        this.food = food;
+    public void setFoodCannedGoods(String foodCannedGoods) {
+        this.foodCannedGoods = foodCannedGoods;
     }
 
-    public String getClothes() {
-        return clothes;
+    public String getFoodRice() {
+        return foodRice;
     }
 
-    public void setClothes(String clothes) {
-        this.clothes = clothes;
+    public void setFoodRice(String foodRice) {
+        this.foodRice = foodRice;
     }
 
-    public String getMedicine() {
-        return medicine;
+    public String getFoodNoodles() {
+        return foodNoodles;
     }
 
-    public void setMedicine(String medicine) {
-        this.medicine = medicine;
+    public void setFoodNoodles(String foodNoodles) {
+        this.foodNoodles = foodNoodles;
+    }
+
+    public String getClothesInfant() {
+        return clothesInfant;
+    }
+
+    public void setClothesInfant(String clothesInfant) {
+        this.clothesInfant = clothesInfant;
+    }
+
+    public String getClothesYoung() {
+        return clothesYoung;
+    }
+
+    public void setClothesYoung(String clothesYoung) {
+        this.clothesYoung = clothesYoung;
+    }
+
+    public String getClothesAdult() {
+        return clothesAdult;
+    }
+
+    public void setClothesAdult(String clothesAdult) {
+        this.clothesAdult = clothesAdult;
+    }
+
+    public String getMedicineFever() {
+        return medicineFever;
+    }
+
+    public void setMedicineFever(String medicineFever) {
+        this.medicineFever = medicineFever;
+    }
+
+    public String getMedicineColds() {
+        return medicineColds;
+    }
+
+    public void setMedicineColds(String medicineColds) {
+        this.medicineColds = medicineColds;
+    }
+
+    public String getMedicineCough() {
+        return medicineCough;
+    }
+
+    public void setMedicineCough(String medicineCough) {
+        this.medicineCough = medicineCough;
     }
 
     public String getOthers() {

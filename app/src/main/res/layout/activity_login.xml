@@ -75,25 +75,34 @@
                         android:hint="Phone Number"
                         android:inputType="phone" />
 
-                    <Button
-                        android:id="@+id/button_start_verification"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="3dp"
-                        android:layout_weight="1.0"
-                        android:background="@drawable/button_selector"
-                        android:text="Send"
-                        android:textColor="@color/colorLight" />
+                        android:layout_marginBottom="10dp"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
 
-                    <Button
-                        android:id="@+id/button_resend"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="3dp"
-                        android:layout_weight="1.0"
-                        android:background="@drawable/button_selector"
-                        android:text="Resend"
-                        android:textColor="@color/colorLight" />
+                        <Button
+                            android:id="@+id/button_start_verification"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:layout_weight="1.0"
+                            android:background="@drawable/button_selector"
+                            android:text="Send"
+                            android:textColor="@color/colorLight" />
+
+                        <Button
+                            android:id="@+id/button_resend"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="3dp"
+                            android:layout_weight="2.0"
+                            android:background="@drawable/button_selector"
+                            android:text="Resend"
+                            android:textColor="@color/colorLight" />
+
+                    </LinearLayout>
 
                     <EditText
                         android:id="@+id/edit_verification_code"
@@ -150,6 +159,7 @@
                         android:id="@+id/text_birthday_label"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
                         android:text="Select Birthday:"
                         android:textSize="18sp"
                         android:textStyle="bold" />
@@ -170,18 +180,21 @@
                 android:id="@+id/title_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Register using your phone number" />
+                android:text="Register using your phone number"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Signed Out" />
+                android:text="Signed Out"
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/detail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 tools:text="Firebase User ID: 123456789abc" />
         </LinearLayout>
 
@@ -194,7 +207,7 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:background="@drawable/button_accent_selector"
+        android:background="@drawable/button_selector"
         android:text="SUBMIT"
         android:textColor="@color/colorLight" />
 
