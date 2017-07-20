@@ -82,6 +82,11 @@ public class LoginActivity extends AppCompatActivity implements
     private EditText mFirstName;
     private EditText mLastName;
     private EditText mEmail;
+    private EditText mFatherName;
+    private EditText mMotherName;
+    private EditText mChildName1;
+    private EditText mChildName2;
+    private EditText mChildName3;
 
     private Button mStartButton;
     private Button mVerifyButton;
@@ -96,6 +101,8 @@ public class LoginActivity extends AppCompatActivity implements
     private PhoneAuthCredential mCredential;
 
     private String mMobileNumber;
+
+    private int familyCounter = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,6 +126,11 @@ public class LoginActivity extends AppCompatActivity implements
         mFirstName = (EditText) findViewById(R.id.edit_first_name);
         mLastName = (EditText) findViewById(R.id.edit_last_name);
         mEmail = (EditText) findViewById(R.id.edit_email);
+        mFatherName = (EditText) findViewById(R.id.edit_father_name);
+        mMotherName = (EditText) findViewById(R.id.edit_mother_name);
+        mChildName1 = (EditText) findViewById(R.id.edit_child_name1);
+        mChildName2 = (EditText) findViewById(R.id.edit_child_name2);
+        mChildName3 = (EditText) findViewById(R.id.edit_child_name3);
 
         mStartButton = (Button) findViewById(R.id.button_start_verification);
         mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
@@ -252,6 +264,11 @@ public class LoginActivity extends AppCompatActivity implements
         mBirthdayLabel.setVisibility(View.VISIBLE);
         mDatepicker.setVisibility(View.VISIBLE);
         mSubmit.setVisibility(View.VISIBLE);
+        mFatherName.setVisibility(View.VISIBLE);
+        mMotherName.setVisibility(View.VISIBLE);
+        mChildName1.setVisibility(View.VISIBLE);
+        mChildName2.setVisibility(View.VISIBLE);
+        mChildName3.setVisibility(View.VISIBLE);
 
 
     }
@@ -270,6 +287,30 @@ public class LoginActivity extends AppCompatActivity implements
         mBirthdayLabel.setVisibility(View.GONE);
         mDatepicker.setVisibility(View.GONE);
         mSubmit.setVisibility(View.GONE);
+        mFatherName.setVisibility(View.GONE);
+        mMotherName.setVisibility(View.GONE);
+        mChildName1.setVisibility(View.GONE);
+        mChildName2.setVisibility(View.GONE);
+        mChildName3.setVisibility(View.GONE);
+    }
+
+    public String countFamily() {
+        if (!mFatherName.getText().toString().isEmpty()) {
+            familyCounter++;
+        }
+        if (!mMotherName.getText().toString().isEmpty()) {
+            familyCounter++;
+        }
+        if (!mChildName1.getText().toString().isEmpty()) {
+            familyCounter++;
+        }
+        if (!mChildName2.getText().toString().isEmpty()) {
+            familyCounter++;
+        }
+        if (!mChildName3.getText().toString().isEmpty()) {
+            familyCounter++;
+        }
+        return String.valueOf(familyCounter);
     }
 
     //save profile to database
@@ -283,7 +324,13 @@ public class LoginActivity extends AppCompatActivity implements
                 "n/a",
                 "n/a",
                 "user",
-                "active");
+                "active",
+                mFatherName.getText().toString(),
+                mMotherName.getText().toString(),
+                mChildName1.getText().toString(),
+                mChildName2.getText().toString(),
+                mChildName3.getText().toString(),
+                countFamily());
         mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

@@ -54,17 +54,17 @@ public class RegisterDialog extends DialogFragment implements View.OnClickListen
         switch (v.getId()) {
             case R.id.button_submit:
 //                String id, String name, String email, String number, String birthdate, String org, String position, String type, String status
-                User user = new User(FirebaseAuth.getInstance().getCurrentUser().getUid(),
-                        editTextName.getText().toString(),
-                        FirebaseAuth.getInstance().getCurrentUser().getEmail(),
-                        editTextNumber.getText().toString(),
-                        makeDate(),
-                        "n/a",
-                        "n/a",
-                        "user",
-                        "active");
-                mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
-                dismiss();
+//                User user = new User(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+//                        editTextName.getText().toString(),
+//                        FirebaseAuth.getInstance().getCurrentUser().getEmail(),
+//                        editTextNumber.getText().toString(),
+//                        makeDate(),
+//                        "n/a",
+//                        "n/a",
+//                        "user",
+//                        "active");
+//                mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
+//                dismiss();
                 break;
         }
     }

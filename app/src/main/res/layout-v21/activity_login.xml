@@ -12,7 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_marginBottom="50dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -172,6 +173,46 @@
                         android:calendarViewShown="false"
                         android:datePickerMode="spinner" />
 
+                    <EditText
+                        android:id="@+id/edit_father_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:hint="Father's Name"
+                        android:inputType="textCapWords" />
+
+                    <EditText
+                        android:id="@+id/edit_mother_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:hint="Mother's Name"
+                        android:inputType="textCapWords" />
+
+                    <EditText
+                        android:id="@+id/edit_child_name1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:hint="1st Child's Name"
+                        android:inputType="textCapWords" />
+
+                    <EditText
+                        android:id="@+id/edit_child_name2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:hint="2nd Child's Name"
+                        android:inputType="textCapWords" />
+
+                    <EditText
+                        android:id="@+id/edit_child_name3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.0"
+                        android:hint="3rd Child's Name"
+                        android:inputType="textCapWords" />
+
                 </LinearLayout>
 
             </LinearLayout>
@@ -196,6 +237,8 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone"
                 tools:text="Firebase User ID: 123456789abc" />
+
+
         </LinearLayout>
 
     </ScrollView>
