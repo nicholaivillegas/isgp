@@ -13,16 +13,14 @@ public class User {
     public String status;
     public String mother;
     public String father;
-    public String child1;
-    public String child2;
-    public String child3;
+    public String child;
     public String familyCount;
 
     public User() {
 
     }
 
-    public User(String id, String name, String email, String number, String birthdate, String org, String position, String type, String status, String mother, String father, String child1, String child2, String child3, String familyCount) {
+    public User(String id, String name, String email, String number, String birthdate, String org, String position, String type, String status, String mother, String father, String child, String familyCount) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -34,9 +32,7 @@ public class User {
         this.status = status;
         this.mother = mother;
         this.father = father;
-        this.child1 = child1;
-        this.child2 = child2;
-        this.child3 = child3;
+        this.child = child;
         this.familyCount = familyCount;
     }
 
@@ -128,28 +124,12 @@ public class User {
         this.father = father;
     }
 
-    public String getChild1() {
-        return child1;
+    public String getChild() {
+        return child;
     }
 
-    public void setChild1(String child1) {
-        this.child1 = child1;
-    }
-
-    public String getChild2() {
-        return child2;
-    }
-
-    public void setChild2(String child2) {
-        this.child2 = child2;
-    }
-
-    public String getChild3() {
-        return child3;
-    }
-
-    public void setChild3(String child3) {
-        this.child3 = child3;
+    public void setChild(String child) {
+        this.child = child;
     }
 
     public String getFamilyCount() {

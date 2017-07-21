@@ -101,6 +101,7 @@ public class LoginActivity extends AppCompatActivity implements
     private PhoneAuthCredential mCredential;
 
     private String mMobileNumber;
+    private String childName;
 
     private int familyCounter = 0;
 
@@ -269,8 +270,6 @@ public class LoginActivity extends AppCompatActivity implements
         mChildName1.setVisibility(View.VISIBLE);
         mChildName2.setVisibility(View.VISIBLE);
         mChildName3.setVisibility(View.VISIBLE);
-
-
     }
 
     private void showPhoneRegistrationFields() {
@@ -327,9 +326,7 @@ public class LoginActivity extends AppCompatActivity implements
                 "active",
                 mFatherName.getText().toString(),
                 mMotherName.getText().toString(),
-                mChildName1.getText().toString(),
-                mChildName2.getText().toString(),
-                mChildName3.getText().toString(),
+                childName(),
                 countFamily());
         mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
 
@@ -348,6 +345,24 @@ public class LoginActivity extends AppCompatActivity implements
                         }
                     }
                 });
+    }
+
+    public String childName() {
+//        mChildName1.getText().toString() + "," + mChildName2.getText().toString() + "," + mChildName3.getText().toString()
+        if (!mChildName1.getText().toString().isEmpty()) {
+            childName = mChildName1.getText().toString().trim();
+            mChildName2.setVisibility(View.VISIBLE);
+            if (!mChildName2.getText().toString().isEmpty()) {
+                childName = mChildName1.getText().toString().trim() + "," + mChildName2.getText().toString().trim();
+                mChildName3.setVisibility(View.VISIBLE);
+                if (!mChildName3.getText().toString().isEmpty()) {
+                    childName = mChildName1.getText().toString().trim() + "," + mChildName2.getText().toString().trim() + "," + mChildName3.getText().toString().trim();
+                }
+            }
+        } else {
+            childName = "n/a";
+        }
+        return childName;
     }
 
     public String makeDate() {

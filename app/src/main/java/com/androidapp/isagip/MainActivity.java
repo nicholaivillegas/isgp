@@ -77,6 +77,8 @@ public class MainActivity extends AppCompatActivity
         View headerView = navigationView.getHeaderView(0);
         textName = (TextView) headerView.findViewById(R.id.text_name);
         textEmail = (TextView) headerView.findViewById(R.id.text_email);
+        textName.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+        textEmail.setText(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber());
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
 //        textEmail.setText(user.getEmail());
@@ -217,6 +219,8 @@ public class MainActivity extends AppCompatActivity
             FirebaseAuth.getInstance().signOut();
             finish();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
+        } else if (id == R.id.nav_donate) {
+            switchFragment(new DonateFragment());
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

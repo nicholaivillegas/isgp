@@ -24,6 +24,11 @@
                 android:title="Map" />
 
             <item
+                android:id="@+id/nav_donate"
+                android:icon="@drawable/ic_credit_card_black_24dp"
+                android:title="Donate" />
+
+            <item
                 android:id="@+id/nav_logout"
                 android:icon="@drawable/ic_exit_to_app_black_24dp"
                 android:title="Logout" />
