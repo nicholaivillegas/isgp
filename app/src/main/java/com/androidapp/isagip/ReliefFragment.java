@@ -286,7 +286,8 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                             medicineFeverRate,
                             medicineColdsRate,
                             medicineCoughRate,
-                            others + ": " + othersRate);
+                            others + ": " + othersRate,
+                            "requested");
                     mDatabase.child("request").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(request);
                 }
                 break;

@@ -5,7 +5,7 @@ package com.androidapp.isagip.model;
  */
 
 public class Request {
-//o	food list down - can goods, rice, instant noodles. medicine - fever, colds, cough clothes- infant, young, adult
+    //o	food list down - can goods, rice, instant noodles. medicine - fever, colds, cough clothes- infant, young, adult
     public String mobileNumber;
     public String email;
     public String date;
@@ -20,12 +20,13 @@ public class Request {
     public String medicineColds;
     public String medicineCough;
     public String others;
+    public String status;
 
     public Request() {
 
     }
 
-    public Request(String mobileNumber, String email, String date, String location, String foodCannedGoods, String foodRice, String foodNoodles, String clothesInfant, String clothesYoung, String clothesAdult, String medicineFever, String medicineColds, String medicineCough, String others) {
+    public Request(String mobileNumber, String email, String date, String location, String foodCannedGoods, String foodRice, String foodNoodles, String clothesInfant, String clothesYoung, String clothesAdult, String medicineFever, String medicineColds, String medicineCough, String others, String status) {
         this.mobileNumber = mobileNumber;
         this.email = email;
         this.date = date;
@@ -40,6 +41,7 @@ public class Request {
         this.medicineColds = medicineColds;
         this.medicineCough = medicineCough;
         this.others = others;
+        this.status = status;
     }
 
     public String getMobileNumber() {
@@ -152,5 +154,13 @@ public class Request {
 
     public void setOthers(String others) {
         this.others = others;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
