@@ -1,8 +1,15 @@
 package com.androidapp.isagip;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -18,6 +25,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.androidapp.isagip.model.Request;
 import com.google.firebase.auth.FirebaseAuth;
@@ -271,30 +279,36 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                 }
                 if (!isOthers) {
                     othersRate = "not requested";
-                } else {
-                    String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
-                    Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(),
-                            FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
-                            currentDateTimeString,
-                            addresses.get(0).getCountryName() + ", " + addresses.get(0).getAddressLine(0) + "  " + addresses.get(0).getLocality(),
-                            foodCannedGoodsRate,
-                            foodRiceRate,
-                            foodNoodlesRate,
-                            clothesInfantRate,
-                            clothesYoungRate,
-                            clothesAdultRate,
-                            medicineFeverRate,
-                            medicineColdsRate,
-                            medicineCoughRate,
-                            others + ": " + othersRate,
-                            "requested");
+                }
+                String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+                Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(),
+                        FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
+                        currentDateTimeString,
+                        addresses.get(0).getCountryName() + ", " + addresses.get(0).getAddressLine(0) + "  " + addresses.get(0).getLocality(),
+                        foodCannedGoodsRate,
+                        foodRiceRate,
+                        foodNoodlesRate,
+                        clothesInfantRate,
+                        clothesYoungRate,
+                        clothesAdultRate,
+                        medicineFeverRate,
+                        medicineColdsRate,
+                        medicineCoughRate,
+                        others + ": " + othersRate,
+                        "requested");
+                if (isNetworkAvailable()) {
                     mDatabase.child("request").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(request);
+                    Toast.makeText(getContext(), "Request Successful", Toast.LENGTH_SHORT).show();
+                    buttonSend.setEnabled(false);
+                } else {
+                    Toast.makeText(getContext(), "Please Turn on Wifi/Mobile Network.", Toast.LENGTH_SHORT).show();
                 }
                 break;
 
             case R.id.button_share:
                 break;
         }
+
     }
 
     public void getLocation() {
@@ -329,5 +343,38 @@ public class ReliefFragment extends Fragment implements View.OnClickListener {
                     new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
                     1);
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void openInternetDialog() {
+        new AlertDialog.Builder(getContext(), R.style.MyAlertDialogStyle)
+                .setTitle("Attention")
+                .setMessage("No Internet Connection Detected.")
+                .setNeutralButton("Open Wi-Fi", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        WifiManager wifi = (WifiManager) getContext().getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                        wifi.setWifiEnabled(true);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                })
+                .setPositiveButton("Open Mobile Data", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setAction(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                        startActivity(intent);
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }
