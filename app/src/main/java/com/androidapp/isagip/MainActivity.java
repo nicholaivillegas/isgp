@@ -1,9 +1,15 @@
 package com.androidapp.isagip;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -60,6 +66,9 @@ public class MainActivity extends AppCompatActivity
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        if (!isNetworkAvailable()) {
+            openInternetDialog();
+        }
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         requestCoarseLocation();
@@ -241,6 +250,9 @@ public class MainActivity extends AppCompatActivity
         super.onResume();
         //Now lets connect to the API
         mGoogleApiClient.connect();
+        if (!isNetworkAvailable()) {
+            openInternetDialog();
+        }
     }
 
     @Override
@@ -344,5 +356,39 @@ public class MainActivity extends AppCompatActivity
                     new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
                     1);
         }
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void openInternetDialog() {
+        new AlertDialog.Builder(this, R.style.MyAlertDialogStyle)
+                .setTitle("Attention")
+                .setMessage("No Internet Connection Detected.")
+                .setNeutralButton("Open Wi-Fi", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        WifiManager wifi = (WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE);
+                        wifi.setWifiEnabled(true);
+                    }
+                })
+                .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        return;
+                    }
+                })
+                .setPositiveButton("Open Mobile Data", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setAction(android.provider.Settings.ACTION_DATA_ROAMING_SETTINGS);
+                        startActivity(intent);
+                    }
+                })
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
     }
 }
