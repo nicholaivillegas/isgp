@@ -49,7 +49,8 @@
                         android:layout_height="wrap_content"
                         android:autoLink="map"
                         android:gravity="center_horizontal"
-                        android:text="#13 Examiner St., West Triangle, Quezon City" />
+                        android:text="#13 Examiner St., West Triangle, Quezon City"
+                        android:textIsSelectable="true" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -64,7 +65,8 @@
                         android:layout_height="wrap_content"
                         android:autoLink="phone"
                         android:gravity="center_horizontal"
-                        android:text="(02)4114995" />
+                        android:text="(02)4114995"
+                        android:textIsSelectable="true" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -72,14 +74,17 @@
                         android:layout_marginTop="20dp"
                         android:gravity="center_horizontal"
                         android:text="EMAIL ADDRESS"
+                        android:textIsSelectable="true"
                         android:textStyle="bold" />
 
                     <TextView
+                        android:id="@+id/text_email"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:autoLink="web"
                         android:gravity="center_horizontal"
-                        android:text="foundation@abs-cbnfoundation.com" />
+                        android:text="foundation@abs-cbnfoundation.com"
+                        android:textIsSelectable="true" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -94,7 +99,8 @@
                         android:layout_height="wrap_content"
                         android:autoLink="web"
                         android:gravity="center_horizontal"
-                        android:text="http://www.abs-cbnfoundation.com/" />
+                        android:text="http://www.abs-cbnfoundation.com/"
+                        android:textIsSelectable="true" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -140,24 +146,28 @@
                         <!--android:text="https://www.youtube.com/user/abscbnfoundation" />-->
 
                         <ImageView
+                            android:id="@+id/image_fb"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:src="@drawable/ic_fb" />
 
                         <ImageView
+                            android:id="@+id/image_twitter"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:src="@drawable/ic_twitter" />
 
                         <ImageView
+                            android:id="@+id/image_youtube"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:src="@drawable/ic_youtube" />
 
                         <ImageView
+                            android:id="@+id/image_instagram"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
