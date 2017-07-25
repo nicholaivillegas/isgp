@@ -26,7 +26,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidapp.isagip.model.AffectedArea;
 import com.androidapp.isagip.model.User;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -38,6 +42,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -84,8 +91,9 @@ public class LoginActivity extends AppCompatActivity implements
 
     private EditText mPhoneNumberField;
     private EditText mVerificationField;
-    private EditText mFirstName;
-    private EditText mLastName;
+    //    private EditText mFirstName;
+//    private EditText mLastName;
+    private EditText mName;
     private EditText mEmail;
     private EditText mFatherName;
     private EditText mMotherName;
@@ -110,6 +118,9 @@ public class LoginActivity extends AppCompatActivity implements
 
     private int familyCounter = 0;
 
+    private DatabaseReference myRef;
+    private ChildEventListener ref;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -132,8 +143,9 @@ public class LoginActivity extends AppCompatActivity implements
 
         mPhoneNumberField = (EditText) findViewById(R.id.edit_phone_number);
         mVerificationField = (EditText) findViewById(R.id.edit_verification_code);
-        mFirstName = (EditText) findViewById(R.id.edit_first_name);
-        mLastName = (EditText) findViewById(R.id.edit_last_name);
+        mName = (EditText) findViewById(R.id.edit_name);
+//        mFirstName = (EditText) findViewById(R.id.edit_first_name);
+//        mLastName = (EditText) findViewById(R.id.edit_last_name);
         mEmail = (EditText) findViewById(R.id.edit_email);
         mFatherName = (EditText) findViewById(R.id.edit_father_name);
         mMotherName = (EditText) findViewById(R.id.edit_mother_name);
@@ -267,8 +279,9 @@ public class LoginActivity extends AppCompatActivity implements
         mSignOutButton.setVisibility(View.GONE);
         mVerificationField.setVisibility(View.GONE);
 
-        mFirstName.setVisibility(View.VISIBLE);
-        mLastName.setVisibility(View.VISIBLE);
+//        mFirstName.setVisibility(View.VISIBLE);
+//        mLastName.setVisibility(View.VISIBLE);
+        mName.setVisibility(View.VISIBLE);
         mEmail.setVisibility(View.VISIBLE);
         mBirthdayLabel.setVisibility(View.VISIBLE);
         mDatepicker.setVisibility(View.VISIBLE);
@@ -278,6 +291,52 @@ public class LoginActivity extends AppCompatActivity implements
         mChildName1.setVisibility(View.VISIBLE);
         mChildName2.setVisibility(View.VISIBLE);
         mChildName3.setVisibility(View.VISIBLE);
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("users");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        ref = myRef.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+                    try {
+                        User model = dataSnapshot.getValue(User.class);
+                        if (model.getNumber().equals(mMobileNumber)) {
+                            Toast.makeText(LoginActivity.this, model.getNumber(), Toast.LENGTH_LONG).show();
+
+//                            mFirstName.setVisibility(View.GONE);
+//                            mLastName.setVisibility(View.GONE);
+//                            mName.setVisibility(View.VISIBLE);
+
+                            mName.setText(model.getName());
+                            mEmail.setText(model.getEmail());
+                            mFatherName.setText(model.getFather());
+                            mMotherName.setText(model.getMother());
+                        }
+                    } catch (Exception ex) {
+                        Log.e("RAWR", ex.getMessage());
+                    }
+                }
+            }
+
+            // This function is called each time a child item is removed.
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                AffectedArea model = dataSnapshot.getValue(AffectedArea.class);
+            }
+
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("TAG:", "Failed to read value.", error.toException());
+            }
+        });
     }
 
     private void showPhoneRegistrationFields() {
@@ -288,8 +347,8 @@ public class LoginActivity extends AppCompatActivity implements
         mSignOutButton.setVisibility(View.VISIBLE);
         mVerificationField.setVisibility(View.VISIBLE);
 
-        mFirstName.setVisibility(View.GONE);
-        mLastName.setVisibility(View.GONE);
+//        mFirstName.setVisibility(View.GONE);
+//        mLastName.setVisibility(View.GONE);
         mEmail.setVisibility(View.GONE);
         mBirthdayLabel.setVisibility(View.GONE);
         mDatepicker.setVisibility(View.GONE);
@@ -322,9 +381,9 @@ public class LoginActivity extends AppCompatActivity implements
 
     //save profile to database
     private void saveProfile() {
-        String mName = mFirstName.getText().toString() + " " + mLastName.getText().toString();
+        String name = mName.getText().toString();
         User user = new User(mMobileNumber,
-                mName,
+                name,
                 mEmail.getText().toString(),
                 mMobileNumber,
                 makeDate(),
@@ -688,5 +747,10 @@ public class LoginActivity extends AppCompatActivity implements
         if (!isNetworkAvailable()) {
             openInternetDialog();
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }
