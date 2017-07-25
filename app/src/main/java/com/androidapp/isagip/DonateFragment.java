@@ -15,6 +15,8 @@ public class DonateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_donate, container, false);
 
+
+
         return view;
     }
 
