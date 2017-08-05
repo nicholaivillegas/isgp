@@ -14,19 +14,14 @@
             android:orientation="vertical"
             android:padding="20dp">
 
-            <Spinner
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:entries="@array/array_orginization" />
-
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:gravity="center"
-                android:textSize="18sp"
                 android:padding="10dp"
-                android:text="Check if you received your requested relief"/>
+                android:text="Check if you received your requested relief"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <CheckBox
                 android:layout_width="match_parent"
@@ -51,11 +46,11 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textStyle="bold"
                 android:gravity="center"
-                android:textSize="18sp"
                 android:padding="10dp"
-                android:text="Rate the condition of the relief"/>
+                android:text="Rate the condition of the relief"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <SeekBar
                 android:id="@+id/seekBar3"

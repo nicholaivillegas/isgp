@@ -216,8 +216,8 @@ public class MainActivity extends AppCompatActivity
             bundle.putDouble("long", currentLongitude);
             switchFragment(reliefFragment);
             reliefFragment.setArguments(bundle);
-        } else if (id == R.id.nav_basket) {
-            switchFragment(new BasketFragment());
+        } else if (id == R.id.nav_news) {
+            switchFragment(new NewsFragment());
         } else if (id == R.id.nav_map) {
             startActivity(new Intent(MainActivity.this, MapsActivity.class));
         } else if (id == R.id.nav_feedback) {
