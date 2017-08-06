@@ -11,16 +11,12 @@ public class User {
     public String position;
     public String type;
     public String status;
-    public String mother;
-    public String father;
-    public String child;
-    public String familyCount;
 
     public User() {
 
     }
 
-    public User(String id, String name, String email, String number, String birthdate, String org, String position, String type, String status, String mother, String father, String child, String familyCount) {
+    public User(String id, String name, String email, String number, String birthdate, String org, String position, String type, String status) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -30,10 +26,6 @@ public class User {
         this.position = position;
         this.type = type;
         this.status = status;
-        this.mother = mother;
-        this.father = father;
-        this.child = child;
-        this.familyCount = familyCount;
     }
 
     public String getId() {
@@ -106,37 +98,5 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getMother() {
-        return mother;
-    }
-
-    public void setMother(String mother) {
-        this.mother = mother;
-    }
-
-    public String getFather() {
-        return father;
-    }
-
-    public void setFather(String father) {
-        this.father = father;
-    }
-
-    public String getChild() {
-        return child;
-    }
-
-    public void setChild(String child) {
-        this.child = child;
-    }
-
-    public String getFamilyCount() {
-        return familyCount;
-    }
-
-    public void setFamilyCount(String familyCount) {
-        this.familyCount = familyCount;
     }
 }

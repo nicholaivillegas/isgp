@@ -210,6 +210,7 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_relief) {
+            getSupportActionBar().setTitle("Relief");
             ReliefFragment reliefFragment = new ReliefFragment();
             Bundle bundle = new Bundle();
             bundle.putDouble("lat", currentLatitude);
@@ -217,16 +218,19 @@ public class MainActivity extends AppCompatActivity
             switchFragment(reliefFragment);
             reliefFragment.setArguments(bundle);
         } else if (id == R.id.nav_news) {
+            getSupportActionBar().setTitle("Announcement");
             switchFragment(new NewsFragment());
         } else if (id == R.id.nav_map) {
             startActivity(new Intent(MainActivity.this, MapsActivity.class));
         } else if (id == R.id.nav_feedback) {
+            getSupportActionBar().setTitle("Feedback");
             switchFragment(new FeedbackFragment());
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             finish();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
         } else if (id == R.id.nav_donate) {
+            getSupportActionBar().setTitle("Donate");
             switchFragment(new DonateFragment());
         }
 

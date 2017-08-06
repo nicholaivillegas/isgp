@@ -91,15 +91,9 @@ public class LoginActivity extends AppCompatActivity implements
 
     private EditText mPhoneNumberField;
     private EditText mVerificationField;
-    //    private EditText mFirstName;
-//    private EditText mLastName;
     private EditText mName;
     private EditText mEmail;
-    private EditText mFatherName;
-    private EditText mMotherName;
-    private EditText mChildName1;
-    private EditText mChildName2;
-    private EditText mChildName3;
+    private EditText mFather;
 
     private Button mStartButton;
     private Button mVerifyButton;
@@ -144,14 +138,7 @@ public class LoginActivity extends AppCompatActivity implements
         mPhoneNumberField = (EditText) findViewById(R.id.edit_phone_number);
         mVerificationField = (EditText) findViewById(R.id.edit_verification_code);
         mName = (EditText) findViewById(R.id.edit_name);
-//        mFirstName = (EditText) findViewById(R.id.edit_first_name);
-//        mLastName = (EditText) findViewById(R.id.edit_last_name);
         mEmail = (EditText) findViewById(R.id.edit_email);
-        mFatherName = (EditText) findViewById(R.id.edit_father_name);
-        mMotherName = (EditText) findViewById(R.id.edit_mother_name);
-        mChildName1 = (EditText) findViewById(R.id.edit_child_name1);
-        mChildName2 = (EditText) findViewById(R.id.edit_child_name2);
-        mChildName3 = (EditText) findViewById(R.id.edit_child_name3);
 
         mStartButton = (Button) findViewById(R.id.button_start_verification);
         mVerifyButton = (Button) findViewById(R.id.button_verify_phone);
@@ -279,18 +266,11 @@ public class LoginActivity extends AppCompatActivity implements
         mSignOutButton.setVisibility(View.GONE);
         mVerificationField.setVisibility(View.GONE);
 
-//        mFirstName.setVisibility(View.VISIBLE);
-//        mLastName.setVisibility(View.VISIBLE);
         mName.setVisibility(View.VISIBLE);
         mEmail.setVisibility(View.VISIBLE);
         mBirthdayLabel.setVisibility(View.VISIBLE);
         mDatepicker.setVisibility(View.VISIBLE);
         mSubmit.setVisibility(View.VISIBLE);
-        mFatherName.setVisibility(View.VISIBLE);
-        mMotherName.setVisibility(View.VISIBLE);
-        mChildName1.setVisibility(View.VISIBLE);
-        mChildName2.setVisibility(View.VISIBLE);
-        mChildName3.setVisibility(View.VISIBLE);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("users");
@@ -305,14 +285,8 @@ public class LoginActivity extends AppCompatActivity implements
                         if (model.getNumber().equals(mMobileNumber)) {
                             Toast.makeText(LoginActivity.this, model.getNumber(), Toast.LENGTH_LONG).show();
 
-//                            mFirstName.setVisibility(View.GONE);
-//                            mLastName.setVisibility(View.GONE);
-//                            mName.setVisibility(View.VISIBLE);
-
                             mName.setText(model.getName());
                             mEmail.setText(model.getEmail());
-                            mFatherName.setText(model.getFather());
-                            mMotherName.setText(model.getMother());
                         }
                     } catch (Exception ex) {
                         Log.e("RAWR", ex.getMessage());
@@ -349,34 +323,11 @@ public class LoginActivity extends AppCompatActivity implements
 
 //        mFirstName.setVisibility(View.GONE);
 //        mLastName.setVisibility(View.GONE);
+        mName.setVisibility(View.GONE);
         mEmail.setVisibility(View.GONE);
         mBirthdayLabel.setVisibility(View.GONE);
         mDatepicker.setVisibility(View.GONE);
         mSubmit.setVisibility(View.GONE);
-        mFatherName.setVisibility(View.GONE);
-        mMotherName.setVisibility(View.GONE);
-        mChildName1.setVisibility(View.GONE);
-        mChildName2.setVisibility(View.GONE);
-        mChildName3.setVisibility(View.GONE);
-    }
-
-    public String countFamily() {
-        if (!mFatherName.getText().toString().isEmpty()) {
-            familyCounter++;
-        }
-        if (!mMotherName.getText().toString().isEmpty()) {
-            familyCounter++;
-        }
-        if (!mChildName1.getText().toString().isEmpty()) {
-            familyCounter++;
-        }
-        if (!mChildName2.getText().toString().isEmpty()) {
-            familyCounter++;
-        }
-        if (!mChildName3.getText().toString().isEmpty()) {
-            familyCounter++;
-        }
-        return String.valueOf(familyCounter);
     }
 
     //save profile to database
@@ -390,11 +341,7 @@ public class LoginActivity extends AppCompatActivity implements
                 "n/a",
                 "n/a",
                 "user",
-                "active",
-                mFatherName.getText().toString(),
-                mMotherName.getText().toString(),
-                childName(),
-                countFamily());
+                "active");
         mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -414,23 +361,6 @@ public class LoginActivity extends AppCompatActivity implements
                 });
     }
 
-    public String childName() {
-//        mChildName1.getText().toString() + "," + mChildName2.getText().toString() + "," + mChildName3.getText().toString()
-        if (!mChildName1.getText().toString().isEmpty()) {
-            childName = mChildName1.getText().toString().trim();
-            mChildName2.setVisibility(View.VISIBLE);
-            if (!mChildName2.getText().toString().isEmpty()) {
-                childName = mChildName1.getText().toString().trim() + "," + mChildName2.getText().toString().trim();
-                mChildName3.setVisibility(View.VISIBLE);
-                if (!mChildName3.getText().toString().isEmpty()) {
-                    childName = mChildName1.getText().toString().trim() + "," + mChildName2.getText().toString().trim() + "," + mChildName3.getText().toString().trim();
-                }
-            }
-        } else {
-            childName = "n/a";
-        }
-        return childName;
-    }
 
     public String makeDate() {
         return String.valueOf(mDatepicker.getMonth()) + "-" + String.valueOf(mDatepicker.getDayOfMonth()) + "-" + String.valueOf(mDatepicker.getYear());
