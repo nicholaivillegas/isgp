@@ -220,6 +220,9 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_news) {
             getSupportActionBar().setTitle("Announcement");
             switchFragment(new NewsFragment());
+        } else if (id == R.id.nav_basket) {
+            getSupportActionBar().setTitle("Basket");
+            switchFragment(new BasketFragment());
         } else if (id == R.id.nav_map) {
             startActivity(new Intent(MainActivity.this, MapsActivity.class));
         } else if (id == R.id.nav_feedback) {

@@ -11,10 +11,10 @@
             android:id="@+id/nav_relief"
             android:icon="@drawable/ic_person_black_24dp"
             android:title="Relief" />
-        <!--<item-->
-        <!--android:id="@+id/nav_basket"-->
-        <!--android:icon="@drawable/ic_shopping_basket_black_24dp"-->
-        <!--android:title="Basket" />-->
+        <item
+            android:id="@+id/nav_basket"
+            android:icon="@drawable/ic_shopping_basket_black_24dp"
+            android:title="Basket" />
         <item
             android:id="@+id/nav_feedback"
             android:icon="@drawable/ic_feedback_black_24dp"
