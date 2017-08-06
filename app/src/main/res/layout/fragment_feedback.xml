@@ -24,24 +24,35 @@
                 android:textStyle="bold" />
 
             <CheckBox
+                android:id="@+id/check_food"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Food" />
 
             <CheckBox
+                android:id="@+id/check_clothes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Clothes" />
 
             <CheckBox
+                android:id="@+id/check_medicine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Medicine" />
 
             <CheckBox
+                android:id="@+id/check_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Other: Blanket" />
+                android:text="Other:" />
+
+            <EditText
+                android:id="@+id/edit_other"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Input here..."
+                android:visibility="gone" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -53,7 +64,7 @@
                 android:textStyle="bold" />
 
             <SeekBar
-                android:id="@+id/seekBar3"
+                android:id="@+id/seekBar_feedback"
                 style="@style/Widget.AppCompat.SeekBar.Discrete"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -70,6 +81,7 @@
                 android:textStyle="bold" />
 
             <EditText
+                android:id="@+id/edit_comment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
@@ -77,6 +89,7 @@
                 android:inputType="textMultiLine" />
 
             <Button
+                android:id="@+id/button_send_feedback"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/button_selector"

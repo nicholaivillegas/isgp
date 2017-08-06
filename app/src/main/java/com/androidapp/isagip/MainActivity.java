@@ -111,64 +111,8 @@ public class MainActivity extends AppCompatActivity
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("users");
         mDatabase = FirebaseDatabase.getInstance().getReference();
-
-
-//        mDatabase.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot snapshot) {
-//
-//                int ctr = 0;
-//                if (snapshot.child("users").getChildrenCount() == 0) {
-//                    RegisterDialog registerDialog = new RegisterDialog();
-//                    registerDialog.show(getFragmentManager(), "Register Dialog");
-//                } else {
-//                    for (DataSnapshot datas : snapshot.child("users").getChildren()) {
-//                        ctr++;
-//
-//                        User u = datas.getValue(User.class);
-//                        if (u.getId().equals(FirebaseAuth.getInstance().getCurrentUser().getUid())) {
-//                            textName.setText(u.getName());
-//                            break;
-//                        } else {
-//                            if (ctr == snapshot.child("users").getChildrenCount()) {
-//                                RegisterDialog registerDialog = new RegisterDialog();
-//                                registerDialog.show(getFragmentManager(), "Register Dialog");
-//                            }
-//                        }
-//                    }
-//                }
-//                int ctr1 = 0;
-//                if (snapshot.child("users").getChildrenCount() == 0) {
-//                    Toast.makeText(MainActivity.this, "Sign Up now", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    for (DataSnapshot datas : snapshot.child("users").getChildren()) {
-//                        ctr1++;
-//
-//                        User u = datas.getValue(User.class);
-//                        if (u.getType().equals("user") && u.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-//                            break;
-//                        } else if (!u.getType().equals("user") && u.getEmail().equals(FirebaseAuth.getInstance().getCurrentUser().getEmail())) {
-//                            Toast.makeText(MainActivity.this, "This user is an administrator", Toast.LENGTH_SHORT).show();
-//                            FirebaseAuth.getInstance().signOut();
-//                            finish();
-//                            startActivity(new Intent(MainActivity.this, LoginActivity.class));
-//                            break;
-//                        } else {
-//                            if (ctr == snapshot.child("users").getChildrenCount()) {
-//                                Toast.makeText(MainActivity.this, "Please Sign Up to use ISagip", Toast.LENGTH_SHORT).show();
-//                            }
-//                        }
-//
-//                    }
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {
-//
-//            }
-//        });
-
+        switchFragment(new NewsFragment());
+        getSupportActionBar().setTitle("Announcement");
     }
 
     @Override
