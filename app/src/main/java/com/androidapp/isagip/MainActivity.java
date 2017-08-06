@@ -113,6 +113,7 @@ public class MainActivity extends AppCompatActivity
         mDatabase = FirebaseDatabase.getInstance().getReference();
         switchFragment(new NewsFragment());
         getSupportActionBar().setTitle("Announcement");
+        navigationView.getMenu().getItem(0).setChecked(true);
     }
 
     @Override
