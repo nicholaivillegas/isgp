@@ -338,8 +338,6 @@ public class LoginActivity extends AppCompatActivity implements
                 mEmail.getText().toString(),
                 mMobileNumber,
                 makeDate(),
-                "n/a",
-                "n/a",
                 "user",
                 "active");
         mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);

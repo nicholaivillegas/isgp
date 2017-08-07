@@ -19,6 +19,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -29,13 +30,19 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.androidapp.isagip.model.Feedback;
 import com.androidapp.isagip.model.Request;
+import com.androidapp.isagip.model.UserStatus;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -90,10 +97,16 @@ public class ReliefFragment extends Fragment {
     Unbinder unbinder;
     private DatabaseReference mDatabase;
     private DatabaseReference myRef;
+    private DatabaseReference mDatabase1;
+    private DatabaseReference myRef1;
     double latitude;
     double longitude;
     List<Address> addresses;
     private String food, clothes, medicine, other;
+    Request model;
+    UserStatus model1;
+    private ChildEventListener ref;
+    private ChildEventListener ref1;
 
 
     @Nullable
@@ -158,6 +171,79 @@ public class ReliefFragment extends Fragment {
                     other = "false";
                     editOther.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+        myRef = database.getReference("request");
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+        ref = myRef.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+                    try {
+                        model = dataSnapshot.getValue(Request.class);
+                    } catch (Exception ex) {
+                        Log.e("RAWR", ex.getMessage());
+                    }
+                }
+            }
+
+            // This function is called each time a child item is removed.
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("TAG:", "Failed to read value.", error.toException());
+            }
+        });
+
+        final FirebaseDatabase database1 = FirebaseDatabase.getInstance();
+        myRef1 = database1.getReference("userStatus");
+        mDatabase1 = FirebaseDatabase.getInstance().getReference();
+        ref1 = myRef1.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+                    try {
+                        model1 = dataSnapshot.getValue(UserStatus.class);
+                        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(model1.getId())) {
+                            if (model1.getStatus().equals("sent")) {
+                                buttonSend.setEnabled(true);
+                            } else {
+                                buttonSend.setEnabled(false);
+                            }
+                        }
+                    } catch (Exception ex) {
+                        Log.e("RAWR", ex.getMessage());
+                    }
+                }
+            }
+
+            // This function is called each time a child item is removed.
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("TAG:", "Failed to read value.", error.toException());
             }
         });
     }
@@ -296,11 +382,20 @@ public class ReliefFragment extends Fragment {
                 name5,
                 gender5,
                 editOther.getText().toString(),
+                "requested",
+                "");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddyyyy", Locale.US);
+        String format = simpleDateFormat.format(new Date());
+        UserStatus userStatus = new UserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                format,
+                String.valueOf(System.nanoTime()),
                 "requested");
         if (isNetworkAvailable()) {
             mDatabase.child("request").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(request);
+            mDatabase.child("userStatus").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userStatus);
             Toast.makeText(getContext(), "Request Successful", Toast.LENGTH_SHORT).show();
             buttonSend.setEnabled(false);
+
         } else {
             Toast.makeText(getContext(), "Please Turn on Wifi/Mobile Network.", Toast.LENGTH_LONG).show();
         }

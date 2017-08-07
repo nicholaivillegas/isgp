@@ -282,6 +282,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@drawable/button_selector"
+            android:enabled="true"
             android:text="Send Request"
             android:textColor="@color/colorLight" />
 

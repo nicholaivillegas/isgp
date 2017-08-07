@@ -172,7 +172,13 @@ public class MainActivity extends AppCompatActivity
             startActivity(new Intent(MainActivity.this, MapsActivity.class));
         } else if (id == R.id.nav_feedback) {
             getSupportActionBar().setTitle("Feedback");
-            switchFragment(new FeedbackFragment());
+//            switchFragment(new FeedbackFragment());
+            FeedbackFragment feedbackFragment = new FeedbackFragment();
+            Bundle bundle = new Bundle();
+            bundle.putDouble("lat", currentLatitude);
+            bundle.putDouble("long", currentLongitude);
+            switchFragment(feedbackFragment);
+            feedbackFragment.setArguments(bundle);
         } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             finish();

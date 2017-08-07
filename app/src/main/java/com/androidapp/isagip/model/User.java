@@ -7,8 +7,6 @@ public class User {
     public String email;
     public String number;
     public String birthdate;
-    public String org;
-    public String position;
     public String type;
     public String status;
 
@@ -16,14 +14,12 @@ public class User {
 
     }
 
-    public User(String id, String name, String email, String number, String birthdate, String org, String position, String type, String status) {
+    public User(String id, String name, String email, String number, String birthdate, String type, String status) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.number = number;
         this.birthdate = birthdate;
-        this.org = org;
-        this.position = position;
         this.type = type;
         this.status = status;
     }
@@ -66,22 +62,6 @@ public class User {
 
     public void setBirthdate(String birthdate) {
         this.birthdate = birthdate;
-    }
-
-    public String getOrg() {
-        return org;
-    }
-
-    public void setOrg(String org) {
-        this.org = org;
-    }
-
-    public String getPosition() {
-        return position;
-    }
-
-    public void setPosition(String position) {
-        this.position = position;
     }
 
     public String getType() {

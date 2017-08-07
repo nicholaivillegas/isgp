@@ -27,7 +27,8 @@
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
                 android:background="@color/colorPrimaryDark" />
 
             <TextView
@@ -42,7 +43,8 @@
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
                 android:background="@color/colorPrimaryDark" />
 
             <TextView
@@ -57,7 +59,8 @@
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
                 android:background="@color/colorPrimaryDark" />
 
             <TextView
@@ -72,7 +75,8 @@
             <ImageView
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
-                android:layout_marginRight="5dp"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
                 android:background="@color/colorPrimaryDark" />
 
             <TextView

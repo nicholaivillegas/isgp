@@ -15,12 +15,13 @@ public class Feedback {
     public String others;
     public String rating;
     public String comment;
+    public String status;
 
     public Feedback() {
 
     }
 
-    public Feedback(String id, String timestamp, String mobileNumber, String food, String clothes, String medicine, String others, String rating, String comment) {
+    public Feedback(String id, String timestamp, String mobileNumber, String food, String clothes, String medicine, String others, String rating, String comment, String status) {
         this.id = id;
         this.timestamp = timestamp;
         this.mobileNumber = mobileNumber;
@@ -30,6 +31,7 @@ public class Feedback {
         this.others = others;
         this.rating = rating;
         this.comment = comment;
+        this.status = status;
     }
 
     public String getId() {
@@ -102,5 +104,13 @@ public class Feedback {
 
     public void setComment(String comment) {
         this.comment = comment;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

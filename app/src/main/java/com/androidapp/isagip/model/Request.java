@@ -26,12 +26,13 @@ public class Request {
     public String requester5Gender;
     public String others;
     public String status;
+    public String operationId;
 
     public Request() {
 
     }
 
-    public Request(String mobileNumber, String email, String date, String longitude, String latitude, String location, String food, String clothes, String medicine, String requester1, String requester1Gender, String requester2, String requester2Gender, String requester3, String requester3Gender, String requester4, String requester4Gender, String requester5, String requester5Gender, String others, String status) {
+    public Request(String mobileNumber, String email, String date, String longitude, String latitude, String location, String food, String clothes, String medicine, String requester1, String requester1Gender, String requester2, String requester2Gender, String requester3, String requester3Gender, String requester4, String requester4Gender, String requester5, String requester5Gender, String others, String status, String operationId) {
         this.mobileNumber = mobileNumber;
         this.email = email;
         this.date = date;
@@ -53,6 +54,7 @@ public class Request {
         this.requester5Gender = requester5Gender;
         this.others = others;
         this.status = status;
+        this.operationId = operationId;
     }
 
     public String getMobileNumber() {
@@ -221,5 +223,13 @@ public class Request {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getOperationId() {
+        return operationId;
+    }
+
+    public void setOperationId(String operationId) {
+        this.operationId = operationId;
     }
 }
