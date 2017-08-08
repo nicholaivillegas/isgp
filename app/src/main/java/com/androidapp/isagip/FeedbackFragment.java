@@ -78,13 +78,17 @@ public class FeedbackFragment extends Fragment {
     private DatabaseReference mDatabase1;
     private DatabaseReference myRef2;
     private DatabaseReference mDatabase2;
+    private DatabaseReference myRef3;
+    private DatabaseReference mDatabase3;
     private String food, clothes, medicine, others, comment;
     Feedback model;
     Operation model1;
     UserStatus model2;
+    Request model3;
     private ChildEventListener ref;
     private ChildEventListener ref1;
     private ChildEventListener ref2;
+    private ChildEventListener ref3;
     double latitude;
     double longitude;
     List<Address> addresses;
@@ -235,7 +239,7 @@ public class FeedbackFragment extends Fragment {
         });
 
         final FirebaseDatabase database2 = FirebaseDatabase.getInstance();
-        myRef2 = database1.getReference("userStatus");
+        myRef2 = database2.getReference("userStatus");
         mDatabase2 = FirebaseDatabase.getInstance().getReference();
         ref2 = myRef2.addChildEventListener(new ChildEventListener() {
 
@@ -251,6 +255,41 @@ public class FeedbackFragment extends Fragment {
                                 buttonSendFeedback.setEnabled(true);
                             }
                         }
+
+
+                    } catch (Exception ex) {
+                        Log.e("RAWR", ex.getMessage());
+                    }
+                }
+            }
+
+            // This function is called each time a child item is removed.
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("TAG:", "Failed to read value.", error.toException());
+            }
+        });
+
+        final FirebaseDatabase database3 = FirebaseDatabase.getInstance();
+        myRef3 = database3.getReference("request");
+        mDatabase3 = FirebaseDatabase.getInstance().getReference();
+        ref3 = myRef3.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+                    try {
+                        model3 = dataSnapshot.getValue(Request.class);
 
 
                     } catch (Exception ex) {
@@ -299,16 +338,18 @@ public class FeedbackFragment extends Fragment {
                 "requested");
 
         if (isNetworkAvailable()) {
-            mDatabase.child("feedback").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(feedback);
+            mDatabase.child("feedback").child(model2.getTransactionId()).setValue(feedback);
             Toast.makeText(getContext(), "Feedback Sent!", Toast.LENGTH_SHORT).show();
 
             buttonSendFeedback.setEnabled(false);
 
-            DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("request").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("status");
+            DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("request").child(model2.getTransactionId()).child("status");
             data.setValue("sent");
+
             DatabaseReference data1 = FirebaseDatabase.getInstance().getReference().child("userStatus").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("status");
             data1.setValue("sent");
-            DatabaseReference data2 = FirebaseDatabase.getInstance().getReference().child("request").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("operation_id");
+
+            DatabaseReference data2 = FirebaseDatabase.getInstance().getReference().child("request").child(model2.getTransactionId()).child("operationId");
             data2.setValue(operationId);
         } else {
             Toast.makeText(getContext(), "Please Turn on Wifi/Mobile Network.", Toast.LENGTH_LONG).show();

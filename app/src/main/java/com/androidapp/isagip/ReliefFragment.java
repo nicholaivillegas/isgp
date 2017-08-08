@@ -386,12 +386,13 @@ public class ReliefFragment extends Fragment {
                 "");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddyyyy", Locale.US);
         String format = simpleDateFormat.format(new Date());
+        String nano = String.valueOf(System.nanoTime());
         UserStatus userStatus = new UserStatus(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                 format,
-                String.valueOf(System.nanoTime()),
+                nano,
                 "requested");
         if (isNetworkAvailable()) {
-            mDatabase.child("request").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(request);
+            mDatabase.child("request").child(nano).setValue(request);
             mDatabase.child("userStatus").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userStatus);
             Toast.makeText(getContext(), "Request Successful", Toast.LENGTH_SHORT).show();
             buttonSend.setEnabled(false);
