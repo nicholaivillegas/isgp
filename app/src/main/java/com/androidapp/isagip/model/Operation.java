@@ -11,17 +11,18 @@ public class Operation {
     public String date;
     public String description;
     public String location;
-    public String latitude;
-    public String longitude;
+    public Double latitude;
+    public Double longitude;
     public String relief_count;
     public String status;
     public String title;
+    public long id;
 
     public Operation() {
 
     }
 
-    public Operation(String area, String created_by, String date, String description, String location, String latitude, String longitude, String relief_count, String status, String title) {
+    public Operation(String area, String created_by, String date, String description, String location, Double latitude, Double longitude, String relief_count, String status, String title, long id) {
         this.area = area;
         this.created_by = created_by;
         this.date = date;
@@ -32,6 +33,7 @@ public class Operation {
         this.relief_count = relief_count;
         this.status = status;
         this.title = title;
+        this.id = id;
     }
 
     public String getArea() {
@@ -74,19 +76,19 @@ public class Operation {
         this.location = location;
     }
 
-    public String getLatitude() {
+    public Double getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
     }
 
-    public String getLongitude() {
+    public Double getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 
@@ -112,5 +114,13 @@ public class Operation {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

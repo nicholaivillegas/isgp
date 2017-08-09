@@ -18,6 +18,192 @@
             android:background="@color/colorPrimaryDark"
             android:gravity="center"
             android:padding="10dp"
+            android:text="EXPECTED"
+            android:textColor="@color/colorLight"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:cardBackgroundColor="@color/colorPrimary">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_food_received"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="20dp"
+                            android:weightSum="3">
+
+                            <TextView
+                                android:id="@+id/check_food_received"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+
+                                android:text="Food" />
+
+                            <TextView
+                                android:id="@+id/check_food_received_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:drawableLeft="@drawable/ic_date_range_black_18dp"
+                                android:drawablePadding="10dp"
+                                android:gravity="left"
+                                android:text="000000" />
+
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_clothes_received"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="20dp"
+                            android:weightSum="3">
+
+                            <TextView
+                                android:id="@+id/check_clothes_received"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+
+                                android:text="Clothes" />
+
+                            <TextView
+                                android:id="@+id/check_clothes_received_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:drawableLeft="@drawable/ic_date_range_black_18dp"
+                                android:drawablePadding="10dp"
+                                android:gravity="left"
+                                android:text="000000" />
+
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_medicine_received"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="20dp"
+                            android:weightSum="3">
+
+                            <TextView
+                                android:id="@+id/check_medicine_received"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+
+                                android:text="Medicine" />
+
+                            <TextView
+                                android:id="@+id/check_medicine_received_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:drawableLeft="@drawable/ic_date_range_black_18dp"
+                                android:drawablePadding="10dp"
+                                android:gravity="left"
+                                android:text="000000" />
+
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/card_other_received"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="20dp"
+                            android:weightSum="3">
+
+                            <TextView
+                                android:id="@+id/check_other_received"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+
+                                android:text="Other" />
+
+                            <TextView
+                                android:id="@+id/check_other_received_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:drawableLeft="@drawable/ic_date_range_black_18dp"
+                                android:drawablePadding="10dp"
+                                android:gravity="left"
+                                android:text="000000" />
+
+
+                        </LinearLayout>
+                    </android.support.v7.widget.CardView>
+
+                </LinearLayout>
+            </ScrollView>
+        </android.support.v7.widget.CardView>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimaryDark"
+            android:gravity="center"
+            android:padding="10dp"
             android:text="RECEIVED"
             android:textColor="@color/colorLight"
             android:textSize="20sp"
@@ -43,39 +229,72 @@
                         android:id="@+id/card_food_expected"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="5dp"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="20dp"
+                            android:weightSum="3">
 
-                            <CheckBox
+                            <TextView
                                 android:id="@+id/check_food_expected"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:clickable="false"
-                                android:padding="20dp"
+                                android:layout_weight="1"
+
                                 android:text="Food" />
+
+                            <TextView
+                                android:id="@+id/check_food_expected_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:drawableLeft="@drawable/ic_date_range_black_18dp"
+                                android:drawablePadding="10dp"
+                                android:gravity="left"
+                                android:text="000000" />
+
+
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
+
 
                     <android.support.v7.widget.CardView
                         android:id="@+id/card_clothes_expected"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="5dp"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="20dp"
+                            android:weightSum="3">
 
-                            <CheckBox
+                            <TextView
                                 android:id="@+id/check_clothes_expected"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:clickable="false"
-                                android:padding="20dp"
+                                android:layout_weight="1"
+
                                 android:text="Clothes" />
+
+                            <TextView
+                                android:id="@+id/check_clothes_expected_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:drawableLeft="@drawable/ic_date_range_black_18dp"
+                                android:drawablePadding="10dp"
+                                android:gravity="left"
+                                android:text="000000" />
+
+
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
 
@@ -83,19 +302,35 @@
                         android:id="@+id/card_medicine_expected"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="5dp"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:padding="20dp"
+                            android:weightSum="3">
 
-                            <CheckBox
+                            <TextView
                                 android:id="@+id/check_medicine_expected"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:clickable="false"
-                                android:padding="20dp"
+                                android:layout_weight="1"
+
                                 android:text="Medicine" />
+
+                            <TextView
+                                android:id="@+id/check_medicine_expected_date"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:drawableLeft="@drawable/ic_date_range_black_18dp"
+                                android:drawablePadding="10dp"
+                                android:gravity="left"
+                                android:text="000000" />
+
+
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
 
@@ -103,196 +338,40 @@
                         android:id="@+id/card_other_expected"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp">
+                        android:layout_marginBottom="5dp"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="horizontal"
+                            android:padding="20dp"
+                            android:weightSum="3">
 
-                            <CheckBox
+                            <TextView
                                 android:id="@+id/check_other_expected"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:clickable="false"
-                                android:padding="20dp"
+                                android:layout_weight="1"
+
                                 android:text="Other" />
 
-                            <EditText
-                                android:id="@+id/edit_other_expected"
+                            <TextView
+                                android:id="@+id/check_other_expected_date"
                                 android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginRight="10dp"
+                                android:layout_height="wrap_content"
                                 android:layout_weight="2"
-                                android:hint="Input here..."
-                                android:inputType="textCapSentences"
-                                android:visibility="gone" />
-
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                </LinearLayout>
-            </ScrollView>
-        </android.support.v7.widget.CardView>
-
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:background="@color/colorPrimary"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/colorPrimaryDark"
-            android:gravity="center"
-            android:padding="10dp"
-            android:text="EXPECTED"
-            android:textColor="@color/colorLight"
-            android:textSize="20sp"
-            android:textStyle="bold" />
-
-        <android.support.v7.widget.CardView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            app:cardBackgroundColor="@color/colorPrimary">
-
-            <ScrollView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/colorPrimary"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/card_food_received"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <CheckBox
-                                android:id="@+id/check_food_received"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:clickable="false"
-                                android:text="Food" />
-
-                            <TextView
-                                android:id="@+id/text_food_received_date"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="30dp"
                                 android:drawableLeft="@drawable/ic_date_range_black_18dp"
-                                android:text="031495" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/card_clothes_received"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <CheckBox
-                                android:id="@+id/check_clothes_received"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:clickable="false"
-                                android:text="Clothes" />
-
-                            <TextView
-                                android:id="@+id/text_clothes_received_date"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="30dp"
-                                android:drawableLeft="@drawable/ic_date_range_black_18dp"
-                                android:text="031495" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/card_medicine_received"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <CheckBox
-                                android:id="@+id/check_medicine_received"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:clickable="false"
-                                android:text="Medicine" />
-
-                            <TextView
-                                android:id="@+id/text_medicine_received_date"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="30dp"
-                                android:drawableLeft="@drawable/ic_date_range_black_18dp"
-                                android:text="031495" />
-                        </LinearLayout>
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
-                        android:id="@+id/card_other"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:padding="10dp">
-
-                            <CheckBox
-                                android:id="@+id/check_other_received"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:clickable="false"
-                                android:text="Other" />
-
-                            <TextView
-                                android:id="@+id/text_other_received_date"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="30dp"
-                                android:drawableLeft="@drawable/ic_date_range_black_18dp"
-                                android:text="031495" />
+                                android:drawablePadding="10dp"
+                                android:gravity="left"
+                                android:text="000000" />
 
 
                         </LinearLayout>
                     </android.support.v7.widget.CardView>
 
                 </LinearLayout>
+
             </ScrollView>
         </android.support.v7.widget.CardView>
 

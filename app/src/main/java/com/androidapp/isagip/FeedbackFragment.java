@@ -80,7 +80,7 @@ public class FeedbackFragment extends Fragment {
     private DatabaseReference mDatabase2;
     private DatabaseReference myRef3;
     private DatabaseReference mDatabase3;
-    private String food, clothes, medicine, others, comment;
+    private String food = "false", clothes = "false", medicine = "false", others = "false", comment = "false";
     Feedback model;
     Operation model1;
     UserStatus model2;
@@ -95,6 +95,7 @@ public class FeedbackFragment extends Fragment {
     Location location;
     private String operationId;
     private double a = 0.0;
+    private String transactionId;
 
     @Nullable
     @Override
@@ -201,8 +202,8 @@ public class FeedbackFragment extends Fragment {
                     try {
                         model1 = dataSnapshot.getValue(Operation.class);
                         Location loc = new Location("");
-                        loc.setLatitude(Double.parseDouble(model1.getLatitude()));
-                        loc.setLongitude(Double.parseDouble(model1.getLongitude()));
+                        loc.setLatitude(model1.getLatitude());
+                        loc.setLongitude(model1.getLongitude());
 
                         Location loc1 = new Location("");
                         loc1.setLatitude(latitude);
@@ -211,7 +212,7 @@ public class FeedbackFragment extends Fragment {
                         if (a < loc.distanceTo(loc1)) {
                             a = loc.distanceTo(loc1);
                             location = loc;
-                            operationId = dataSnapshot.getKey();
+                            operationId = String.valueOf(model1.getId());
                         }
 
 
@@ -254,6 +255,7 @@ public class FeedbackFragment extends Fragment {
                             } else {
                                 buttonSendFeedback.setEnabled(true);
                             }
+                            transactionId = model2.getTransactionId();
                         }
 
 
@@ -326,6 +328,14 @@ public class FeedbackFragment extends Fragment {
     @OnClick(R.id.button_send_feedback)
     public void onViewClicked() {
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
+        String comment = editComment.getText().toString();
+        if (comment.isEmpty() || comment.equals(null)) {
+            comment = "false";
+        }
+        String others = editOther.getText().toString();
+        if (others.isEmpty() || others.equals(null)) {
+            others = "false";
+        }
         Feedback feedback = new Feedback(FirebaseAuth.getInstance().getCurrentUser().getUid(),
                 currentDateTimeString,
                 FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(),
@@ -334,11 +344,12 @@ public class FeedbackFragment extends Fragment {
                 medicine,
                 others,
                 String.valueOf(seekBarFeedback.getProgress()),
-                editComment.getText().toString(),
-                "requested");
+                comment,
+                "requested",
+                operationId);
 
         if (isNetworkAvailable()) {
-            mDatabase.child("feedback").child(model2.getTransactionId()).setValue(feedback);
+            mDatabase.child("feedback").child(transactionId).setValue(feedback);
             Toast.makeText(getContext(), "Feedback Sent!", Toast.LENGTH_SHORT).show();
 
             buttonSendFeedback.setEnabled(false);

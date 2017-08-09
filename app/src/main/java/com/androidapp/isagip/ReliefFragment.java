@@ -102,7 +102,10 @@ public class ReliefFragment extends Fragment {
     double latitude;
     double longitude;
     List<Address> addresses;
-    private String food, clothes, medicine, other;
+    private String food = "false";
+    private String clothes = "false";
+    private String medicine = "false";
+    private String other = "false";
     Request model;
     UserStatus model1;
     private ChildEventListener ref;
@@ -361,6 +364,10 @@ public class ReliefFragment extends Fragment {
             gender5 = spinner5.getSelectedItem().toString();
             name5 = editName5.getText().toString().trim();
         }
+        String other = editOther.getText().toString();
+        if (other.isEmpty()) {
+            other = "false";
+        }
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
         Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(),
                 FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
@@ -381,7 +388,7 @@ public class ReliefFragment extends Fragment {
                 gender4,
                 name5,
                 gender5,
-                editOther.getText().toString(),
+                other,
                 "requested",
                 "");
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddyyyy", Locale.US);

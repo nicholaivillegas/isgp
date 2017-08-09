@@ -108,24 +108,26 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                 if (dataSnapshot != null && dataSnapshot.getValue() != null) {
                     try {
                         Request model = dataSnapshot.getValue(Request.class);
-                        LatLng marker = new LatLng(Double.parseDouble(model.getLatitude()), Double.parseDouble(model.getLongitude()));
-                        mMap.addMarker(new MarkerOptions().position(marker).title(model.getLocation()));
-                        mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
-                        if (model.getFood().equals("true")) {
-                            foodCounter++;
+                        if (model.getStatus().equals("requested")) {
+                            LatLng marker = new LatLng(Double.parseDouble(model.getLatitude()), Double.parseDouble(model.getLongitude()));
+                            mMap.addMarker(new MarkerOptions().position(marker).title(model.getLocation()));
+                            mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
+                            if (model.getFood().equals("true")) {
+                                foodCounter++;
+                            }
+                            if (model.getClothes().equals("true")) {
+                                clothesCounter++;
+                            }
+                            if (model.getMedicine().equals("true")) {
+                                medicineCounter++;
+                            }
+                            if (!model.getOthers().equals("false")) {
+                                otherCounter++;
+                            }
+                            counter++;
+                            computePercentage();
+                            Toast.makeText(MapsActivity.this, "SOMEONE NEEDS HELP!", Toast.LENGTH_SHORT).show();
                         }
-                        if (model.getClothes().equals("true")) {
-                            clothesCounter++;
-                        }
-                        if (model.getMedicine().equals("true")) {
-                            medicineCounter++;
-                        }
-                        if (model.getOthers().equals("true")) {
-                            otherCounter++;
-                        }
-                        counter++;
-                        computePercentage();
-                        Toast.makeText(MapsActivity.this, "SOMEONE NEEDS HELP!", Toast.LENGTH_SHORT).show();
                     } catch (Exception ex) {
                         Log.e("RAWR", ex.getMessage());
                     }
