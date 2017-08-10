@@ -145,43 +145,46 @@ public class BasketFragment extends Fragment {
                     try {
                         model = dataSnapshot.getValue(Feedback.class);
                         if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(model1.getId())) {
-                            if (model.getFood().equals("true")) {
-                                checkFoodExpectedDate.setText(model.getTimestamp());
-                                cardFoodExpected.setVisibility(View.VISIBLE);
-                            }
-                            if (model.getClothes().equals("true")) {
-                                checkClothesExpectedDate.setText(model.getTimestamp());
-                                cardClothesExpected.setVisibility(View.VISIBLE);
-                            }
-                            if (model.getMedicine().equals("true")) {
-                                checkMedicineExpectedDate.setText(model.getTimestamp());
-                                cardMedicineExpected.setVisibility(View.VISIBLE);
-                            }
-                            if (model.getOthers().equals("true")) {
-                                checkOtherExpectedDate.setText(model.getTimestamp());
-                                cardOtherExpected.setVisibility(View.VISIBLE);
-                            }
+                            if (model.getId().equals(model1.getId())) {
+                                if (model.getFood().equals("true")) {
+                                    checkFoodExpectedDate.setText(model.getTimestamp());
+                                    cardFoodExpected.setVisibility(View.VISIBLE);
+                                }
+                                if (model.getClothes().equals("true")) {
+                                    checkClothesExpectedDate.setText(model.getTimestamp());
+                                    cardClothesExpected.setVisibility(View.VISIBLE);
+                                }
+                                if (model.getMedicine().equals("true")) {
+                                    checkMedicineExpectedDate.setText(model.getTimestamp());
+                                    cardMedicineExpected.setVisibility(View.VISIBLE);
+                                }
+                                if (!model.getOthers().equals("false")) {
+                                    checkOtherExpectedDate.setText(model.getTimestamp());
+                                    cardOtherExpected.setVisibility(View.VISIBLE);
+                                }
 
 
-                            if (model2.getStatus().equals("requested")) {
-                                if (model2.getFood().equals("true")) {
-                                    checkFoodReceivedDate.setText(model2.getDate());
-                                    cardFoodReceived.setVisibility(View.VISIBLE);
-                                }
-                                if (model2.getClothes().equals("true")) {
-                                    checkClothesReceivedDate.setText(model2.getDate());
+                                if (model2.getStatus().equals("requested")) {
+                                    if (model2.getFood().equals("true")) {
+                                        checkFoodReceivedDate.setText(model2.getDate());
+                                        cardFoodReceived.setVisibility(View.VISIBLE);
+                                    }
+                                    if (model2.getClothes().equals("true")) {
+                                        checkClothesReceivedDate.setText(model2.getDate());
 
-                                    cardClothesReceived.setVisibility(View.VISIBLE);
-                                }
-                                if (model2.getMedicine().equals("true")) {
-                                    checkMedicineReceivedDate.setText(model2.getDate());
-                                    cardMedicineReceived.setVisibility(View.VISIBLE);
-                                }
-                                if (model2.getOthers().equals("true")) {
-                                    checkOtherReceivedDate.setText(model2.getDate());
-                                    cardOtherReceived.setVisibility(View.VISIBLE);
+                                        cardClothesReceived.setVisibility(View.VISIBLE);
+                                    }
+                                    if (model2.getMedicine().equals("true")) {
+                                        checkMedicineReceivedDate.setText(model2.getDate());
+                                        cardMedicineReceived.setVisibility(View.VISIBLE);
+                                    }
+                                    if (!model2.getOthers().equals("false")) {
+                                        checkOtherReceivedDate.setText(model2.getDate());
+                                        cardOtherReceived.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
+
                         }
                     } catch (Exception ex) {
                         Log.e("RAWR", ex.getMessage());
@@ -217,44 +220,45 @@ public class BasketFragment extends Fragment {
                     try {
                         model2 = dataSnapshot.getValue(Request.class);
                         if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(model1.getId())) {
-                            if (model2.getStatus().equals("requested")) {
-                                if (model2.getFood().equals("true")) {
-                                    checkFoodReceivedDate.setText(model2.getDate());
-                                    cardFoodReceived.setVisibility(View.VISIBLE);
-                                }
-                                if (model2.getClothes().equals("true")) {
-                                    checkClothesReceivedDate.setText(model2.getDate());
+                            if (model2.getId().equals(model1.getId())) {
+                                if (model2.getStatus().equals("requested")) {
+                                    if (model2.getFood().equals("true")) {
+                                        checkFoodReceivedDate.setText(model2.getDate());
+                                        cardFoodReceived.setVisibility(View.VISIBLE);
+                                    }
+                                    if (model2.getClothes().equals("true")) {
+                                        checkClothesReceivedDate.setText(model2.getDate());
 
-                                    cardClothesReceived.setVisibility(View.VISIBLE);
-                                }
-                                if (model2.getMedicine().equals("true")) {
-                                    checkMedicineReceivedDate.setText(model2.getDate());
-                                    cardMedicineReceived.setVisibility(View.VISIBLE);
-                                }
-                                if (model2.getOthers().equals("true")) {
-                                    checkOtherReceivedDate.setText(model2.getDate());
-                                    cardOtherReceived.setVisibility(View.VISIBLE);
-                                }
+                                        cardClothesReceived.setVisibility(View.VISIBLE);
+                                    }
+                                    if (model2.getMedicine().equals("true")) {
+                                        checkMedicineReceivedDate.setText(model2.getDate());
+                                        cardMedicineReceived.setVisibility(View.VISIBLE);
+                                    }
+                                    if (!model2.getOthers().equals("false")) {
+                                        checkOtherReceivedDate.setText(model2.getDate());
+                                        cardOtherReceived.setVisibility(View.VISIBLE);
+                                    }
 
 
-                                if (model.getFood().equals("true")) {
-                                    checkFoodExpectedDate.setText(model.getTimestamp());
-                                    cardFoodExpected.setVisibility(View.VISIBLE);
-                                }
-                                if (model.getClothes().equals("true")) {
-                                    checkClothesExpectedDate.setText(model.getTimestamp());
-                                    cardClothesExpected.setVisibility(View.VISIBLE);
-                                }
-                                if (model.getMedicine().equals("true")) {
-                                    checkMedicineExpectedDate.setText(model.getTimestamp());
-                                    cardMedicineExpected.setVisibility(View.VISIBLE);
-                                }
-                                if (model.getOthers().equals("true")) {
-                                    checkOtherExpectedDate.setText(model.getTimestamp());
-                                    cardOtherExpected.setVisibility(View.VISIBLE);
+                                    if (model.getFood().equals("true")) {
+                                        checkFoodExpectedDate.setText(model.getTimestamp());
+                                        cardFoodExpected.setVisibility(View.VISIBLE);
+                                    }
+                                    if (model.getClothes().equals("true")) {
+                                        checkClothesExpectedDate.setText(model.getTimestamp());
+                                        cardClothesExpected.setVisibility(View.VISIBLE);
+                                    }
+                                    if (model.getMedicine().equals("true")) {
+                                        checkMedicineExpectedDate.setText(model.getTimestamp());
+                                        cardMedicineExpected.setVisibility(View.VISIBLE);
+                                    }
+                                    if (!model.getOthers().equals("false")) {
+                                        checkOtherExpectedDate.setText(model.getTimestamp());
+                                        cardOtherExpected.setVisibility(View.VISIBLE);
+                                    }
                                 }
                             }
-
                         }
                     } catch (Exception ex) {
                         Log.e("RAWR", ex.getMessage());

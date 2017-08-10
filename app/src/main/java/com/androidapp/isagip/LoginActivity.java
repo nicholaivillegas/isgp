@@ -333,30 +333,35 @@ public class LoginActivity extends AppCompatActivity implements
     //save profile to database
     private void saveProfile() {
         String name = mName.getText().toString();
-        User user = new User(mMobileNumber,
-                name,
-                mEmail.getText().toString(),
-                mMobileNumber,
-                makeDate(),
-                "user",
-                "active");
-        mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
+        String email = mEmail.getText().toString();
+        if (name.isEmpty() && email.isEmpty()) {
+            Toast.makeText(this, "Please Complete your Information", Toast.LENGTH_SHORT).show();
+        } else {
+            User user = new User(mMobileNumber,
+                    name,
+                    mEmail.getText().toString(),
+                    mMobileNumber,
+                    makeDate(),
+                    "user",
+                    "active");
+            mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
 
-        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(mEmail.getText().toString())
-                .build();
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(mEmail.getText().toString())
+                    .build();
 
-        firebaseUser.updateProfile(profileUpdates)
-                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if (task.isSuccessful()) {
-                            Log.d(TAG, "User profile updated.");
+            firebaseUser.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+                                Log.d(TAG, "User profile updated.");
+                            }
                         }
-                    }
-                });
+                    });
+        }
     }
 
 

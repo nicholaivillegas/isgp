@@ -390,7 +390,8 @@ public class ReliefFragment extends Fragment {
                 gender5,
                 other,
                 "requested",
-                "");
+                "",
+                FirebaseAuth.getInstance().getCurrentUser().getUid());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddyyyy", Locale.US);
         String format = simpleDateFormat.format(new Date());
         String nano = String.valueOf(System.nanoTime());
@@ -399,13 +400,22 @@ public class ReliefFragment extends Fragment {
                 nano,
                 "requested");
         if (isNetworkAvailable()) {
-            mDatabase.child("request").child(nano).setValue(request);
-            mDatabase.child("userStatus").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userStatus);
-            Toast.makeText(getContext(), "Request Successful", Toast.LENGTH_SHORT).show();
-            buttonSend.setEnabled(false);
+            if (!isFieldsEmpty()) {
+                mDatabase.child("request").child(nano).setValue(request);
+                mDatabase.child("userStatus").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(userStatus);
+                Toast.makeText(getContext(), "Request Successful", Toast.LENGTH_SHORT).show();
+                buttonSend.setEnabled(false);
+            } else {
+                Toast.makeText(getContext(), "Please check one", Toast.LENGTH_SHORT).show();
+            }
+
 
         } else {
             Toast.makeText(getContext(), "Please Turn on Wifi/Mobile Network.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public boolean isFieldsEmpty() {
+        return food.equals("false") && clothes.equals("false") && medicine.equals("false") && other.equals("false");
     }
 }
