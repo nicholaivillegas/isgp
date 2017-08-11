@@ -88,9 +88,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         mMap.setMyLocationEnabled(true);
 
-
-        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(12.8797, 121.7740));
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(4);
+        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(12.879721, 121.774017));
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(15.0f);
 
         mMap.moveCamera(center);
         mMap.animateCamera(zoom);
@@ -164,10 +163,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         totalMedicine = (medicineCounter / counter) * 100;
         totalOther = (otherCounter / counter) * 100;
 
-        textFood.setText(totalFood + "%");
-        textClothes.setText(totalClothes + "%");
-        textMedicine.setText(totalMedicine + "%");
-        textOther.setText(totalOther + "%");
+        textFood.setText(String.format("%.2f", totalFood) + "%");
+        textClothes.setText(String.format("%.2f", totalClothes) + "%");
+        textMedicine.setText(String.format("%.2f", totalMedicine) + "%");
+        textOther.setText(String.format("%.2f", totalOther) + "%");
         textTotal.setText(counter + "");
     }
 
