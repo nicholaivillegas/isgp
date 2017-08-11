@@ -349,22 +349,28 @@ public class FeedbackFragment extends Fragment {
                 operationId);
 
         if (isNetworkAvailable()) {
-            mDatabase.child("feedback").child(transactionId).setValue(feedback);
-            Toast.makeText(getContext(), "Feedback Sent!", Toast.LENGTH_SHORT).show();
+            if (!isFieldsEmpty()) {
+                mDatabase.child("feedback").child(transactionId).setValue(feedback);
+                Toast.makeText(getContext(), "Feedback Sent!", Toast.LENGTH_SHORT).show();
 
-            buttonSendFeedback.setEnabled(false);
+                buttonSendFeedback.setEnabled(false);
 
-            DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("request").child(model2.getTransactionId()).child("status");
-            data.setValue("sent");
+                DatabaseReference data = FirebaseDatabase.getInstance().getReference().child("request").child(model2.getTransactionId()).child("status");
+                data.setValue("sent");
 
-            DatabaseReference data1 = FirebaseDatabase.getInstance().getReference().child("userStatus").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("status");
-            data1.setValue("sent");
+                DatabaseReference data1 = FirebaseDatabase.getInstance().getReference().child("userStatus").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child("status");
+                data1.setValue("sent");
 
-            DatabaseReference data2 = FirebaseDatabase.getInstance().getReference().child("request").child(model2.getTransactionId()).child("operationId");
-            data2.setValue(operationId);
+                DatabaseReference data2 = FirebaseDatabase.getInstance().getReference().child("request").child(model2.getTransactionId()).child("operationId");
+                data2.setValue(operationId);
+            }
         } else {
             Toast.makeText(getContext(), "Please Turn on Wifi/Mobile Network.", Toast.LENGTH_LONG).show();
         }
+    }
+
+    public boolean isFieldsEmpty() {
+        return food.equals("false") && clothes.equals("false") && medicine.equals("false") && others.equals("false") && comment.equals("false");
     }
 
     private boolean isNetworkAvailable() {
