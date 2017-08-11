@@ -1,6 +1,5 @@
 package com.androidapp.isagip;
 
-import android.*;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,6 +13,7 @@ import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -27,10 +27,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.androidapp.isagip.model.Feedback;
 import com.androidapp.isagip.model.Request;
 import com.androidapp.isagip.model.UserStatus;
 import com.google.firebase.auth.FirebaseAuth;
@@ -72,29 +73,21 @@ public class ReliefFragment extends Fragment {
     EditText editOther;
     @BindView(R.id.card_other)
     CardView cardOther;
-    @BindView(R.id.edit_name1)
-    EditText editName1;
-    @BindView(R.id.spinner1)
-    Spinner spinner1;
-    @BindView(R.id.edit_name2)
-    EditText editName2;
-    @BindView(R.id.spinner2)
-    Spinner spinner2;
-    @BindView(R.id.edit_name3)
-    EditText editName3;
-    @BindView(R.id.spinner3)
-    Spinner spinner3;
-    @BindView(R.id.edit_name4)
-    EditText editName4;
-    @BindView(R.id.spinner4)
-    Spinner spinner4;
-    @BindView(R.id.edit_name5)
-    EditText editName5;
-    @BindView(R.id.spinner5)
-    Spinner spinner5;
     @BindView(R.id.button_send)
     Button buttonSend;
     Unbinder unbinder;
+    @BindView(R.id.radio_family_1)
+    RadioButton radioFamily1;
+    @BindView(R.id.radio_family_10)
+    RadioButton radioFamily10;
+    @BindView(R.id.radioGroup_family)
+    RadioGroup radioGroupFamily;
+    @BindView(R.id.card_family_size)
+    CardView cardFamilySize;
+    @BindView(R.id.edit_name_official)
+    EditText editNameOfficial;
+    @BindView(R.id.edit_number_official)
+    EditText editNumberOfficial;
     private DatabaseReference mDatabase;
     private DatabaseReference myRef;
     private DatabaseReference mDatabase1;
@@ -110,6 +103,7 @@ public class ReliefFragment extends Fragment {
     UserStatus model1;
     private ChildEventListener ref;
     private ChildEventListener ref1;
+    private String familySize = "small";
 
 
     @Nullable
@@ -133,7 +127,7 @@ public class ReliefFragment extends Fragment {
         latitude = this.getArguments().getDouble("lat");
         longitude = this.getArguments().getDouble("long");
         getLocation();
-
+        radioGroupFamily.check(radioFamily1.getId());
         checkFood.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -173,6 +167,17 @@ public class ReliefFragment extends Fragment {
                 } else {
                     other = "false";
                     editOther.setVisibility(View.GONE);
+                }
+            }
+        });
+
+        radioGroupFamily.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                if (checkedId == radioFamily1.getId()) {
+                    familySize = "small";
+                } else if (checkedId == radioFamily10.getId()) {
+                    familySize = "big";
                 }
             }
         });
@@ -327,47 +332,19 @@ public class ReliefFragment extends Fragment {
 
     @OnClick(R.id.button_send)
     public void onViewClicked() {
-        String name1, name2, name3, name4, name5;
-        String gender1, gender2, gender3, gender4, gender5;
-        if (editName1.getText().toString().isEmpty()) {
-            gender1 = "n/a";
-            name1 = "n/a";
-        } else {
-            gender1 = spinner1.getSelectedItem().toString();
-            name1 = editName1.getText().toString().trim();
-        }
-        if (editName2.getText().toString().isEmpty()) {
-            gender2 = "n/a";
-            name2 = "n/a";
-        } else {
-            gender2 = spinner2.getSelectedItem().toString();
-            name2 = editName2.getText().toString().trim();
-        }
-        if (editName3.getText().toString().isEmpty()) {
-            gender3 = "n/a";
-            name3 = "n/a";
-        } else {
-            gender3 = spinner3.getSelectedItem().toString();
-            name3 = editName3.getText().toString().trim();
-        }
-        if (editName4.getText().toString().isEmpty()) {
-            gender4 = "n/a";
-            name4 = "n/a";
-        } else {
-            gender4 = spinner4.getSelectedItem().toString();
-            name4 = editName4.getText().toString().trim();
-        }
-        if (editName5.getText().toString().isEmpty()) {
-            gender5 = "n/a";
-            name5 = "n/a";
-        } else {
-            gender5 = spinner5.getSelectedItem().toString();
-            name5 = editName5.getText().toString().trim();
-        }
+        String name = editNameOfficial.getText().toString(), number = editNumberOfficial.getText().toString();
         String other = editOther.getText().toString();
         if (other.isEmpty()) {
             other = "false";
         }
+
+        if (name.isEmpty()) {
+            name = "n/a";
+        }
+        if (number.isEmpty()) {
+            number = "n/a";
+        }
+
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
         Request request = new Request(FirebaseAuth.getInstance().getCurrentUser().getPhoneNumber(),
                 FirebaseAuth.getInstance().getCurrentUser().getDisplayName(),
@@ -378,16 +355,9 @@ public class ReliefFragment extends Fragment {
                 food,
                 clothes,
                 medicine,
-                name1,
-                gender1,
-                name2,
-                gender2,
-                name3,
-                gender3,
-                name4,
-                gender4,
-                name5,
-                gender5,
+                familySize,
+                name,
+                number,
                 other,
                 "requested",
                 "",

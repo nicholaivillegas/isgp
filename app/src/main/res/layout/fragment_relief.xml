@@ -80,13 +80,6 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <CheckBox
-                    android:id="@+id/check_other"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="30dp"
-                    android:text="Other" />
-
                 <EditText
                     android:id="@+id/edit_other"
                     android:layout_width="match_parent"
@@ -98,7 +91,71 @@
                     android:inputType="textCapSentences"
                     android:visibility="gone" />
 
+                <CheckBox
+                    android:id="@+id/check_other"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="30dp"
+                    android:text="Other" />
+
             </LinearLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card_family_size"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimary"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/colorLight"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="FAMILY SIZE"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="24sp" />
+
+                <RadioGroup
+                    android:id="@+id/radioGroup_family"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/colorLight"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:weightSum="2">
+
+                    <RadioButton
+                        android:id="@+id/radio_family_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="1 - 5 members" />
+
+                    <RadioButton
+                        android:id="@+id/radio_family_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="6 - 10 members" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+
         </android.support.v7.widget.CardView>
 
         <TextView
@@ -108,172 +165,30 @@
             android:background="@color/colorLight"
             android:gravity="center"
             android:padding="15dp"
-            android:text="NAME and GENDER"
+            android:text="PERSON TO CONTACT"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="24sp" />
 
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/edit_name_official"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:weightSum="4">
+            android:background="@color/colorLight"
+            android:hint="Name"
+            android:inputType="textCapWords"
+            android:padding="15dp" />
 
-            <EditText
-                android:id="@+id/edit_name1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3.0"
-                android:background="@color/colorLight"
-                android:hint="Name"
-                android:inputType="textCapWords"
-                android:padding="15dp" />
-
-            <Spinner
-                android:id="@+id/spinner1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:background="@color/colorLight"
-                android:entries="@array/array_gender"
-                android:padding="15dp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/edit_number_official"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <EditText
-                android:id="@+id/edit_name2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3.0"
-                android:background="@color/colorLight"
-                android:hint="Name"
-                android:inputType="textCapWords"
-                android:padding="15dp" />
-
-            <Spinner
-                android:id="@+id/spinner2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:background="@color/colorLight"
-                android:entries="@array/array_gender"
-                android:padding="15dp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <EditText
-                android:id="@+id/edit_name3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3.0"
-                android:background="@color/colorLight"
-                android:hint="Name"
-                android:inputType="textCapWords"
-                android:padding="15dp" />
-
-            <Spinner
-                android:id="@+id/spinner3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:background="@color/colorLight"
-                android:entries="@array/array_gender"
-                android:padding="15dp" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <EditText
-                android:id="@+id/edit_name4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3.0"
-                android:background="@color/colorLight"
-                android:hint="Name"
-                android:inputType="textCapWords"
-                android:padding="15dp" />
-
-            <Spinner
-                android:id="@+id/spinner4"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:background="@color/colorLight"
-                android:entries="@array/array_gender"
-                android:padding="15dp" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <EditText
-                android:id="@+id/edit_name5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="3.0"
-                android:background="@color/colorLight"
-                android:hint="Name"
-                android:inputType="textCapWords"
-                android:padding="15dp" />
-
-            <Spinner
-                android:id="@+id/spinner5"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="1"
-                android:background="@color/colorLight"
-                android:entries="@array/array_gender"
-                android:padding="15dp" />
-
-
-        </LinearLayout>
+            android:background="@color/colorLight"
+            android:hint="Number"
+            android:inputType="phone"
+            android:padding="15dp" />
 
 
         <Button
