@@ -9,12 +9,13 @@ public class User {
     public String birthdate;
     public String type;
     public String status;
+    public String gender;
 
     public User() {
 
     }
 
-    public User(String id, String name, String email, String number, String birthdate, String type, String status) {
+    public User(String id, String name, String email, String number, String birthdate, String type, String status, String gender) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -22,6 +23,7 @@ public class User {
         this.birthdate = birthdate;
         this.type = type;
         this.status = status;
+        this.gender = gender;
     }
 
     public String getId() {
@@ -78,5 +80,13 @@ public class User {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 }

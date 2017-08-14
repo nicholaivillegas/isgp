@@ -9,6 +9,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -23,6 +24,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -101,6 +104,10 @@ public class LoginActivity extends AppCompatActivity implements
     private Button mSignOutButton;
     private Button mSubmit;
 
+    private RadioGroup radioGroupGender;
+    private RadioButton radioMale;
+    private RadioButton radioFemale;
+
     private DatePicker mDatepicker;
 
     private DatabaseReference mDatabase;
@@ -109,6 +116,7 @@ public class LoginActivity extends AppCompatActivity implements
 
     private String mMobileNumber;
     private String childName;
+    private String mGender = "m";
 
     private int familyCounter = 0;
 
@@ -146,6 +154,11 @@ public class LoginActivity extends AppCompatActivity implements
         mSignOutButton = (Button) findViewById(R.id.sign_out_button);
         mSubmit = (Button) findViewById(R.id.buttom_submit);
 
+        radioGroupGender = (RadioGroup) findViewById(R.id.radioGroud_gender);
+        radioMale = (RadioButton) findViewById(R.id.radio_male);
+        radioFemale = (RadioButton) findViewById(R.id.radio_female);
+
+        radioGroupGender.check(R.id.radio_male);
         mDatepicker = (DatePicker) findViewById(R.id.datepicker);
         mDatabase = FirebaseDatabase.getInstance().getReference();
         // Assign click listeners
@@ -154,6 +167,17 @@ public class LoginActivity extends AppCompatActivity implements
         mResendButton.setOnClickListener(this);
         mSignOutButton.setOnClickListener(this);
         mSubmit.setOnClickListener(this);
+
+        radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                if (checkedId == R.id.radio_male) {
+                    mGender = "m";
+                } else {
+                    mGender = "f";
+                }
+            }
+        });
 
         showPhoneRegistrationFields();
 
@@ -270,6 +294,7 @@ public class LoginActivity extends AppCompatActivity implements
         mEmail.setVisibility(View.VISIBLE);
         mBirthdayLabel.setVisibility(View.VISIBLE);
         mDatepicker.setVisibility(View.VISIBLE);
+        radioGroupGender.setVisibility(View.VISIBLE);
         mSubmit.setVisibility(View.VISIBLE);
 
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -287,6 +312,11 @@ public class LoginActivity extends AppCompatActivity implements
 
                             mName.setText(model.getName());
                             mEmail.setText(model.getEmail());
+                            if (model.getGender().equals("m")) {
+                                radioGroupGender.check(R.id.radio_male);
+                            } else if (model.getGender().equals("f")) {
+                                radioGroupGender.check(R.id.radio_female);
+                            }
                         }
                     } catch (Exception ex) {
                         Log.e("RAWR", ex.getMessage());
@@ -326,6 +356,7 @@ public class LoginActivity extends AppCompatActivity implements
         mName.setVisibility(View.GONE);
         mEmail.setVisibility(View.GONE);
         mBirthdayLabel.setVisibility(View.GONE);
+        radioGroupGender.setVisibility(View.GONE);
         mDatepicker.setVisibility(View.GONE);
         mSubmit.setVisibility(View.GONE);
     }
@@ -343,7 +374,8 @@ public class LoginActivity extends AppCompatActivity implements
                     mMobileNumber,
                     makeDate(),
                     "user",
-                    "active");
+                    "active",
+                    mGender);
             mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
 
             FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();

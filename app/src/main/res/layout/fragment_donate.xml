@@ -84,7 +84,7 @@
                         android:layout_height="wrap_content"
                         android:autoLink="web"
                         android:gravity="center_horizontal"
-                        android:text="foundation@abs-cbnfoundation.com"
+                        android:text="sagip@abs-cbnfoundation.com"
                         android:textIsSelectable="true" />
 
                     <TextView

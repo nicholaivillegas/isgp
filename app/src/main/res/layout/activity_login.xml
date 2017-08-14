@@ -10,10 +10,9 @@
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/buttom_submit"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginBottom="50dp">
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -154,6 +153,7 @@
                         android:layout_weight="1.0"
                         android:hint="Name"
                         android:inputType="textCapWords" />
+
                     <EditText
                         android:id="@+id/edit_email"
                         android:layout_width="match_parent"
@@ -161,6 +161,39 @@
                         android:layout_weight="1.0"
                         android:hint="Email Address"
                         android:inputType="textEmailAddress" />
+
+                    <TextView
+                        android:id="@+id/text_gender_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Gender"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroud_gender"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+
+                        <RadioButton
+                            android:id="@+id/radio_male"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Male" />
+
+                        <RadioButton
+                            android:id="@+id/radio_female"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Female" />
+
+                    </RadioGroup>
+
 
                     <TextView
                         android:id="@+id/text_birthday_label"

@@ -89,7 +89,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mMap.setMyLocationEnabled(true);
 
         CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(12.879721, 121.774017));
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(15.0f);
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(5.0f);
 
         mMap.moveCamera(center);
         mMap.animateCamera(zoom);
@@ -130,6 +130,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     } catch (Exception ex) {
                         Log.e("RAWR", ex.getMessage());
                     }
+                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(6.0f);
+                    mMap.animateCamera(zoom);
                 }
             }
 
