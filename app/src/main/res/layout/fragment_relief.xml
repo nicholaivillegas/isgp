@@ -178,6 +178,7 @@
             android:background="@color/colorLight"
             android:hint="Name"
             android:inputType="textCapWords"
+            android:maxLength="50"
             android:padding="15dp" />
 
         <EditText
@@ -188,7 +189,9 @@
             android:background="@color/colorLight"
             android:hint="Number"
             android:inputType="phone"
-            android:padding="15dp" />
+            android:maxLength="13"
+            android:padding="15dp"
+            android:text="+639" />
 
 
         <Button

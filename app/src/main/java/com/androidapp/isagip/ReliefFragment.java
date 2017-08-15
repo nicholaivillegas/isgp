@@ -230,6 +230,7 @@ public class ReliefFragment extends Fragment {
                                 buttonSend.setEnabled(true);
                             } else {
                                 buttonSend.setEnabled(false);
+                                Toast.makeText(getContext(), "You're not yet allowed to send another request wait for further announcement", Toast.LENGTH_LONG).show();
                             }
                         }
                     } catch (Exception ex) {
