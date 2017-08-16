@@ -2,15 +2,20 @@ package com.androidapp.isagip;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidapp.isagip.model.Feedback;
+import com.androidapp.isagip.model.Operation;
 import com.androidapp.isagip.model.Request;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,10 +48,15 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     TextView textTotal;
     @BindView(R.id.cardView)
     CardView cardView;
+    @BindView(R.id.spinner)
+    Spinner spinner;
     private GoogleMap mMap;
     private DatabaseReference myRef;
     private DatabaseReference mDatabase;
     private ChildEventListener ref;
+    private DatabaseReference myRef1;
+    private DatabaseReference mDatabase1;
+    private ChildEventListener ref1;
     private double foodCounter = 0;
     private double clothesCounter = 0;
     private double medicineCounter = 0;
@@ -57,6 +67,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
     private double totalClothes = 0;
     private double totalMedicine = 0;
     private double totalOther = 0;
+
+    Operation model;
+    FirebaseDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,7 +82,6 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         mapFragment.getMapAsync(this);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
-
 
     /**
      * Manipulates the map once available.
@@ -88,16 +100,9 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         }
         mMap.setMyLocationEnabled(true);
 
-        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(12.879721, 121.774017));
-        CameraUpdate zoom = CameraUpdateFactory.zoomTo(5.0f);
 
-        mMap.moveCamera(center);
-        mMap.animateCamera(zoom);
-
-// ...
         // real time database
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        //Todo: change to chats after testing
+        database = FirebaseDatabase.getInstance();
         myRef = database.getReference("request");
         mDatabase = FirebaseDatabase.getInstance().getReference();
         ref = myRef.addChildEventListener(new ChildEventListener() {
@@ -131,6 +136,135 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         Log.e("RAWR", ex.getMessage());
                     }
                     CameraUpdate zoom = CameraUpdateFactory.zoomTo(6.0f);
+                    mMap.animateCamera(zoom);
+                }
+            }
+
+            // This function is called each time a child item is removed.
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("TAG:", "Failed to read value.", error.toException());
+            }
+        });
+
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position == 0) {
+                    Toast.makeText(MapsActivity.this, "All", Toast.LENGTH_SHORT).show();
+                    getAllOperations();
+                } else if (position == 1) {
+                    Toast.makeText(MapsActivity.this, "Fire", Toast.LENGTH_SHORT).show();
+                    focusToOperation("Fire");
+                } else if (position == 2) {
+                    Toast.makeText(MapsActivity.this, "Typhoon", Toast.LENGTH_SHORT).show();
+                    focusToOperation("Typhoon");
+                } else if (position == 3) {
+                    Toast.makeText(MapsActivity.this, "Earthquake", Toast.LENGTH_SHORT).show();
+                    focusToOperation("Earthquake");
+                } else if (position == 4) {
+                    Toast.makeText(MapsActivity.this, "Others", Toast.LENGTH_SHORT).show();
+                    focusToOperation("Others");
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                getAllOperations();
+
+            }
+        });
+    }
+
+    public void focusToOperation(final String operation) {
+        myRef1 = database.getReference("operations");
+        mDatabase1 = FirebaseDatabase.getInstance().getReference();
+        ref1 = myRef1.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+                    try {
+                        model = dataSnapshot.getValue(Operation.class);
+                        if (model.getTitle().equalsIgnoreCase(operation) && model.getStatus().equals("active")) {
+                            Location loc = new Location("");
+                            loc.setLatitude(model.getLatitude());
+                            loc.setLongitude(model.getLongitude());
+                            CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(model.getLatitude(), model.getLongitude()));
+                            mMap.moveCamera(center);
+                            CameraUpdate zoom = CameraUpdateFactory.zoomTo(8.0f);
+                            mMap.animateCamera(zoom);
+                        } else {
+                            CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(12.879721, 121.774017));
+                            CameraUpdate zoom = CameraUpdateFactory.zoomTo(5.0f);
+
+                            mMap.moveCamera(center);
+                            mMap.animateCamera(zoom);
+                        }
+                    } catch (Exception ex) {
+                        Log.e("RAWR", ex.getMessage());
+                    }
+
+                }
+            }
+
+            // This function is called each time a child item is removed.
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("TAG:", "Failed to read value.", error.toException());
+            }
+        });
+    }
+
+    public void getAllOperations() {
+        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(12.879721, 121.774017));
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(5.0f);
+
+        mMap.moveCamera(center);
+        mMap.animateCamera(zoom);
+
+        myRef1 = database.getReference("operations");
+        mDatabase1 = FirebaseDatabase.getInstance().getReference();
+        ref1 = myRef1.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+                    try {
+                        if (model.getStatus().equals("active")) {
+                            model = dataSnapshot.getValue(Operation.class);
+                            Location loc = new Location("");
+                            loc.setLatitude(model.getLatitude());
+                            loc.setLongitude(model.getLongitude());
+                        }
+                    } catch (Exception ex) {
+                        Log.e("RAWR", ex.getMessage());
+                    }
+                    CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(12.879721, 121.774017));
+                    CameraUpdate zoom = CameraUpdateFactory.zoomTo(5.0f);
+
+                    mMap.moveCamera(center);
                     mMap.animateCamera(zoom);
                 }
             }

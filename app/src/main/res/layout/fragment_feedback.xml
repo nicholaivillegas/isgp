@@ -29,11 +29,33 @@
                 android:layout_height="wrap_content"
                 android:text="Food" />
 
+            <SeekBar
+                android:id="@+id/seekBar_feedback_food"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:max="5"
+                android:progress="3"
+                android:visibility="gone" />
+
             <CheckBox
                 android:id="@+id/check_clothes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Clothes" />
+
+            <SeekBar
+                android:id="@+id/seekBar_feedback_clothes"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:max="5"
+                android:progress="3"
+                android:visibility="gone" />
 
             <CheckBox
                 android:id="@+id/check_medicine"
@@ -41,11 +63,33 @@
                 android:layout_height="wrap_content"
                 android:text="Medicine" />
 
+            <SeekBar
+                android:id="@+id/seekBar_feedback_medicine"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:max="5"
+                android:progress="3"
+                android:visibility="gone" />
+
             <CheckBox
                 android:id="@+id/check_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Other:" />
+
+            <SeekBar
+                android:id="@+id/seekBar_feedback_other"
+                style="@style/Widget.AppCompat.SeekBar.Discrete"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:max="5"
+                android:progress="3"
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/edit_other"
@@ -58,25 +102,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="Rate the condition of the relief"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-            <SeekBar
-                android:id="@+id/seekBar_feedback"
-                style="@style/Widget.AppCompat.SeekBar.Discrete"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:max="5"
-                android:progress="3" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:text="Comment:"
                 android:textSize="18sp"
                 android:textStyle="bold" />

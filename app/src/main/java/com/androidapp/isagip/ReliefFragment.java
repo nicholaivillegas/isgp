@@ -342,7 +342,7 @@ public class ReliefFragment extends Fragment {
         if (name.isEmpty()) {
             name = "n/a";
         }
-        if (number.isEmpty()) {
+        if (number.isEmpty() || number.equals("+639")) {
             number = "n/a";
         }
 

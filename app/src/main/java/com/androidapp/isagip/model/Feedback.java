@@ -13,6 +13,7 @@ public class Feedback {
     public String clothes;
     public String medicine;
     public String others;
+    public String othersRate;
     public String rating;
     public String comment;
     public String status;
@@ -22,7 +23,7 @@ public class Feedback {
 
     }
 
-    public Feedback(String id, String timestamp, String mobileNumber, String food, String clothes, String medicine, String others, String rating, String comment, String status, String operationId) {
+    public Feedback(String id, String timestamp, String mobileNumber, String food, String clothes, String medicine, String others, String othersRate, String rating, String comment, String status, String operationId) {
         this.id = id;
         this.timestamp = timestamp;
         this.mobileNumber = mobileNumber;
@@ -30,6 +31,7 @@ public class Feedback {
         this.clothes = clothes;
         this.medicine = medicine;
         this.others = others;
+        this.othersRate = othersRate;
         this.rating = rating;
         this.comment = comment;
         this.status = status;
@@ -90,6 +92,14 @@ public class Feedback {
 
     public void setOthers(String others) {
         this.others = others;
+    }
+
+    public String getOthersRate() {
+        return othersRate;
+    }
+
+    public void setOthersRate(String othersRate) {
+        this.othersRate = othersRate;
     }
 
     public String getRating() {

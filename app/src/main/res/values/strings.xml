@@ -11,6 +11,15 @@
         <item name="male">Male</item>
         <item name="female">Female</item>
     </string-array>
+
+    <string-array name="array_calamity">
+        <item name="Fire">All</item>
+        <item name="Fire">Fire</item>
+        <item name="Typhoon">Typhoon</item>
+        <item name="Earthquake">Earthquake</item>
+        <item name="Others">Others</item>
+    </string-array>
+
     <string name="title_activity_maps">Map</string>
 
     <string name="facebook_app_id">627306530798817</string>

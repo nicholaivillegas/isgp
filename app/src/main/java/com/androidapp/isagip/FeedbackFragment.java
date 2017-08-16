@@ -1,6 +1,7 @@
 package com.androidapp.isagip;
 
 import android.*;
+import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -9,7 +10,6 @@ import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -28,13 +28,8 @@ import android.widget.Toast;
 import com.androidapp.isagip.model.Feedback;
 import com.androidapp.isagip.model.Operation;
 import com.androidapp.isagip.model.Request;
-import com.androidapp.isagip.model.User;
 import com.androidapp.isagip.model.UserStatus;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserProfileChangeRequest;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -65,13 +60,19 @@ public class FeedbackFragment extends Fragment {
     CheckBox checkOther;
     @BindView(R.id.edit_other)
     EditText editOther;
-    @BindView(R.id.seekBar_feedback)
-    SeekBar seekBarFeedback;
     @BindView(R.id.edit_comment)
     EditText editComment;
     @BindView(R.id.button_send_feedback)
     Button buttonSendFeedback;
     Unbinder unbinder;
+    @BindView(R.id.seekBar_feedback_food)
+    SeekBar seekBarFeedbackFood;
+    @BindView(R.id.seekBar_feedback_clothes)
+    SeekBar seekBarFeedbackClothes;
+    @BindView(R.id.seekBar_feedback_medicine)
+    SeekBar seekBarFeedbackMedicine;
+    @BindView(R.id.seekBar_feedback_other)
+    SeekBar seekBarFeedbackOther;
     private DatabaseReference myRef;
     private DatabaseReference mDatabase;
     private DatabaseReference myRef1;
@@ -80,7 +81,7 @@ public class FeedbackFragment extends Fragment {
     private DatabaseReference mDatabase2;
     private DatabaseReference myRef3;
     private DatabaseReference mDatabase3;
-    private String food = "false", clothes = "false", medicine = "false", others = "false", comment = "false";
+    private String food = "false", clothes = "false", medicine = "false", others = "false", othersRate = "false", comment = "false";
     Feedback model;
     Operation model1;
     UserStatus model2;
@@ -119,9 +120,11 @@ public class FeedbackFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    food = "true";
+                    food = String.valueOf(seekBarFeedbackFood.getProgress());
+                    seekBarFeedbackFood.setVisibility(View.VISIBLE);
                 } else {
                     food = "false";
+                    seekBarFeedbackFood.setVisibility(View.GONE);
                 }
             }
         });
@@ -129,9 +132,11 @@ public class FeedbackFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    clothes = "true";
+                    clothes = String.valueOf(seekBarFeedbackClothes.getProgress());
+                    seekBarFeedbackClothes.setVisibility(View.VISIBLE);
                 } else {
                     clothes = "false";
+                    seekBarFeedbackClothes.setVisibility(View.GONE);
                 }
             }
         });
@@ -139,9 +144,11 @@ public class FeedbackFragment extends Fragment {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    medicine = "true";
+                    medicine = String.valueOf(seekBarFeedbackMedicine.getProgress());
+                    seekBarFeedbackMedicine.setVisibility(View.VISIBLE);
                 } else {
                     medicine = "false";
+                    seekBarFeedbackMedicine.setVisibility(View.GONE);
                 }
             }
         });
@@ -150,10 +157,14 @@ public class FeedbackFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     editOther.setVisibility(View.VISIBLE);
+                    seekBarFeedbackOther.setVisibility(View.VISIBLE);
                     others = editOther.getText().toString();
+                    othersRate = String.valueOf(seekBarFeedbackOther.getProgress());
                 } else {
                     editOther.setVisibility(View.GONE);
+                    seekBarFeedbackOther.setVisibility(View.GONE);
                     others = "false";
+                    othersRate = "false";
                 }
             }
         });
@@ -343,7 +354,8 @@ public class FeedbackFragment extends Fragment {
                 clothes,
                 medicine,
                 others,
-                String.valueOf(seekBarFeedback.getProgress()),
+                othersRate,
+                "",
                 comment,
                 "requested",
                 operationId);
@@ -394,22 +406,22 @@ public class FeedbackFragment extends Fragment {
 
     public void requestFineLocation() {
         if (ContextCompat.checkSelfPermission(this.getActivity(),
-                android.Manifest.permission.ACCESS_FINE_LOCATION)
+                Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this.getActivity(),
-                    new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION},
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                     1);
         }
     }
 
     public void requestCoarseLocation() {
         if (ContextCompat.checkSelfPermission(this.getActivity(),
-                android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
 
             ActivityCompat.requestPermissions(this.getActivity(),
-                    new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION},
+                    new String[]{Manifest.permission.ACCESS_COARSE_LOCATION},
                     1);
         }
     }

@@ -146,15 +146,15 @@ public class BasketFragment extends Fragment {
                         model = dataSnapshot.getValue(Feedback.class);
                         if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(model1.getId())) {
                             if (model.getId().equals(model1.getId())) {
-                                if (model.getFood().equals("true")) {
+                                if (!model.getFood().equals("false")) {
                                     checkFoodExpectedDate.setText(model.getTimestamp());
                                     cardFoodExpected.setVisibility(View.VISIBLE);
                                 }
-                                if (model.getClothes().equals("true")) {
+                                if (!model.getClothes().equals("false")) {
                                     checkClothesExpectedDate.setText(model.getTimestamp());
                                     cardClothesExpected.setVisibility(View.VISIBLE);
                                 }
-                                if (model.getMedicine().equals("true")) {
+                                if (!model.getMedicine().equals("false")) {
                                     checkMedicineExpectedDate.setText(model.getTimestamp());
                                     cardMedicineExpected.setVisibility(View.VISIBLE);
                                 }

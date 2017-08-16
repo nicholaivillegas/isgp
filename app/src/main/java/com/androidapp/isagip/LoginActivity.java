@@ -91,6 +91,7 @@ public class LoginActivity extends AppCompatActivity implements
     private TextView mStatusText;
     private TextView mDetailText;
     private TextView mBirthdayLabel;
+    private TextView mGenderLabel;
 
     private EditText mPhoneNumberField;
     private EditText mVerificationField;
@@ -142,6 +143,7 @@ public class LoginActivity extends AppCompatActivity implements
         mStatusText = (TextView) findViewById(R.id.status);
         mDetailText = (TextView) findViewById(R.id.detail);
         mBirthdayLabel = (TextView) findViewById(R.id.text_birthday_label);
+        mGenderLabel = (TextView) findViewById(R.id.text_gender_label);
 
         mPhoneNumberField = (EditText) findViewById(R.id.edit_phone_number);
         mVerificationField = (EditText) findViewById(R.id.edit_verification_code);
@@ -293,6 +295,7 @@ public class LoginActivity extends AppCompatActivity implements
         mName.setVisibility(View.VISIBLE);
         mEmail.setVisibility(View.VISIBLE);
         mBirthdayLabel.setVisibility(View.VISIBLE);
+        mGenderLabel.setVisibility(View.VISIBLE);
         mDatepicker.setVisibility(View.VISIBLE);
         radioGroupGender.setVisibility(View.VISIBLE);
         mSubmit.setVisibility(View.VISIBLE);
@@ -356,6 +359,7 @@ public class LoginActivity extends AppCompatActivity implements
         mName.setVisibility(View.GONE);
         mEmail.setVisibility(View.GONE);
         mBirthdayLabel.setVisibility(View.GONE);
+        mGenderLabel.setVisibility(View.GONE);
         radioGroupGender.setVisibility(View.GONE);
         mDatepicker.setVisibility(View.GONE);
         mSubmit.setVisibility(View.GONE);
@@ -363,37 +367,34 @@ public class LoginActivity extends AppCompatActivity implements
 
     //save profile to database
     private void saveProfile() {
-        String name = mName.getText().toString();
-        String email = mEmail.getText().toString();
-        if (name.isEmpty() && email.isEmpty()) {
-            Toast.makeText(this, "Please Complete your Information", Toast.LENGTH_SHORT).show();
-        } else {
-            User user = new User(mMobileNumber,
-                    name,
-                    mEmail.getText().toString(),
-                    mMobileNumber,
-                    makeDate(),
-                    "user",
-                    "active",
-                    mGender);
-            mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
+        String name = mName.getText().toString().trim();
+        String email = mEmail.getText().toString().trim();
+        User user = new User(mMobileNumber,
+                name,
+                mEmail.getText().toString(),
+                mMobileNumber,
+                makeDate(),
+                "user",
+                "active",
+                mGender);
+        mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
 
-            FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                    .setDisplayName(mEmail.getText().toString())
-                    .build();
+        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                .setDisplayName(mEmail.getText().toString())
+                .build();
 
-            firebaseUser.updateProfile(profileUpdates)
-                    .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "User profile updated.");
-                            }
+        firebaseUser.updateProfile(profileUpdates)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            Log.d(TAG, "User profile updated.");
                         }
-                    });
-        }
+                    }
+                });
+
     }
 
 
@@ -649,12 +650,13 @@ public class LoginActivity extends AppCompatActivity implements
                 break;
             case R.id.buttom_submit:
                 if (isValidAge()) {
-                    if (emailValidator(mEmail.getText().toString())) {
+                    if (emailValidator(mEmail.getText().toString()) && !mName.getText().toString().equals("")) {
                         saveProfile();
                         Intent i = new Intent(LoginActivity.this, MainActivity.class);
                         i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                         startActivity(i);
-                    } else Toast.makeText(this, "INVALID EMAIL", Toast.LENGTH_SHORT).show();
+                    } else
+                        Toast.makeText(this, "Please Complete your Information", Toast.LENGTH_SHORT).show();
                 } else Toast.makeText(this, "INVALID AGE", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.sign_out_button:
