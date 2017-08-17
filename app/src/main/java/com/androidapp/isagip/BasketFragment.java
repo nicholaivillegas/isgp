@@ -111,6 +111,7 @@ public class BasketFragment extends Fragment {
                 if (dataSnapshot != null && dataSnapshot.getValue() != null) {
                     try {
                         model1 = dataSnapshot.getValue(UserStatus.class);
+                        feedbackAndRequest();
                     } catch (Exception ex) {
                         Log.e("RAWR", ex.getMessage());
                     }
@@ -134,6 +135,12 @@ public class BasketFragment extends Fragment {
             }
         });
 
+
+        unbinder = ButterKnife.bind(this, view);
+        return view;
+    }
+
+    public void feedbackAndRequest() {
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("feedback");
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -282,10 +289,6 @@ public class BasketFragment extends Fragment {
                 Log.w("TAG:", "Failed to read value.", error.toException());
             }
         });
-
-
-        unbinder = ButterKnife.bind(this, view);
-        return view;
     }
 
     @Override
