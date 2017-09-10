@@ -1,8 +1,13 @@
 package com.androidapp.isagip;
 
+import android.app.NotificationManager;
+import android.content.Context;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -84,6 +89,20 @@ public class NewsFragment extends Fragment {
                 operations.add(operation);
                 recyclerViewAdapter = new RecyclerViewAdapter(this.getContext(), operations);
                 recyclerView.setAdapter(recyclerViewAdapter);
+
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext());
+                mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+                mBuilder.setContentTitle("ISagip News");
+                mBuilder.setContentText("There are operations on-going!");
+                NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+                Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+                mBuilder.setSound(alarmSound);
+                long[] pattern = {500, 500, 500, 500, 500, 500, 500, 500, 500};
+                mBuilder.setVibrate(pattern);
+
+                // notificationID allows you to update the notification later on.
+                mNotificationManager.notify(1, mBuilder.build());
             }
         }
     }
