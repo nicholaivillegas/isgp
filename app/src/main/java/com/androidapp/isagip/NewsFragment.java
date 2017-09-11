@@ -96,10 +96,10 @@ public class NewsFragment extends Fragment {
                 mBuilder.setContentText("There are operations on-going!");
                 NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
-                Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-                mBuilder.setSound(alarmSound);
-                long[] pattern = {500, 500, 500, 500, 500, 500, 500, 500, 500};
-                mBuilder.setVibrate(pattern);
+//                Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+//                mBuilder.setSound(alarmSound);
+//                long[] pattern = {500, 500, 500, 500, 500, 500, 500, 500, 500};
+//                mBuilder.setVibrate(pattern);
 
                 // notificationID allows you to update the notification later on.
                 mNotificationManager.notify(1, mBuilder.build());
