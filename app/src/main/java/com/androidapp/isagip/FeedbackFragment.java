@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -225,11 +226,15 @@ public class FeedbackFragment extends Fragment {
                             location = loc;
                             operationId = String.valueOf(model1.getId());
                         }
-
-
                     } catch (Exception ex) {
                         Log.e("RAWR", ex.getMessage());
                     }
+                } else {
+                    Toast.makeText(getContext(), "No Operations", Toast.LENGTH_SHORT).show();
+                    android.support.v4.app.FragmentManager manager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.content_main, new NewsFragment());
+                    transaction.commit();
                 }
             }
 
@@ -263,6 +268,7 @@ public class FeedbackFragment extends Fragment {
                         if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(model2.getId())) {
                             if (model2.getStatus().equals("sent")) {
                                 buttonSendFeedback.setEnabled(false);
+                                buttonSendFeedback.setText("Feedback Unavailable");
                             } else {
                                 buttonSendFeedback.setEnabled(true);
                             }

@@ -27,6 +27,8 @@
                 android:id="@+id/check_food"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="true"
+                android:clickable="false"
                 android:text="Food" />
 
             <SeekBar
@@ -37,13 +39,14 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:max="5"
-                android:progress="3"
-                android:visibility="gone" />
+                android:progress="0" />
 
             <CheckBox
                 android:id="@+id/check_clothes"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="true"
+                android:clickable="false"
                 android:text="Clothes" />
 
             <SeekBar
@@ -54,13 +57,14 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:max="5"
-                android:progress="3"
-                android:visibility="gone" />
+                android:progress="0" />
 
             <CheckBox
                 android:id="@+id/check_medicine"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="true"
+                android:clickable="false"
                 android:text="Medicine" />
 
             <SeekBar
@@ -71,13 +75,14 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:max="5"
-                android:progress="3"
-                android:visibility="gone" />
+                android:progress="0" />
 
             <CheckBox
                 android:id="@+id/check_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:checked="true"
+                android:clickable="false"
                 android:text="Other:" />
 
             <SeekBar
@@ -88,16 +93,14 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:max="5"
-                android:progress="3"
-                android:visibility="gone" />
+                android:progress="0" />
 
             <EditText
                 android:id="@+id/edit_other"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Input here..."
-                android:maxLength="50"
-                android:visibility="gone" />
+                android:maxLength="50" />
 
             <TextView
                 android:layout_width="match_parent"

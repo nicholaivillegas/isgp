@@ -185,6 +185,11 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
 
             }
         });
+        CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(12.879721, 121.774017));
+        CameraUpdate zoom = CameraUpdateFactory.zoomTo(5.0f);
+
+        mMap.moveCamera(center);
+        mMap.animateCamera(zoom);
     }
 
     public void focusToOperation(final String operation) {

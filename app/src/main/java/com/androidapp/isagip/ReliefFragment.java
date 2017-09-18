@@ -17,6 +17,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
 import android.util.Log;
@@ -32,6 +33,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.androidapp.isagip.model.AffectedArea;
 import com.androidapp.isagip.model.Request;
 import com.androidapp.isagip.model.UserStatus;
 import com.google.firebase.auth.FirebaseAuth;
@@ -92,6 +94,8 @@ public class ReliefFragment extends Fragment {
     private DatabaseReference myRef;
     private DatabaseReference mDatabase1;
     private DatabaseReference myRef1;
+    private DatabaseReference mDatabase2;
+    private DatabaseReference myRef2;
     double latitude;
     double longitude;
     List<Address> addresses;
@@ -101,8 +105,10 @@ public class ReliefFragment extends Fragment {
     private String other = "false";
     Request model;
     UserStatus model1;
+    AffectedArea model2;
     private ChildEventListener ref;
     private ChildEventListener ref1;
+    private ChildEventListener ref2;
     private String familySize = "small";
 
 
@@ -182,6 +188,45 @@ public class ReliefFragment extends Fragment {
             }
         });
 
+        final FirebaseDatabase database2 = FirebaseDatabase.getInstance();
+        myRef2 = database2.getReference("affected_areas");
+        mDatabase2 = FirebaseDatabase.getInstance().getReference();
+        ref2 = myRef2.addChildEventListener(new ChildEventListener() {
+
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+                    try {
+                        model2 = dataSnapshot.getValue(AffectedArea.class);
+                    } catch (Exception ex) {
+                        Log.e("RAWR", ex.getMessage());
+                    }
+                } else {
+                    Toast.makeText(getContext(), "No Affected Areas", Toast.LENGTH_SHORT).show();
+                    android.support.v4.app.FragmentManager manager = getActivity().getSupportFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.content_main, new NewsFragment());
+                    transaction.commit();
+                }
+            }
+
+            // This function is called each time a child item is removed.
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+            }
+
+            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w("TAG:", "Failed to read value.", error.toException());
+            }
+        });
+
         final FirebaseDatabase database = FirebaseDatabase.getInstance();
         myRef = database.getReference("request");
         mDatabase = FirebaseDatabase.getInstance().getReference();
@@ -230,6 +275,7 @@ public class ReliefFragment extends Fragment {
                                 buttonSend.setEnabled(true);
                             } else {
                                 buttonSend.setEnabled(false);
+                                buttonSend.setText("Already Requested");
                                 Toast.makeText(getContext(), "You're not yet allowed to send another request wait for further announcement", Toast.LENGTH_LONG).show();
                             }
                         }
