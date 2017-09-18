@@ -22,6 +22,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.firebase.database.ChildEventListener;
@@ -114,7 +115,7 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         Request model = dataSnapshot.getValue(Request.class);
                         if (model.getStatus().equals("requested")) {
                             LatLng marker = new LatLng(Double.parseDouble(model.getLatitude()), Double.parseDouble(model.getLongitude()));
-                            mMap.addMarker(new MarkerOptions().position(marker).title(model.getLocation()));
+                            mMap.addMarker(new MarkerOptions().position(marker).title(model.getLocation()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
                             if (model.getFood().equals("true")) {
                                 foodCounter++;
@@ -210,6 +211,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             mMap.moveCamera(center);
                             CameraUpdate zoom = CameraUpdateFactory.zoomTo(8.0f);
                             mMap.animateCamera(zoom);
+                            LatLng marker = new LatLng(model.getLatitude(), model.getLongitude());
+                            mMap.addMarker(new MarkerOptions().position(marker).title(model.getLocation()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                         } else {
                             CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(12.879721, 121.774017));
                             CameraUpdate zoom = CameraUpdateFactory.zoomTo(5.0f);
@@ -268,7 +271,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                     }
                     CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(12.879721, 121.774017));
                     CameraUpdate zoom = CameraUpdateFactory.zoomTo(5.0f);
-
+                    LatLng marker = new LatLng(model.getLatitude(), model.getLongitude());
+                    mMap.addMarker(new MarkerOptions().position(marker).title(model.getLocation()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     mMap.moveCamera(center);
                     mMap.animateCamera(zoom);
                 }
