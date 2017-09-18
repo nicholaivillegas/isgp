@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:entries="@array/array_calamity"
                 android:padding="10dp"
-                android:visibility="visible" />
+                android:visibility="gone" />
         </LinearLayout>
 
 

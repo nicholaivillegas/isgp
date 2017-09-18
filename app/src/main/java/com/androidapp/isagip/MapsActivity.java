@@ -106,6 +106,8 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
         database = FirebaseDatabase.getInstance();
         myRef = database.getReference("request");
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        focusToOperation("Others");
+        getAllOperations();
         ref = myRef.addChildEventListener(new ChildEventListener() {
 
             @Override
@@ -115,7 +117,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                         Request model = dataSnapshot.getValue(Request.class);
                         if (model.getStatus().equals("requested")) {
                             LatLng marker = new LatLng(Double.parseDouble(model.getLatitude()), Double.parseDouble(model.getLongitude()));
-                            mMap.addMarker(new MarkerOptions().position(marker).title(model.getLocation()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                            mMap.addMarker(new MarkerOptions()
+                                    .position(marker)
+                                    .title(model.getLocation())
+                                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
                             mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
                             if (model.getFood().equals("true")) {
                                 foodCounter++;
@@ -164,6 +169,10 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position == 0) {
                     Toast.makeText(MapsActivity.this, "All", Toast.LENGTH_SHORT).show();
+                    focusToOperation("Fire");
+                    focusToOperation("Typhoon");
+                    focusToOperation("Earthquake");
+                    focusToOperation("Others");
                     getAllOperations();
                 } else if (position == 1) {
                     Toast.makeText(MapsActivity.this, "Fire", Toast.LENGTH_SHORT).show();
@@ -209,10 +218,25 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             loc.setLongitude(model.getLongitude());
                             CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(model.getLatitude(), model.getLongitude()));
                             mMap.moveCamera(center);
-                            CameraUpdate zoom = CameraUpdateFactory.zoomTo(8.0f);
+                            CameraUpdate zoom = CameraUpdateFactory.zoomTo(10.0f);
                             mMap.animateCamera(zoom);
                             LatLng marker = new LatLng(model.getLatitude(), model.getLongitude());
-                            mMap.addMarker(new MarkerOptions().position(marker).title(model.getLocation()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
+                            if (model.getTitle().equalsIgnoreCase("earthquake")) {
+                                mMap.addMarker(new MarkerOptions().position(marker)
+                                        .title(model.getTitle())
+                                        .snippet(model.getLocation())
+                                        .icon(BitmapDescriptorFactory.fromResource(R.raw.earthquake)));
+                            } else if (model.getTitle().equalsIgnoreCase("fire")) {
+                                mMap.addMarker(new MarkerOptions().position(marker)
+                                        .title(model.getTitle())
+                                        .snippet(model.getLocation())
+                                        .icon(BitmapDescriptorFactory.fromResource(R.raw.fire)));
+                            } else if (model.getTitle().equalsIgnoreCase("typhoon")) {
+                                mMap.addMarker(new MarkerOptions().position(marker)
+                                        .title(model.getTitle())
+                                        .snippet(model.getLocation())
+                                        .icon(BitmapDescriptorFactory.fromResource(R.raw.typhoon)));
+                            }
                         } else {
                             CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(12.879721, 121.774017));
                             CameraUpdate zoom = CameraUpdateFactory.zoomTo(5.0f);
@@ -265,14 +289,29 @@ public class MapsActivity extends AppCompatActivity implements OnMapReadyCallbac
                             Location loc = new Location("");
                             loc.setLatitude(model.getLatitude());
                             loc.setLongitude(model.getLongitude());
+                            LatLng marker = new LatLng(model.getLatitude(), model.getLongitude());
+                            if (model.getTitle().equalsIgnoreCase("earthquake")) {
+                                mMap.addMarker(new MarkerOptions().position(marker)
+                                        .title(model.getTitle())
+                                        .snippet(model.getLocation())
+                                        .icon(BitmapDescriptorFactory.fromResource(R.raw.earthquake)));
+                            } else if (model.getTitle().equalsIgnoreCase("fire")) {
+                                mMap.addMarker(new MarkerOptions().position(marker)
+                                        .title(model.getTitle())
+                                        .snippet(model.getLocation())
+                                        .icon(BitmapDescriptorFactory.fromResource(R.raw.fire)));
+                            } else if (model.getTitle().equalsIgnoreCase("typhoon")) {
+                                mMap.addMarker(new MarkerOptions().position(marker)
+                                        .title(model.getTitle())
+                                        .snippet(model.getLocation())
+                                        .icon(BitmapDescriptorFactory.fromResource(R.raw.typhoon)));
+                            }
                         }
                     } catch (Exception ex) {
                         Log.e("RAWR", ex.getMessage());
                     }
                     CameraUpdate center = CameraUpdateFactory.newLatLng(new LatLng(12.879721, 121.774017));
                     CameraUpdate zoom = CameraUpdateFactory.zoomTo(5.0f);
-                    LatLng marker = new LatLng(model.getLatitude(), model.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(marker).title(model.getLocation()).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
                     mMap.moveCamera(center);
                     mMap.animateCamera(zoom);
                 }
