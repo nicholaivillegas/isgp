@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="70dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@drawable/isagip1" />
+        app:srcCompat="@raw/isagip" />
 
     <TextView
         android:id="@+id/text_name"
