@@ -141,80 +141,80 @@ public class BasketFragment extends Fragment {
     }
 
     public void feedbackAndRequest() {
-        final FirebaseDatabase database = FirebaseDatabase.getInstance();
-        myRef = database.getReference("feedback");
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-        ref = myRef.addChildEventListener(new ChildEventListener() {
-
-            @Override
-            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
-                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
-                    try {
-                        model = dataSnapshot.getValue(Feedback.class);
-                        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(model1.getId())) {
-                            if (model.getId().equals(model1.getId())) {
-                                if (!model.getFood().equals("false")) {
-                                    checkFoodExpectedDate.setText(model.getTimestamp());
-                                    cardFoodExpected.setVisibility(View.VISIBLE);
-                                }
-                                if (!model.getClothes().equals("false")) {
-                                    checkClothesExpectedDate.setText(model.getTimestamp());
-                                    cardClothesExpected.setVisibility(View.VISIBLE);
-                                }
-                                if (!model.getMedicine().equals("false")) {
-                                    checkMedicineExpectedDate.setText(model.getTimestamp());
-                                    cardMedicineExpected.setVisibility(View.VISIBLE);
-                                }
-                                if (!model.getOthers().equals("false")) {
-                                    checkOtherExpectedDate.setText(model.getTimestamp());
-                                    cardOtherExpected.setVisibility(View.VISIBLE);
-                                }
-
-
-                                if (model2.getStatus().equals("requested")) {
-                                    if (model2.getFood().equals("true")) {
-                                        checkFoodReceivedDate.setText(model2.getDate());
-                                        cardFoodReceived.setVisibility(View.VISIBLE);
-                                    }
-                                    if (model2.getClothes().equals("true")) {
-                                        checkClothesReceivedDate.setText(model2.getDate());
-
-                                        cardClothesReceived.setVisibility(View.VISIBLE);
-                                    }
-                                    if (model2.getMedicine().equals("true")) {
-                                        checkMedicineReceivedDate.setText(model2.getDate());
-                                        cardMedicineReceived.setVisibility(View.VISIBLE);
-                                    }
-                                    if (!model2.getOthers().equals("false")) {
-                                        checkOtherReceivedDate.setText(model2.getDate());
-                                        cardOtherReceived.setVisibility(View.VISIBLE);
-                                    }
-                                }
-                            }
-
-                        }
-                    } catch (Exception ex) {
-                        Log.e("RAWR", ex.getMessage());
-                    }
-                }
-            }
-
-            // This function is called each time a child item is removed.
-            public void onChildRemoved(DataSnapshot dataSnapshot) {
-            }
-
-            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
-            }
-
-            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
-            }
-
-            @Override
-            public void onCancelled(DatabaseError error) {
-                // Failed to read value
-                Log.w("TAG:", "Failed to read value.", error.toException());
-            }
-        });
+//        final FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        myRef = database.getReference("feedback");
+//        mDatabase = FirebaseDatabase.getInstance().getReference();
+//        ref = myRef.addChildEventListener(new ChildEventListener() {
+//
+//            @Override
+//            public void onChildAdded(DataSnapshot dataSnapshot, String previousChildName) {
+//                if (dataSnapshot != null && dataSnapshot.getValue() != null) {
+//                    try {
+//                        model = dataSnapshot.getValue(Feedback.class);
+//                        if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(model1.getId())) {
+//                            if (model.getId().equals(model1.getId())) {
+//                                if (!model.getFood().equals("false")) {
+//                                    checkFoodExpectedDate.setText(model.getTimestamp());
+//                                    cardFoodExpected.setVisibility(View.VISIBLE);
+//                                }
+//                                if (!model.getClothes().equals("false")) {
+//                                    checkClothesExpectedDate.setText(model.getTimestamp());
+//                                    cardClothesExpected.setVisibility(View.VISIBLE);
+//                                }
+//                                if (!model.getMedicine().equals("false")) {
+//                                    checkMedicineExpectedDate.setText(model.getTimestamp());
+//                                    cardMedicineExpected.setVisibility(View.VISIBLE);
+//                                }
+//                                if (!model.getOthers().equals("false")) {
+//                                    checkOtherExpectedDate.setText(model.getTimestamp());
+//                                    cardOtherExpected.setVisibility(View.VISIBLE);
+//                                }
+//
+//
+//                                if (model2.getStatus().equals("requested")) {
+//                                    if (model2.getFood().equals("true")) {
+//                                        checkFoodReceivedDate.setText(model2.getDate());
+//                                        cardFoodReceived.setVisibility(View.VISIBLE);
+//                                    }
+//                                    if (model2.getClothes().equals("true")) {
+//                                        checkClothesReceivedDate.setText(model2.getDate());
+//
+//                                        cardClothesReceived.setVisibility(View.VISIBLE);
+//                                    }
+//                                    if (model2.getMedicine().equals("true")) {
+//                                        checkMedicineReceivedDate.setText(model2.getDate());
+//                                        cardMedicineReceived.setVisibility(View.VISIBLE);
+//                                    }
+//                                    if (!model2.getOthers().equals("false")) {
+//                                        checkOtherReceivedDate.setText(model2.getDate());
+//                                        cardOtherReceived.setVisibility(View.VISIBLE);
+//                                    }
+//                                }
+//                            }
+//
+//                        }
+//                    } catch (Exception ex) {
+//                        Log.e("RAWR", ex.getMessage());
+//                    }
+//                }
+//            }
+//
+//            // This function is called each time a child item is removed.
+//            public void onChildRemoved(DataSnapshot dataSnapshot) {
+//            }
+//
+//            public void onChildChanged(DataSnapshot dataSnapshot, String previousChildName) {
+//            }
+//
+//            public void onChildMoved(DataSnapshot dataSnapshot, String previousChildName) {
+//            }
+//
+//            @Override
+//            public void onCancelled(DatabaseError error) {
+//                // Failed to read value
+//                Log.w("TAG:", "Failed to read value.", error.toException());
+//            }
+//        });
 
         final FirebaseDatabase database2 = FirebaseDatabase.getInstance();
         myRef2 = database2.getReference("request");
@@ -230,40 +230,40 @@ public class BasketFragment extends Fragment {
                             if (model2.getId().equals(model1.getId())) {
                                 if (model2.getStatus().equals("requested")) {
                                     if (model2.getFood().equals("true")) {
-                                        checkFoodReceivedDate.setText(model2.getDate());
-                                        cardFoodReceived.setVisibility(View.VISIBLE);
-                                    }
-                                    if (model2.getClothes().equals("true")) {
-                                        checkClothesReceivedDate.setText(model2.getDate());
-
-                                        cardClothesReceived.setVisibility(View.VISIBLE);
-                                    }
-                                    if (model2.getMedicine().equals("true")) {
-                                        checkMedicineReceivedDate.setText(model2.getDate());
-                                        cardMedicineReceived.setVisibility(View.VISIBLE);
-                                    }
-                                    if (!model2.getOthers().equals("false")) {
-                                        checkOtherReceivedDate.setText(model2.getDate());
-                                        cardOtherReceived.setVisibility(View.VISIBLE);
-                                    }
-
-
-                                    if (model.getFood().equals("true")) {
-                                        checkFoodExpectedDate.setText(model.getTimestamp());
+                                        checkFoodExpectedDate.setText(model2.getDate());
                                         cardFoodExpected.setVisibility(View.VISIBLE);
                                     }
-                                    if (model.getClothes().equals("true")) {
-                                        checkClothesExpectedDate.setText(model.getTimestamp());
+                                    if (model2.getClothes().equals("true")) {
+                                        checkClothesExpectedDate.setText(model2.getDate());
+
                                         cardClothesExpected.setVisibility(View.VISIBLE);
                                     }
-                                    if (model.getMedicine().equals("true")) {
-                                        checkMedicineExpectedDate.setText(model.getTimestamp());
+                                    if (model2.getMedicine().equals("true")) {
+                                        checkMedicineExpectedDate.setText(model2.getDate());
                                         cardMedicineExpected.setVisibility(View.VISIBLE);
                                     }
-                                    if (!model.getOthers().equals("false")) {
-                                        checkOtherExpectedDate.setText(model.getTimestamp());
+                                    if (!model2.getOthers().equals("false")) {
+                                        checkOtherExpectedDate.setText(model2.getDate());
                                         cardOtherExpected.setVisibility(View.VISIBLE);
                                     }
+
+
+//                                    if (model.getFood().equals("true")) {
+//                                        checkFoodExpectedDate.setText(model.getTimestamp());
+//                                        cardFoodExpected.setVisibility(View.VISIBLE);
+//                                    }
+//                                    if (model.getClothes().equals("true")) {
+//                                        checkClothesExpectedDate.setText(model.getTimestamp());
+//                                        cardClothesExpected.setVisibility(View.VISIBLE);
+//                                    }
+//                                    if (model.getMedicine().equals("true")) {
+//                                        checkMedicineExpectedDate.setText(model.getTimestamp());
+//                                        cardMedicineExpected.setVisibility(View.VISIBLE);
+//                                    }
+//                                    if (!model.getOthers().equals("false")) {
+//                                        checkOtherExpectedDate.setText(model.getTimestamp());
+//                                        cardOtherExpected.setVisibility(View.VISIBLE);
+//                                    }
                                 }
                             }
                         }

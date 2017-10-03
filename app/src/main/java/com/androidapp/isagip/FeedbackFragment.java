@@ -82,7 +82,7 @@ public class FeedbackFragment extends Fragment {
     private DatabaseReference mDatabase2;
     private DatabaseReference myRef3;
     private DatabaseReference mDatabase3;
-    private String food = "false", clothes = "false", medicine = "false", others = "false", othersRate = "false", comment = "false";
+    private String food = "true", clothes = "true", medicine = "true", others = "true", othersRate = "true", comment = "true";
     Feedback model;
     Operation model1;
     UserStatus model2;
