@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
+import android.location.Location;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
@@ -379,6 +380,18 @@ public class ReliefFragment extends Fragment {
 
     @OnClick(R.id.button_send)
     public void onViewClicked() {
+        if (model2 != null) {
+            if (checkDistance(latitude, longitude) < 10) {
+            } else {
+                Toast.makeText(getContext(), "No Nearby Calamity", Toast.LENGTH_SHORT).show();
+                return;
+            }
+        } else {
+            Toast.makeText(getContext(), "No Calamity", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+
         String name = editNameOfficial.getText().toString(), number = editNumberOfficial.getText().toString();
         String other = editOther.getText().toString();
         if (other.isEmpty()) {
@@ -386,10 +399,12 @@ public class ReliefFragment extends Fragment {
         }
 
         if (name.isEmpty()) {
-            name = "n/a";
+            Toast.makeText(getContext(), "Contact Person is required", Toast.LENGTH_SHORT).show();
+            return;
         }
         if (number.isEmpty() || number.equals("+639")) {
-            number = "n/a";
+            Toast.makeText(getContext(), "Contact Number is required", Toast.LENGTH_SHORT).show();
+            return;
         }
 
         String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
@@ -435,4 +450,20 @@ public class ReliefFragment extends Fragment {
     public boolean isFieldsEmpty() {
         return food.equals("false") && clothes.equals("false") && medicine.equals("false") && other.equals("false");
     }
+
+    public double checkDistance(double latitude, double longitude) {
+
+        Location startPoint = new Location("locationA");
+        startPoint.setLatitude(latitude);
+        startPoint.setLongitude(longitude);
+
+        Location endPoint = new Location("locationA");
+        endPoint.setLatitude(model2.getLatitude());
+        endPoint.setLongitude(model2.getLongitude());
+
+        double distance = startPoint.distanceTo(endPoint) / 1000;
+        return distance;
+    }
+
+
 }
