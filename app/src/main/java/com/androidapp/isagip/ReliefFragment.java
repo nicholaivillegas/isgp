@@ -403,16 +403,16 @@ public class ReliefFragment extends Fragment {
 
     @OnClick(R.id.button_send)
     public void onViewClicked() {
-        if (model2 != null) {
-            if (checkDistance(latitude, longitude) < 10) {
-            } else {
-                Toast.makeText(getContext(), "No Nearby Calamity", Toast.LENGTH_SHORT).show();
-                return;
-            }
-        } else {
-            Toast.makeText(getContext(), "No Calamity", Toast.LENGTH_SHORT).show();
-            return;
-        }
+//        if (model2 != null) {
+//            if (checkDistance(latitude, longitude) < 10) {
+//            } else {
+//                Toast.makeText(getContext(), "No Nearby Calamity", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//        } else {
+//            Toast.makeText(getContext(), "No Calamity", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
 
 
         String name = editNameOfficial.getText().toString(), number = editNumberOfficial.getText().toString();
