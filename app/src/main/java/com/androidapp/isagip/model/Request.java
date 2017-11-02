@@ -21,17 +21,17 @@ public class Request {
     public String status;
     public String operationId;
     public String id;
-
     public String foodRating;
     public String clothesRating;
     public String medicineRating;
     public String othersRating;
+    public String calamity;
 
     public Request() {
 
     }
 
-    public Request(String mobileNumber, String email, String date, String longitude, String latitude, String location, String food, String clothes, String medicine, String familySize, String personToContactName, String personToContactNumber, String others, String status, String operationId, String id, String foodRating, String clothesRating, String medicineRating, String othersRating) {
+    public Request(String mobileNumber, String email, String date, String longitude, String latitude, String location, String food, String clothes, String medicine, String familySize, String personToContactName, String personToContactNumber, String others, String status, String operationId, String id, String foodRating, String clothesRating, String medicineRating, String othersRating, String calamity) {
         this.mobileNumber = mobileNumber;
         this.email = email;
         this.date = date;
@@ -52,6 +52,7 @@ public class Request {
         this.clothesRating = clothesRating;
         this.medicineRating = medicineRating;
         this.othersRating = othersRating;
+        this.calamity = calamity;
     }
 
     public String getMobileNumber() {
@@ -212,6 +213,14 @@ public class Request {
 
     public void setOthersRating(String othersRating) {
         this.othersRating = othersRating;
+    }
+
+    public String getCalamity() {
+        return calamity;
+    }
+
+    public void setCalamity(String calamity) {
+        this.calamity = calamity;
     }
 }
 

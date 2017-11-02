@@ -33,6 +33,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.androidapp.isagip.model.AffectedArea;
@@ -100,6 +101,8 @@ public class ReliefFragment extends Fragment {
     SeekBar seekMedicine;
     @BindView(R.id.seek_other)
     SeekBar seekOther;
+    @BindView(R.id.spinner)
+    Spinner spinner;
     private DatabaseReference mDatabase;
     private DatabaseReference myRef;
     private DatabaseReference mDatabase1;
@@ -450,7 +453,8 @@ public class ReliefFragment extends Fragment {
                 String.valueOf(seekFood.getProgress()),
                 String.valueOf(seekClothes.getProgress()),
                 String.valueOf(seekMedicine.getProgress()),
-                String.valueOf(seekOther.getProgress()));
+                String.valueOf(seekOther.getProgress()),
+                spinner.getSelectedItem().toString());
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddyyyy", Locale.US);
         String format = simpleDateFormat.format(new Date());
         String nano = String.valueOf(System.nanoTime());
