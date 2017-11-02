@@ -188,6 +188,7 @@ public class LoginActivity extends AppCompatActivity implements
             TelephonyManager tMgr = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
             String mPhoneNumber = tMgr.getLine1Number();
             mPhoneNumberField.setText(mPhoneNumber);
+            mPhoneNumberField.setEnabled(false);
         } else {
             Toast.makeText(this, "Enable Permissions", Toast.LENGTH_SHORT).show();
             ActivityCompat.requestPermissions(this,
@@ -543,19 +544,22 @@ public class LoginActivity extends AppCompatActivity implements
         switch (uiState) {
             case STATE_INITIALIZED:
                 // Initialized state, show only the phone number field and start button
-                enableViews(mStartButton, mPhoneNumberField);
+                enableViews(mStartButton);
+//                enableViews(mStartButton, mPhoneNumberField);
                 disableViews(mVerifyButton, mResendButton, mVerificationField);
                 mDetailText.setText(null);
                 break;
             case STATE_CODE_SENT:
                 // Code sent state, show the verification field, the
-                enableViews(mVerifyButton, mResendButton, mPhoneNumberField, mVerificationField);
+//                enableViews(mVerifyButton, mResendButton, mPhoneNumberField, mVerificationField);
+                enableViews(mVerifyButton, mResendButton, mVerificationField);
                 disableViews(mStartButton);
                 mDetailText.setText("Verification Code Sent");
                 break;
             case STATE_VERIFY_FAILED:
                 // Verification has failed, show all options
-                enableViews(mStartButton, mVerifyButton, mResendButton, mPhoneNumberField,
+                enableViews(mStartButton, mVerifyButton, mResendButton,
+//                enableViews(mStartButton, mVerifyButton, mResendButton, mPhoneNumberField,
                         mVerificationField);
                 mDetailText.setText("Verification Failed");
                 break;
@@ -596,7 +600,9 @@ public class LoginActivity extends AppCompatActivity implements
 //            mPhoneNumberViews.setVisibility(View.GONE);
 //            mSignedInViews.setVisibility(View.VISIBLE);
 
-            enableViews(mPhoneNumberField, mVerificationField);
+            enableViews(mVerificationField);
+//            enableViews(mPhoneNumberField, mVerificationField);
+            enableViews(mVerificationField);
             mPhoneNumberField.setText(null);
             mVerificationField.setText(null);
 

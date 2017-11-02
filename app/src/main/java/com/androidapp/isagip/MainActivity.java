@@ -164,7 +164,12 @@ public class MainActivity extends AppCompatActivity
             reliefFragment.setArguments(bundle);
         } else if (id == R.id.nav_news) {
             getSupportActionBar().setTitle("Announcement");
-            switchFragment(new NewsFragment());
+            NewsFragment newsFragment = new NewsFragment();
+            Bundle bundle = new Bundle();
+            bundle.putDouble("lat", currentLatitude);
+            bundle.putDouble("long", currentLongitude);
+            switchFragment(newsFragment);
+            newsFragment.setArguments(bundle);
         } else if (id == R.id.nav_basket) {
             getSupportActionBar().setTitle("Basket");
             switchFragment(new BasketFragment());
@@ -179,13 +184,11 @@ public class MainActivity extends AppCompatActivity
             bundle.putDouble("long", currentLongitude);
             switchFragment(feedbackFragment);
             feedbackFragment.setArguments(bundle);
-        }
-        else if (id == R.id.nav_logout) {
+        } else if (id == R.id.nav_logout) {
             FirebaseAuth.getInstance().signOut();
             finish();
             startActivity(new Intent(MainActivity.this, LoginActivity.class));
-        }
-        else if (id == R.id.nav_donate) {
+        } else if (id == R.id.nav_donate) {
             getSupportActionBar().setTitle("Donate");
             switchFragment(new DonateFragment());
         }

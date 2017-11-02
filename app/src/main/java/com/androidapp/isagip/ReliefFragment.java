@@ -18,6 +18,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.CardView;
@@ -31,7 +32,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Spinner;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.androidapp.isagip.model.AffectedArea;
@@ -91,6 +92,14 @@ public class ReliefFragment extends Fragment {
     EditText editNameOfficial;
     @BindView(R.id.edit_number_official)
     EditText editNumberOfficial;
+    @BindView(R.id.seek_food)
+    SeekBar seekFood;
+    @BindView(R.id.seek_clothes)
+    SeekBar seekClothes;
+    @BindView(R.id.seek_medicine)
+    SeekBar seekMedicine;
+    @BindView(R.id.seek_other)
+    SeekBar seekOther;
     private DatabaseReference mDatabase;
     private DatabaseReference myRef;
     private DatabaseReference mDatabase1;
@@ -140,8 +149,10 @@ public class ReliefFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     food = "true";
+                    seekFood.setVisibility(View.VISIBLE);
                 } else {
                     food = "false";
+                    seekFood.setVisibility(View.GONE);
                 }
             }
         });
@@ -150,8 +161,10 @@ public class ReliefFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     clothes = "true";
+                    seekClothes.setVisibility(View.VISIBLE);
                 } else {
                     clothes = "false";
+                    seekClothes.setVisibility(View.GONE);
                 }
             }
         });
@@ -160,8 +173,10 @@ public class ReliefFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     medicine = "true";
+                    seekMedicine.setVisibility(View.VISIBLE);
                 } else {
                     medicine = "false";
+                    seekMedicine.setVisibility(View.GONE);
                 }
             }
         });
@@ -171,9 +186,12 @@ public class ReliefFragment extends Fragment {
                 if (isChecked) {
                     other = "true";
                     editOther.setVisibility(View.VISIBLE);
+                    seekOther.setVisibility(View.VISIBLE);
                 } else {
                     other = "false";
                     editOther.setVisibility(View.GONE);
+                    seekMedicine.setVisibility(View.VISIBLE);
+                    seekOther.setVisibility(View.GONE);
                 }
             }
         });
@@ -204,7 +222,7 @@ public class ReliefFragment extends Fragment {
                     }
                 } else {
                     Toast.makeText(getContext(), "No Affected Areas", Toast.LENGTH_SHORT).show();
-                    android.support.v4.app.FragmentManager manager = getActivity().getSupportFragmentManager();
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
                     FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.content_main, new NewsFragment());
                     transaction.commit();
@@ -274,11 +292,16 @@ public class ReliefFragment extends Fragment {
                         if (FirebaseAuth.getInstance().getCurrentUser().getUid().equals(model1.getId())) {
                             if (model1.getStatus().equals("sent")) {
                                 buttonSend.setEnabled(true);
-                            } else {
+                            } else if (model1.getStatus().equals("requested")) {
                                 buttonSend.setEnabled(false);
                                 buttonSend.setText("Already Requested");
                                 Toast.makeText(getContext(), "You're not yet allowed to send another request wait for further announcement", Toast.LENGTH_LONG).show();
                             }
+//                            else {
+//                                buttonSend.setEnabled(false);
+//                                buttonSend.setText("Pending");
+//                                Toast.makeText(getContext(), "You're not yet allowed to send another request wait for further announcement", Toast.LENGTH_LONG).show();
+//                            }
                         }
                     } catch (Exception ex) {
                         Log.e("RAWR", ex.getMessage());
@@ -423,7 +446,11 @@ public class ReliefFragment extends Fragment {
                 other,
                 "requested",
                 "",
-                FirebaseAuth.getInstance().getCurrentUser().getUid());
+                FirebaseAuth.getInstance().getCurrentUser().getUid(),
+                String.valueOf(seekFood.getProgress()),
+                String.valueOf(seekClothes.getProgress()),
+                String.valueOf(seekMedicine.getProgress()),
+                String.valueOf(seekOther.getProgress()));
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddyyyy", Locale.US);
         String format = simpleDateFormat.format(new Date());
         String nano = String.valueOf(System.nanoTime());

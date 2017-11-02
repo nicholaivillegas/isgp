@@ -22,11 +22,16 @@ public class Request {
     public String operationId;
     public String id;
 
+    public String foodRating;
+    public String clothesRating;
+    public String medicineRating;
+    public String othersRating;
+
     public Request() {
 
     }
 
-    public Request(String mobileNumber, String email, String date, String longitude, String latitude, String location, String food, String clothes, String medicine, String familySize, String personToContactName, String personToContactNumber, String others, String status, String operationId, String id) {
+    public Request(String mobileNumber, String email, String date, String longitude, String latitude, String location, String food, String clothes, String medicine, String familySize, String personToContactName, String personToContactNumber, String others, String status, String operationId, String id, String foodRating, String clothesRating, String medicineRating, String othersRating) {
         this.mobileNumber = mobileNumber;
         this.email = email;
         this.date = date;
@@ -43,6 +48,10 @@ public class Request {
         this.status = status;
         this.operationId = operationId;
         this.id = id;
+        this.foodRating = foodRating;
+        this.clothesRating = clothesRating;
+        this.medicineRating = medicineRating;
+        this.othersRating = othersRating;
     }
 
     public String getMobileNumber() {
@@ -171,6 +180,38 @@ public class Request {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getFoodRating() {
+        return foodRating;
+    }
+
+    public void setFoodRating(String foodRating) {
+        this.foodRating = foodRating;
+    }
+
+    public String getClothesRating() {
+        return clothesRating;
+    }
+
+    public void setClothesRating(String clothesRating) {
+        this.clothesRating = clothesRating;
+    }
+
+    public String getMedicineRating() {
+        return medicineRating;
+    }
+
+    public void setMedicineRating(String medicineRating) {
+        this.medicineRating = medicineRating;
+    }
+
+    public String getOthersRating() {
+        return othersRating;
+    }
+
+    public void setOthersRating(String othersRating) {
+        this.othersRating = othersRating;
     }
 }
 

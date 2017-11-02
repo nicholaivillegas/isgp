@@ -20,14 +20,24 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <CheckBox
                     android:id="@+id/check_food"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="30dp"
+                    android:padding="20dp"
                     android:text="Food" />
+
+                <SeekBar
+                    android:id="@+id/seek_food"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="4"
+                    android:padding="10dp"
+                    android:progress="2"
+                    android:visibility="gone" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -39,14 +49,24 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <CheckBox
                     android:id="@+id/check_clothes"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="30dp"
-                    android:text="Clothes" />
+                    android:padding="20dp"
+                    android:text="Clother" />
+
+                <SeekBar
+                    android:id="@+id/seek_clothes"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="4"
+                    android:padding="10dp"
+                    android:progress="2"
+                    android:visibility="gone" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -58,14 +78,24 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <CheckBox
                     android:id="@+id/check_medicine"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="30dp"
+                    android:padding="20dp"
                     android:text="Medicine" />
+
+                <SeekBar
+                    android:id="@+id/seek_medicine"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="4"
+                    android:padding="10dp"
+                    android:progress="2"
+                    android:visibility="gone" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -97,6 +127,15 @@
                     android:layout_height="wrap_content"
                     android:padding="30dp"
                     android:text="Other" />
+
+                <SeekBar
+                    android:id="@+id/seek_other"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:max="4"
+                    android:padding="10dp"
+                    android:progress="2"
+                    android:visibility="gone" />
 
             </LinearLayout>
 
