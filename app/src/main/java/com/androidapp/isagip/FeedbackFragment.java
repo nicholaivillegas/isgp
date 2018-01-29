@@ -225,6 +225,12 @@ public class FeedbackFragment extends Fragment {
                             a = loc.distanceTo(loc1);
                             location = loc;
                             operationId = String.valueOf(model1.getId());
+                        } else {
+                            Toast.makeText(getContext(), "No Operations", Toast.LENGTH_SHORT).show();
+                            android.support.v4.app.FragmentManager manager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction transaction = manager.beginTransaction();
+                            transaction.replace(R.id.content_main, new NewsFragment());
+                            transaction.commit();
                         }
                     } catch (Exception ex) {
                         Log.e("RAWR", ex.getMessage());
