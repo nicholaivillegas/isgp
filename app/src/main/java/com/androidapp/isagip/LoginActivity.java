@@ -50,6 +50,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -370,6 +371,7 @@ public class LoginActivity extends AppCompatActivity implements
     private void saveProfile() {
         String name = mName.getText().toString().trim();
         String email = mEmail.getText().toString().trim();
+        String token = FirebaseInstanceId.getInstance().getToken();
         User user = new User(mMobileNumber,
                 name,
                 mEmail.getText().toString(),
@@ -377,7 +379,8 @@ public class LoginActivity extends AppCompatActivity implements
                 makeDate(),
                 "user",
                 "active",
-                mGender);
+                mGender,
+                token);
         mDatabase.child("users").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user);
 
         FirebaseUser firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
