@@ -42,6 +42,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.List;
 
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
         requestCoarseLocation();
         requestFineLocation();
-        //Todo: insert checking
+        Log.d("TOKEN", FirebaseInstanceId.getInstance().getToken());
 
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

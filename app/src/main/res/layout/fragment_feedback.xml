@@ -19,6 +19,21 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:padding="10dp"
+                android:text="Select Operation"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinner_operation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="15dp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
                 android:text="Check if you received your requested relief"
                 android:textSize="18sp"
                 android:textStyle="bold" />

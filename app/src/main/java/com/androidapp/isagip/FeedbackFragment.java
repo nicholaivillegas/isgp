@@ -1,6 +1,5 @@
 package com.androidapp.isagip;
 
-import android.*;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -13,17 +12,20 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.androidapp.isagip.model.Feedback;
@@ -39,6 +41,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -74,6 +77,8 @@ public class FeedbackFragment extends Fragment {
     SeekBar seekBarFeedbackMedicine;
     @BindView(R.id.seekBar_feedback_other)
     SeekBar seekBarFeedbackOther;
+    @BindView(R.id.spinner_operation)
+    Spinner spinnerOperation;
     private DatabaseReference myRef;
     private DatabaseReference mDatabase;
     private DatabaseReference myRef1;
@@ -203,7 +208,9 @@ public class FeedbackFragment extends Fragment {
             }
         });
 
+
         final FirebaseDatabase database1 = FirebaseDatabase.getInstance();
+        final List<String> areas = new ArrayList<String>();
         myRef1 = database1.getReference("operations");
         mDatabase1 = FirebaseDatabase.getInstance().getReference();
         ref1 = myRef1.addChildEventListener(new ChildEventListener() {
@@ -221,13 +228,41 @@ public class FeedbackFragment extends Fragment {
                         loc1.setLatitude(latitude);
                         loc1.setLongitude(longitude);
 
+                        areas.add(model1.getTitle());
+                        ArrayAdapter<String> areasAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, areas);
+                        areasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinnerOperation.setAdapter(areasAdapter);
+
                         if (a < loc.distanceTo(loc1)) {
                             a = loc.distanceTo(loc1);
                             location = loc;
                             operationId = String.valueOf(model1.getId());
-                        } else {
+                        }
+                        if (model1.getLatitude() == null) {
                             Toast.makeText(getContext(), "No Operations", Toast.LENGTH_SHORT).show();
-                            android.support.v4.app.FragmentManager manager = getActivity().getSupportFragmentManager();
+                            FragmentManager manager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction transaction = manager.beginTransaction();
+                            transaction.replace(R.id.content_main, new NewsFragment());
+                            transaction.commit();
+                        }
+
+                        if (model1.getLatitude() == 0) {
+                            Toast.makeText(getContext(), "No Operations", Toast.LENGTH_SHORT).show();
+                            FragmentManager manager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction transaction = manager.beginTransaction();
+                            transaction.replace(R.id.content_main, new NewsFragment());
+                            transaction.commit();
+                        }
+                        if (model1.getArea() == null) {
+                            Toast.makeText(getContext(), "No Operations", Toast.LENGTH_SHORT).show();
+                            FragmentManager manager = getActivity().getSupportFragmentManager();
+                            FragmentTransaction transaction = manager.beginTransaction();
+                            transaction.replace(R.id.content_main, new NewsFragment());
+                            transaction.commit();
+                        }
+                        if (model1.getArea() == "") {
+                            Toast.makeText(getContext(), "No Operations", Toast.LENGTH_SHORT).show();
+                            FragmentManager manager = getActivity().getSupportFragmentManager();
                             FragmentTransaction transaction = manager.beginTransaction();
                             transaction.replace(R.id.content_main, new NewsFragment());
                             transaction.commit();
@@ -237,7 +272,7 @@ public class FeedbackFragment extends Fragment {
                     }
                 } else {
                     Toast.makeText(getContext(), "No Operations", Toast.LENGTH_SHORT).show();
-                    android.support.v4.app.FragmentManager manager = getActivity().getSupportFragmentManager();
+                    FragmentManager manager = getActivity().getSupportFragmentManager();
                     FragmentTransaction transaction = manager.beginTransaction();
                     transaction.replace(R.id.content_main, new NewsFragment());
                     transaction.commit();
@@ -260,6 +295,7 @@ public class FeedbackFragment extends Fragment {
                 Log.w("TAG:", "Failed to read value.", error.toException());
             }
         });
+
 
         final FirebaseDatabase database2 = FirebaseDatabase.getInstance();
         myRef2 = database2.getReference("userStatus");
@@ -370,7 +406,8 @@ public class FeedbackFragment extends Fragment {
                 "",
                 comment,
                 "requested",
-                operationId);
+                operationId,
+                "");
 
         if (isNetworkAvailable()) {
             if (!isFieldsEmpty()) {

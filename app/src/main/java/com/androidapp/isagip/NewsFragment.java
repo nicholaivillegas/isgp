@@ -154,28 +154,28 @@ public class NewsFragment extends Fragment implements GoogleApiClient.Connection
         for (DataSnapshot singleSnapshot : dataSnapshot.getChildren()) {
             Operation operation = singleSnapshot.getValue(Operation.class);
             if (operation.getStatus().equals("active")) {
-                if (checkDistance(currentLatitude, currentLongitude) < 5) {
-                    operations.add(operation);
-                    recyclerViewAdapter = new RecyclerViewAdapter(this.getContext(), operations);
-                    recyclerView.setAdapter(recyclerViewAdapter);
+//                if (checkDistance(currentLatitude, currentLongitude) < 5) {
+                operations.add(operation);
+                recyclerViewAdapter = new RecyclerViewAdapter(this.getContext(), operations);
+                recyclerView.setAdapter(recyclerViewAdapter);
 
-                    NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext());
-                    mBuilder.setSmallIcon(R.mipmap.ic_launcher);
-                    mBuilder.setContentTitle("ISagip News");
-                    mBuilder.setContentText("There are operations on-going!");
-                    NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+                NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(getContext());
+                mBuilder.setSmallIcon(R.mipmap.ic_launcher);
+                mBuilder.setContentTitle("ISagip News");
+                mBuilder.setContentText("There are operations on-going!");
+                NotificationManager mNotificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
 
 //                Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 //                mBuilder.setSound(alarmSound);
 //                long[] pattern = {500, 500, 500, 500, 500, 500, 500, 500, 500};
 //                mBuilder.setVibrate(pattern);
 
-                    // notificationID allows you to update the notification later on.
-                    mNotificationManager.notify(1, mBuilder.build());
-                } else {
-                    Toast.makeText(getContext(), "No Nearby Calamity", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+                // notificationID allows you to update the notification later on.
+                mNotificationManager.notify(1, mBuilder.build());
+//                } else {
+//                    Toast.makeText(getContext(), "No Nearby Calamity", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 
             }
         }

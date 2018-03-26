@@ -23,6 +23,8 @@
     <string-array name="array_calamity">
         <item name="Fire">Fire</item>
         <item name="Typhoon">Typhoon</item>
+        <item name="Typhoon">Volcanic Eruption</item>
+        <item name="Typhoon">Insurgency</item>
         <item name="Earthquake">Earthquake</item>
     </string-array>
 
